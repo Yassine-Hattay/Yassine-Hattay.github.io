@@ -4,8 +4,7 @@ var indexSectionsWithContent =
   1: "cegmst",
   2: "cdghilmost",
   3: "acfmpst",
-  4: "efg",
-  5: "cot"
+  4: "efg"
 };
 
 var indexSectionNames =
@@ -14,8 +13,7 @@ var indexSectionNames =
   1: "files",
   2: "functions",
   3: "variables",
-  4: "defines",
-  5: "pages"
+  4: "defines"
 };
 
 var indexSectionLabels =
@@ -24,7 +22,6 @@ var indexSectionLabels =
   1: "Files",
   2: "Functions",
   3: "Variables",
-  4: "Macros",
-  5: "Pages"
+  4: "Macros"
 };
 

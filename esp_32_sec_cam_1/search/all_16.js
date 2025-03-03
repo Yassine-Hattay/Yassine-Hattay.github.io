@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wiring_0',['4-Wiring',['../index.html#autotoc_md4',1,'']]]
+  ['wiring_0',['4-Wiring',['../C:/Users/hatta/Desktop/presonal-projects/security-camera/esp-idf-vs-ext/ESP-32-CAM/README.md#autotoc_md4',1,'']]]
 ];

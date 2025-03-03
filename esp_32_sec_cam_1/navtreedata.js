@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "ESP 32 security camera", "index.html", [
-    [ "Table of contents", "index.html", "index" ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
