@@ -1,0 +1,7 @@
+<map id="my_print" name="my_print">
+<area shape="rect" id="Node000001" title="Custom print function that outputs formatted text and logs it to a buffer." alt="" coords="336,5,407,32"/>
+<area shape="rect" id="Node000002" href="$my__print_8c.html#ae87d87882472f9c515ceeb18e2a17730" title="Outputs a single character by forwarding it as a string to my_print." alt="" coords="149,5,288,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="320,21,288,21,288,16,320,16"/>
+<area shape="rect" id="Node000003" href="$my__print_8c.html#a67993f7efdbabaa245a54fc014c3d8ff" title="Initializes the custom print system." alt="" coords="5,5,101,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,21,101,21,101,16,133,16"/>
+</map>

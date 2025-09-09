@@ -1,0 +1,7 @@
+<map id="ota_task" name="ota_task">
+<area shape="rect" id="Node000001" title="FreeRTOS task handling OTA updates." alt="" coords="5,5,77,32"/>
+<area shape="rect" id="Node000002" href="$_o_t_a_8c.html#a6e5e76e2aaf4e4626c6eb61ff3063c07" title="Performs an over&#45;the&#45;air (OTA) firmware update." alt="" coords="125,5,210,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,16,109,16,109,21,77,21"/>
+<area shape="rect" id="Node000003" href="$web_8c.html#a720913f2342db3713ec3948cdfc16855" title="Initializes the ESP32 as a Wi&#45;Fi station and connects to an access point." alt="" coords="258,5,348,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,16,242,16,242,21,210,21"/>
+</map>

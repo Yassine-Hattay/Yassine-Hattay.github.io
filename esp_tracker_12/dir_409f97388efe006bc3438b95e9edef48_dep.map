@@ -1,0 +1,24 @@
+<map id="C:/msys32/home/hatta/esp/tracker/components" name="C:/msys32/home/hatta/esp/tracker/components">
+<area shape="rect" id="node2" href="dir_6ef529226b4c3f02d552f9d1bbd8a40a.html" title="debugging" alt="" coords="344,251,424,277"/>
+<area shape="rect" id="node3" href="dir_314c41d834bec9b248fad6c8d979d7c2.html" title="my_config" alt="" coords="143,27,225,53"/>
+<area shape="rect" id="node4" href="dir_91a9587040e13b6cd6b53cc394eedc11.html" title="my_spiffs" alt="" coords="249,27,327,53"/>
+<area shape="rect" id="node5" href="dir_8e17ef024e8291f6b69aa369309de2b3.html" title="NEO_6M_driver" alt="" coords="351,27,465,53"/>
+<area shape="poly" id="edge2" href="dir_000005_000001.html" alt="" coords="388,56,363,76,344,103,338,120,337,137,342,174,354,208,369,236,365,239,350,210,337,175,331,137,333,118,339,100,359,72,384,52"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000005_000001.html" title="1" alt="" coords="369,222,376,238"/>
+<area shape="rect" id="node7" href="dir_19769f0391bf4b2beba796a7060f00ed.html" title="sim800L_driver" alt="" coords="353,101,463,128"/>
+<area shape="poly" id="edge1" href="dir_000005_000007.html" alt="" coords="411,54,411,86,405,86,405,54"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000005_000007.html" title="1" alt="" coords="413,75,420,91"/>
+<area shape="rect" id="node9" href="dir_a6f702b93bf388df180e314052a592a9.html" title="web" alt="" coords="409,176,455,203"/>
+<area shape="poly" id="edge3" href="dir_000005_000009.html" alt="" coords="432,52,457,72,477,100,480,118,477,136,458,166,453,163,472,134,475,118,472,102,453,76,428,56"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000005_000009.html" title="1" alt="" coords="460,160,467,176"/>
+<area shape="rect" id="node6" href="dir_861cfb8fef9e6cd8ca11a90772eaee7e.html" title="OTA" alt="" coords="490,27,537,53"/>
+<area shape="poly" id="edge4" href="dir_000007_000001.html" alt="" coords="408,129,400,176,391,236,385,235,395,176,403,128"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000007_000001.html" title="1" alt="" coords="393,226,400,242"/>
+<area shape="poly" id="edge5" href="dir_000007_000009.html" alt="" coords="415,128,426,160,421,162,410,129"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000007_000009.html" title="1" alt="" coords="427,148,434,164"/>
+<area shape="rect" id="node8" href="dir_9b99f97134a1353df36c2ae5df248cf2.html" title="UART" alt="" coords="561,27,618,53"/>
+<area shape="poly" id="edge6" href="dir_000009_000001.html" alt="" coords="426,205,403,239,398,236,421,202"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000009_000001.html" title="1" alt="" coords="406,232,413,248"/>
+<area shape="rect" id="node10" href="dir_2633498b3bc39a3c532cb8683ab4e888.html" title="WiFi" alt="" coords="642,27,691,53"/>
+<area shape="rect" id="clust1" href="dir_409f97388efe006bc3438b95e9edef48.html" alt="" coords="16,16,701,288"/>
+</map>

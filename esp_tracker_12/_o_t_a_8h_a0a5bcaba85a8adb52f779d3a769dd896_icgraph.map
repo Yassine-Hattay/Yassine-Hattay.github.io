@@ -1,0 +1,7 @@
+<map id="ota_isr_handler" name="ota_isr_handler">
+<area shape="rect" id="Node000001" title="GPIO interrupt service routine for OTA triggering." alt="" coords="245,5,354,32"/>
+<area shape="rect" id="Node000002" href="$main_8c.html#a842c6d67d4cbff781fc513fe5b0a3249" title="Initializes essential ESP peripherals including UART, OTA, GPIO, and ADC." alt="" coords="131,5,197,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,21,197,21,197,16,229,16"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main application entry point for ESP8266." alt="" coords="5,5,83,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,21,83,21,83,16,115,16"/>
+</map>

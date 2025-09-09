@@ -1,0 +1,25 @@
+<map id="C:/msys32/home/hatta/esp/tracker/components/debugging/my_print.c" name="C:/msys32/home/hatta/esp/tracker/components/debugging/my_print.c">
+<area shape="rect" id="Node000001" title="Contains an implemntation of printf that writes to the serial monitor and to a web page through wifi ..." alt="" coords="688,5,854,64"/>
+<area shape="rect" id="Node000002" href="$my__print_8h.html" title=" " alt="" coords="730,112,812,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="774,64,774,96,768,96,768,64"/>
+<area shape="rect" id="Node000003" href="$my__config_8h_source.html" title=" " alt="" coords="5,187,174,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="729,133,189,189,189,184,729,128"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="198,187,341,213"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="730,135,356,189,356,184,729,130"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="365,187,488,213"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="730,138,502,186,501,180,729,133"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="513,187,618,213"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="736,142,616,184,615,179,734,137"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="643,187,768,213"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="761,141,729,177,725,173,757,137"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="792,187,880,213"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="784,137,817,173,813,177,780,141"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="904,187,982,213"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="802,137,900,178,898,183,800,142"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1006,187,1066,213"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="813,135,992,183,990,189,812,140"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1091,187,1155,213"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="813,131,928,152,1076,184,1075,189,927,158,812,136"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1179,187,1248,213"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="812,129,964,149,1165,184,1164,189,963,155,812,134"/>
+</map>

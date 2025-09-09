@@ -1,0 +1,7 @@
+<map id="init_esp" name="init_esp">
+<area shape="rect" id="Node000001" title="Initializes essential ESP peripherals including UART, OTA, GPIO, and ADC." alt="" coords="5,31,72,57"/>
+<area shape="rect" id="Node000002" href="$_u_a_r_t_8c.html#a7f8cf56e097fa247abe78e9b01353a08" title="Initializes a UART peripheral with specified settings." alt="" coords="128,5,220,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,35,112,27,113,33,73,40"/>
+<area shape="rect" id="Node000003" href="$_o_t_a_8c.html#a0a5bcaba85a8adb52f779d3a769dd896" title="GPIO interrupt service routine for OTA triggering." alt="" coords="120,56,229,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="73,48,105,54,104,59,72,53"/>
+</map>

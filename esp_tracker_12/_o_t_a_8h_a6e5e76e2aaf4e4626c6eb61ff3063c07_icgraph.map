@@ -1,0 +1,7 @@
+<map id="ota_update" name="ota_update">
+<area shape="rect" id="Node000001" title="Performs an over&#45;the&#45;air (OTA) firmware update." alt="" coords="250,5,335,32"/>
+<area shape="rect" id="Node000002" href="$_o_t_a_8c.html#aa254c8b163be4af70cf47c34d24f19bb" title="FreeRTOS task handling OTA updates." alt="" coords="131,5,202,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,21,202,21,202,16,234,16"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main application entry point for ESP8266." alt="" coords="5,5,83,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,21,83,21,83,16,115,16"/>
+</map>

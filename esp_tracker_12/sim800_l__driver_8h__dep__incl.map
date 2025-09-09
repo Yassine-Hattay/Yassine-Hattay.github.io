@@ -1,0 +1,12 @@
+<map id="C:/msys32/home/hatta/esp/tracker/components/sim800L_driver/sim800L_driver.h" name="C:/msys32/home/hatta/esp/tracker/components/sim800L_driver/sim800L_driver.h">
+<area shape="rect" id="Node000001" title="SIM800L driver configuration for ESP12/ESP8266." alt="" coords="216,5,382,80"/>
+<area shape="rect" id="Node000002" href="$_n_e_o__6_m_8h.html" title="NEO&#45;6M GPS driver for ESP12/ESP8266." alt="" coords="75,136,262,195"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,93,201,138,197,134,246,89"/>
+<area shape="rect" id="Node000004" href="$main_8c.html" title="Main application file for ESP12 integrating SIM800L, NEO&#45;6M GPS, and OTA update functionality." alt="" coords="216,259,382,301"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="302,95,302,258,296,258,296,95"/>
+<area shape="rect" id="Node000005" href="$sim800_l__driver_8c.html" title="SIM800L driver for ESP12/ESP8266 handling SMS, network registration, and deep sleep." alt="" coords="336,128,502,203"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="348,90,384,126,381,129,345,93"/>
+<area shape="rect" id="Node000003" href="$_n_e_o__6_m_8c.html" title="NEO&#45;6M GPS driver for ESP12/ESP8266." alt="" coords="5,251,193,309"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="145,209,119,251,114,249,141,206"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="215,203,277,256,273,260,211,207"/>
+</map>

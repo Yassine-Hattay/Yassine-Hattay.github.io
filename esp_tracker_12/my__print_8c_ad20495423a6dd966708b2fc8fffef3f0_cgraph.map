@@ -1,0 +1,5 @@
+<map id="my_print" name="my_print">
+<area shape="rect" id="Node000001" title="Custom print function that outputs formatted text and logs it to a buffer." alt="" coords="5,5,77,32"/>
+<area shape="rect" id="Node000002" href="$my__print_8c.html#ab920ecbcc83c6f8eca9c4dabdfc5b31a" title="Appends a message to the global log buffer in a thread&#45;safe manner." alt="" coords="125,5,220,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,16,109,16,109,21,77,21"/>
+</map>

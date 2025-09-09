@@ -1,0 +1,17 @@
+<map id="app_main" name="app_main">
+<area shape="rect" id="Node000001" title="Main application entry point for ESP8266." alt="" coords="5,56,83,83"/>
+<area shape="rect" id="Node000002" href="$_n_e_o__6_m_8c.html#afa212fc008a24b9f857753a544f750ca" title="GPS task to read NMEA sentences from the GPS module and extract coordinates." alt="" coords="131,5,205,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,53,119,36,121,41,79,58"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a842c6d67d4cbff781fc513fe5b0a3249" title="Initializes essential ESP peripherals including UART, OTA, GPIO, and ADC." alt="" coords="135,56,201,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="83,67,119,67,119,72,83,72"/>
+<area shape="rect" id="Node000006" href="$_o_t_a_8c.html#aa254c8b163be4af70cf47c34d24f19bb" title="FreeRTOS task handling OTA updates." alt="" coords="132,107,204,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="79,81,121,98,119,103,77,86"/>
+<area shape="rect" id="Node000004" href="$_u_a_r_t_8c.html#a7f8cf56e097fa247abe78e9b01353a08" title="Initializes a UART peripheral with specified settings." alt="" coords="262,5,354,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="200,55,254,35,256,40,202,60"/>
+<area shape="rect" id="Node000005" href="$_o_t_a_8c.html#a0a5bcaba85a8adb52f779d3a769dd896" title="GPIO interrupt service routine for OTA triggering." alt="" coords="253,56,362,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="201,67,237,67,237,72,201,72"/>
+<area shape="rect" id="Node000007" href="$_o_t_a_8c.html#a6e5e76e2aaf4e4626c6eb61ff3063c07" title="Performs an over&#45;the&#45;air (OTA) firmware update." alt="" coords="265,107,350,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="204,117,250,117,250,123,204,123"/>
+<area shape="rect" id="Node000008" href="$web_8c.html#a720913f2342db3713ec3948cdfc16855" title="Initializes the ESP32 as a Wi&#45;Fi station and connects to an access point." alt="" coords="410,107,501,133"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="351,117,395,117,395,123,351,123"/>
+</map>

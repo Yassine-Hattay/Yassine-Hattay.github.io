@@ -1,0 +1,5 @@
+<map id="my_custom_putchar" name="my_custom_putchar">
+<area shape="rect" id="Node000001" title="Outputs a single character by forwarding it as a string to my_print." alt="" coords="149,5,288,32"/>
+<area shape="rect" id="Node000002" href="$my__print_8c.html#a67993f7efdbabaa245a54fc014c3d8ff" title="Initializes the custom print system." alt="" coords="5,5,101,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,21,101,21,101,16,133,16"/>
+</map>

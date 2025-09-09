@@ -1,0 +1,9 @@
+<map id="my_print_init" name="my_print_init">
+<area shape="rect" id="Node000001" title="Size of the RAM log buffer ." alt="" coords="5,5,101,32"/>
+<area shape="rect" id="Node000002" href="$my__print_8c.html#ae87d87882472f9c515ceeb18e2a17730" title="Outputs a single character by forwarding it as a string to my_print." alt="" coords="149,5,288,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,16,133,16,133,21,101,21"/>
+<area shape="rect" id="Node000003" href="$my__print_8c.html#ad20495423a6dd966708b2fc8fffef3f0" title="Custom print function that outputs formatted text and logs it to a buffer." alt="" coords="336,5,407,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="288,16,320,16,320,21,288,21"/>
+<area shape="rect" id="Node000004" href="$my__print_8c.html#ab920ecbcc83c6f8eca9c4dabdfc5b31a" title="Appends a message to the global log buffer in a thread&#45;safe manner." alt="" coords="455,5,551,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="408,16,440,16,440,21,408,21"/>
+</map>

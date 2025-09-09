@@ -1,0 +1,23 @@
+<map id="C:/msys32/home/hatta/esp/tracker/components/debugging/my_print.h" name="C:/msys32/home/hatta/esp/tracker/components/debugging/my_print.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="130,5,295,64"/>
+<area shape="rect" id="Node000002" href="$_n_e_o__6_m_8h.html" title="NEO&#45;6M GPS driver for ESP12/ESP8266." alt="" coords="24,349,211,408"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,54,65,77,43,93,25,113,12,143,8,174,13,207,24,239,58,300,94,347,89,350,53,303,19,241,8,208,3,174,7,141,21,111,39,89,62,72,114,49"/>
+<area shape="rect" id="Node000005" href="$my__print_8c.html" title="Contains an implemntation of printf that writes to the serial monitor and to a web page through wifi ..." alt="" coords="35,112,200,171"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="178,77,145,113,141,110,174,74"/>
+<area shape="rect" id="Node000006" href="$sim800_l__driver_8h.html" title="SIM800L driver configuration for ESP12/ESP8266." alt="" coords="344,219,510,293"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="311,52,361,75,384,91,404,110,419,136,428,164,432,218,427,219,422,165,414,138,400,114,381,95,358,79,309,57"/>
+<area shape="rect" id="Node000008" href="$web_8h.html" title="this file contains the header for web server functionality" alt="" coords="224,112,390,171"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="250,74,283,110,279,113,246,77"/>
+<area shape="rect" id="Node000003" href="$_n_e_o__6_m_8c.html" title="NEO&#45;6M GPS driver for ESP12/ESP8266." alt="" coords="19,464,206,523"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="118,423,116,463,111,463,113,423"/>
+<area shape="rect" id="Node000004" href="$main_8c.html" title="Main application file for ESP12 integrating SIM800L, NEO&#45;6M GPS, and OTA update functionality." alt="" coords="230,472,395,515"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="182,414,278,469,276,474,179,419"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="330,298,192,351,190,346,328,293"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="368,306,340,343,327,376,319,411,314,472,309,471,314,411,321,375,335,340,364,303"/>
+<area shape="rect" id="Node000007" href="$sim800_l__driver_8c.html" title="SIM800L driver for ESP12/ESP8266 handling SMS, network registration, and deep sleep." alt="" coords="349,341,515,416"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="432,309,433,341,428,341,427,309"/>
+<area shape="poly" id="edge10_Node000008_Node000002" title=" " alt="" coords="215,179,172,200,145,220,129,251,120,286,117,320,117,349,112,349,111,319,115,285,124,249,141,217,169,196,212,175"/>
+<area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="350,179,390,216,386,220,346,183"/>
+<area shape="rect" id="Node000009" href="$web_8c.html" title="this file contains the implementation of the web server for displaying logs from the ESP8266." alt="" coords="155,227,320,285"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="284,185,258,227,253,225,279,182"/>
+</map>

@@ -1,0 +1,23 @@
+<map id="C:/msys32/home/hatta/esp/tracker/components/OTA/OTA.c" name="C:/msys32/home/hatta/esp/tracker/components/OTA/OTA.c">
+<area shape="rect" id="Node000001" title="OTA update module for ESP12/ESP8266, including GPIO&#45;triggered updates and HTTP download." alt="" coords="465,5,630,64"/>
+<area shape="rect" id="Node000002" href="$_o_t_a_8h.html" title="OTA update module for ESP12/ESP8266." alt="" coords="325,112,384,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="486,67,397,108,395,103,484,62"/>
+<area shape="rect" id="Node000007" href="$_wi_fi_8h_source.html" title=" " alt="" coords="691,112,794,139"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="612,62,702,103,700,108,610,67"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,187,112,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="326,136,126,185,124,180,324,131"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="135,187,278,213"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="330,142,247,182,245,177,328,137"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="302,187,407,213"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="357,139,357,171,352,171,352,139"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="432,187,555,213"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="380,137,457,177,454,181,377,142"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="578,187,659,213"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="722,142,654,181,652,176,720,137"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="682,187,803,213"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="745,139,745,171,740,171,740,139"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="827,187,930,213"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="767,137,843,177,840,181,765,142"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="954,187,1019,213"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="786,137,940,182,939,187,784,142"/>
+</map>
