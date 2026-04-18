@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tunis Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* --- Floating control panel --- */
+        #panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 140px;
+            transition: all 0.3s ease;
+        }
+
+        /* ✅ FIXED: no more translateX */
+        #panel.hidden {
+            width: 45px;
+            height: 45px;
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        /* Hide bus button when collapsed */
+        #panel.hidden #busBtn {
+            display: none;
+        }
+
+        #togglePanel {
+            width: 100%;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        #panel.hidden #togglePanel {
+            margin-bottom: 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="panel">
+        <button id="togglePanel">⬅ Hide</button>
+        <button id="busBtn">🚌 Bus</button>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize map
+        var map = L.map('map').setView([36.8065, 10.1815], 13);
+
+        // Tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // --- Bus icon ---
+        var busIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61231.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+
+        // --- State ---
+        var busMarker = null;
+        var busActive = false;
+
+        // --- Bus button logic ---
+        document.getElementById("busBtn").onclick = function () {
+            if (!busActive) {
+                busMarker = L.marker([36.8065, 10.1815], { icon: busIcon })
+                    .addTo(map)
+                    .bindPopup("🚌 Bus Stop")
+                    .openPopup();
+
+                busActive = true;
+            } else {
+                map.removeLayer(busMarker);
+                busMarker = null;
+                busActive = false;
+            }
+        };
+
+        // --- Panel toggle (FIXED behavior) ---
+        document.getElementById("togglePanel").onclick = function () {
+            var panel = document.getElementById("panel");
+
+            if (panel.classList.contains("hidden")) {
+                panel.classList.remove("hidden");
+                this.innerText = "⬅ Hide";
+            } else {
+                panel.classList.add("hidden");
+                this.innerText = "☰";
+            }
+        };
+    </script>
+
+</body>
+
+</html>
