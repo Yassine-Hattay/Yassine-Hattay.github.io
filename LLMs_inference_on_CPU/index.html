@@ -25,81 +25,52 @@
             box-sizing: border-box;
         }
 
-        /* Custom Scrollbars for internal card scrolling */
-        *::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        *::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-
-        *::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-
-        *::-webkit-scrollbar-thumb:hover {
-            background: var(--muted);
-        }
-
-        /* Fixed Height Dashboard Layout (No Page Scroll) */
-        html,
-        body {
-            height: 100vh;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
+            line-height: 1.6;
         }
 
         .header {
-            flex-shrink: 0;
             text-align: center;
-            padding: 0.8rem 1rem;
+            padding: 2rem 1rem 1rem;
             border-bottom: 1px solid var(--border);
         }
 
         .header h1 {
-            font-size: 1.4rem;
-            margin-bottom: .2rem;
+            font-size: 1.6rem;
+            margin-bottom: .3rem;
         }
 
         .header p {
             color: var(--muted);
-            font-size: .85rem;
+            font-size: .9rem;
             max-width: 700px;
             margin: 0 auto;
         }
 
         .layout {
-            flex: 1;
             display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 1rem;
-            padding: 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            min-height: 0;
-            /* Crucial for flex/grid children */
+            grid-template-columns: 340px 1fr;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        @media(max-width:860px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
         }
 
         .sidebar {
-            overflow-y: auto;
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1rem;
+            padding: 1.2rem;
+            height: fit-content;
         }
 
         .sidebar h2 {
@@ -178,39 +149,36 @@
         .main {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
-            min-height: 0;
+            gap: 1.2rem;
         }
 
         .card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1rem;
-            flex-shrink: 0;
+            padding: 1.3rem;
         }
 
         .card h2 {
-            font-size: 1rem;
-            margin-bottom: .6rem;
+            font-size: 1.1rem;
+            margin-bottom: .8rem;
         }
 
-        .metrics-card .metrics {
+        .metrics {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: .8rem;
-            margin-bottom: 0.5rem;
         }
 
         .metric {
             background: var(--bg);
             border-radius: 8px;
-            padding: .6rem;
+            padding: .8rem;
             text-align: center;
         }
 
         .metric .val {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--accent);
         }
@@ -223,9 +191,9 @@
 
         .alert {
             border-radius: 8px;
-            padding: .6rem .8rem;
-            font-size: .85rem;
-            margin-top: .5rem;
+            padding: .8rem 1rem;
+            font-size: .88rem;
+            margin-top: .8rem;
         }
 
         .alert-error {
@@ -246,111 +214,13 @@
             color: #86efac;
         }
 
-        /* Simulation Card (Takes up remaining middle space) */
-        .sim-card {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-
-        .chat-area {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: .8rem;
-            margin-top: .5rem;
-            padding-right: 4px;
-        }
-
-        .chat-msg {
-            max-width: 85%;
-            padding: .7rem 1rem;
-            border-radius: 12px;
-            font-size: .88rem;
-            line-height: 1.55;
-        }
-
-        .chat-user {
-            align-self: flex-end;
-            background: #2563eb;
-            color: #fff;
-            border-bottom-right-radius: 4px;
-        }
-
-        .chat-asst {
-            align-self: flex-start;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-bottom-left-radius: 4px;
-            min-height: 2.2rem;
-        }
-
-        .chat-asst .cursor {
-            animation: blink .7s infinite;
-        }
-
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: 0
-            }
-        }
-
-        .thinking {
-            color: var(--muted);
-            font-style: italic;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: .4rem;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: .5rem 1.2rem;
-            font-size: .85rem;
-            cursor: pointer;
-            transition: opacity .2s;
-        }
-
-        .btn:hover {
-            opacity: .85;
-        }
-
-        .btn:disabled {
-            opacity: .4;
-            cursor: not-allowed;
-        }
-
-        /* Bottom Row (Command & Insights side-by-side) */
-        .bottom-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-            flex-shrink: 0;
-        }
-
-        .bottom-row .card {
-            max-height: 240px;
-            overflow-y: auto;
-        }
-
         .cmd-box {
             background: #12141c;
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: .8rem;
+            padding: .9rem;
             font-family: 'Fira Code', monospace;
-            font-size: .8rem;
+            font-size: .85rem;
             color: #a5d6ff;
             overflow-x: auto;
             white-space: pre-wrap;
@@ -367,29 +237,247 @@
             color: #fff;
             border: none;
             border-radius: 5px;
-            padding: .2rem .5rem;
-            font-size: .7rem;
+            padding: .25rem .6rem;
+            font-size: .72rem;
             cursor: pointer;
         }
 
+        .cmd-box .copy-btn:hover {
+            opacity: .85;
+        }
+
         .cmd-note {
-            font-size: .78rem;
+            font-size: .8rem;
             color: var(--muted);
             margin-top: .4rem;
+        }
+
+        /* =========================================
+           ENHANCED CHAT UI
+           ========================================= */
+        .chat-window {
+            background: #0d0f14;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 450px;
+            margin-top: 1rem;
+        }
+
+        .chat-header {
+            background: #151822;
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--green);
+        }
+
+        .chat-ctx {
+            margin-left: auto;
+            font-size: .75rem;
+            color: var(--muted);
+            font-weight: 400;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .msg-row {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            max-width: 85%;
+        }
+
+        .msg-row.user {
+            flex-direction: row-reverse;
+            align-self: flex-end;
+        }
+
+        .msg-row.bot {
+            align-self: flex-start;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .avatar.user {
+            background: #2563eb;
+            color: white;
+        }
+
+        .avatar.bot {
+            background: var(--accent);
+            color: white;
+        }
+
+        .bubble {
+            padding: 0.8rem 1.1rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            position: relative;
+        }
+
+        .bubble.user {
+            background: #2563eb;
+            color: white;
+            border-top-right-radius: 4px;
+        }
+
+        .bubble.bot {
+            background: #1e222d;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-top-left-radius: 4px;
+        }
+
+        .bubble .meta {
+            font-size: .72rem;
+            opacity: .7;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--accent);
+            margin-left: 2px;
+            animation: blink .8s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+            padding: 0.4rem 0;
+        }
+
+        .typing-dots span {
+            width: 7px;
+            height: 7px;
+            background: var(--muted);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dots span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0.6);
+                opacity: 0.5;
+            }
+
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--muted);
+            font-size: .85rem;
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .empty-state svg {
+            opacity: 0.3;
+        }
+
+        /* ========================================= */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: .6rem 1.3rem;
+            font-size: .9rem;
+            cursor: pointer;
+            transition: opacity .2s;
+        }
+
+        .btn:hover {
+            opacity: .85;
+        }
+
+        .btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
         }
 
         /* Expanders */
         .expander {
             border: 1px solid var(--border);
             border-radius: 8px;
-            margin-bottom: .5rem;
+            margin-bottom: .6rem;
             overflow: hidden;
         }
 
         .expander summary {
-            padding: .6rem .8rem;
+            padding: .7rem 1rem;
             cursor: pointer;
-            font-size: .85rem;
+            font-size: .9rem;
             font-weight: 600;
             background: var(--bg);
             list-style: none;
@@ -409,8 +497,8 @@
         }
 
         .expander .body {
-            padding: .6rem .8rem;
-            font-size: .8rem;
+            padding: .8rem 1rem;
+            font-size: .85rem;
             color: var(--muted);
         }
 
@@ -418,34 +506,11 @@
             color: var(--text);
         }
 
-        /* Mobile Fallback: Allow scrolling on small screens */
-        @media(max-width: 900px) {
-
-            html,
-            body {
-                height: auto;
-                overflow: auto;
-            }
-
-            .layout {
-                grid-template-columns: 1fr;
-            }
-
-            .bottom-row {
-                grid-template-columns: 1fr;
-            }
-
-            .bottom-row .card {
-                max-height: none;
-            }
-
-            .sim-card {
-                min-height: 300px;
-            }
-
-            .metrics-card .metrics {
-                grid-template-columns: 1fr;
-            }
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: .78rem;
+            color: var(--muted);
         }
     </style>
 </head>
@@ -520,8 +585,9 @@
         <!-- ===================== MAIN ===================== -->
         <div class="main">
 
-            <!-- Metrics (Top) -->
-            <div class="card metrics-card">
+            <!-- Metrics -->
+            <div class="card">
+                <h2>📊 Predicted Performance &amp; Memory Reality Check</h2>
                 <div class="metrics">
                     <div class="metric">
                         <div class="val" id="mThreads">-</div>
@@ -539,73 +605,107 @@
                 <div id="memAlert"></div>
             </div>
 
-            <!-- Simulation (Middle, takes remaining space) -->
-            <div class="card sim-card">
-                <h2>🎬 Experience the Speed</h2>
-                <p style="font-size:.85rem;color:var(--muted);margin-bottom:.5rem;">
-                    Simulate what it actually <em>feels</em> like to use this configuration. Drag the Context Length
-                    slider to see how long-context prefill (TTFT) and generation degrade on CPU.
-                </p>
-                <button class="btn" id="simBtn" onclick="runSim()">▶️ Simulate Chat Experience</button>
-                <div class="chat-area" id="chatArea" style="display:none">
-                    <div class="chat-msg chat-user" id="userMsg"></div>
-                    <div class="chat-msg chat-asst" id="asstMsg"></div>
-                </div>
-                <div id="simNote" style="margin-top:.5rem;"></div>
+            <!-- Command -->
+            <div class="card">
+                <h2>🚀 Recommended <code>llama-server</code> Command</h2>
+                <div class="cmd-box" id="cmdBox"><button class="copy-btn" onclick="copyCmd()">Copy</button><span
+                        id="cmdText">-</span></div>
+                <div class="cmd-note" id="kvNote"></div>
             </div>
 
-            <!-- Bottom Row (Command & Insights side-by-side) -->
-            <div class="bottom-row">
-                <div class="card cmd-card">
-                    <h2>🚀 Recommended <code>llama-server</code> Command</h2>
-                    <div class="cmd-box" id="cmdBox"><button class="copy-btn" onclick="copyCmd()">Copy</button><span
-                            id="cmdText">-</span></div>
-                    <div class="cmd-note" id="kvNote"></div>
+            <!-- Enhanced Chat Simulation -->
+            <div class="card">
+                <h2>🎬 Experience the Speed</h2>
+                <p style="font-size:.88rem;color:var(--muted);margin-bottom:.8rem;">
+                    Simulate what it actually <em>feels</em> like to chat with this configuration. Drag the Context
+                    Length
+                    slider to see how long-context prefill (TTFT) and generation degrade on CPU.
+                </p>
+                <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                    <button class="btn" id="simBtn" onclick="runSim()">▶️ Run Simulation</button>
+                    <div id="simNote" style="font-size:.85rem;"></div>
                 </div>
 
-                <div class="card insights-card">
-                    <h2>🧠 Thesis Insights &amp; Pareto Front</h2>
-
-                    <details class="expander">
-                        <summary>💡 The Quantization Format Paradox</summary>
-                        <div class="body">
-                            <strong>Thesis Finding:</strong> On legacy CPUs lacking AVX-512/VNNI, smaller K-quant
-                            formats like <code>Q3_K_M</code> are actually <strong>slower</strong> than
-                            <code>Q4_0</code>.
-                            <div id="quantWarn"></div>
+                <div class="chat-window">
+                    <div class="chat-header">
+                        <span class="status-dot"></span>
+                        <span>llama-server (Local)</span>
+                        <span class="chat-ctx" id="chatCtxLabel">ctx: 4096</span>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="empty-state">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>Click "Run Simulation" to begin the inference test.</span>
                         </div>
-                    </details>
-
-                    <details class="expander">
-                        <summary>🧠 MoE on Edge Devices</summary>
-                        <div class="body">
-                            <strong>Thesis Finding:</strong> On CPUs, MoE is a <strong>bandwidth play</strong>. It
-                            drastically reduces <code>B_total</code> in the Roofline equation, bypassing the sub-1 tok/s
-                            bottleneck.
-                        </div>
-                    </details>
-
-                    <details class="expander">
-                        <summary>📉 Flash Attention &amp; KV Cache</summary>
-                        <div class="body">
-                            <strong>Thesis Finding:</strong> Flash Attention causes a <strong>3× performance
-                                regression</strong> at 15K context depths on CPU. Always use <code>-fa 0</code>.
-                        </div>
-                    </details>
-
-                    <details class="expander">
-                        <summary>📊 Empirical Baselines (Pi Family)</summary>
-                        <div class="body">
-                            • <strong>Pi 5 (8GB):</strong> ~2.4 tok/s on 7B.<br>
-                            • <strong>Pi 4B (4GB):</strong> ~0.1 tok/s on 7B (Swap wall).<br>
-                            • <strong>Pi 3B (1GB):</strong> OOM on 7B. ~10 tok/s on 135M.
-                        </div>
-                    </details>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Thesis Insights -->
+            <div class="card">
+                <h2>🧠 Thesis Insights &amp; Pareto Front Analysis</h2>
+
+                <details class="expander">
+                    <summary>💡 The Quantization Format Paradox (Legacy x86)</summary>
+                    <div class="body">
+                        <strong>Thesis Finding:</strong> On legacy CPUs lacking AVX-512/VNNI (e.g., Pentium G5420),
+                        smaller K-quant formats like <code>Q3_K_M</code> or <code>Q4_K_M</code> are actually
+                        <strong>slower</strong> than the older, larger <code>Q4_0</code> format.
+                        The complex bitwise unpacking required for K-quants bottlenecks the CPU. <code>Q4_0</code>
+                        maintains ~98.8% accuracy relative to F16 and is the strictly Pareto-dominant choice for older
+                        hardware.
+                        <div id="quantWarn"></div>
+                    </div>
+                </details>
+
+                <details class="expander">
+                    <summary>🧠 Mixture-of-Experts (MoE) on Edge Devices</summary>
+                    <div class="body">
+                        <strong>Thesis Finding:</strong> On GPUs, MoE is a capacity play. On CPUs, MoE is a
+                        <strong>bandwidth play</strong>.
+                        Because generation is memory-bandwidth-bound, an MoE model (e.g., 14B total, 2.7B active) only
+                        streams the active experts per token. This drastically reduces <code>B_total</code> in the
+                        Roofline equation, allowing MoE models to bypass the sub-1 tok/s bottleneck that traps dense 7B
+                        models on bandwidth-starved hardware.
+                    </div>
+                </details>
+
+                <details class="expander">
+                    <summary>📉 Flash Attention &amp; KV Cache on CPU</summary>
+                    <div class="body">
+                        <strong>Thesis Finding:</strong> Flash Attention (<code>-fa 1</code>) is designed for GPU
+                        HBM/SRAM hierarchies. On CPU, the L3 cache handles attention state differently.
+                        Empirical sweeps showed Flash Attention is neutral at short context, but causes a <strong>3×
+                            performance regression</strong> at 15K context depths on CPU. Always use <code>-fa 0</code>.
+                        Similarly, KV-cache quantization is a net loss on compute-rich CPUs (dequantization costs more
+                        cycles than the bandwidth saved), but flips to a net win on ultra-low bandwidth edge devices.
+                    </div>
+                </details>
+
+                <details class="expander">
+                    <summary>📊 Empirical Reference Baselines (The Pi Family)</summary>
+                    <div class="body">
+                        <em>How does your prediction compare to the thesis's measured edge baselines? (Q4_K_M, 4
+                            threads)</em><br>
+                        • <strong>Raspberry Pi 5 (8GB):</strong> ~2.4 tok/s on 7B models (Viable conversational AI).<br>
+                        • <strong>Raspberry Pi 4B (4GB):</strong> ~0.1 tok/s on 7B models (Swap-thrashing wall). Scales
+                        linearly to ~8 tok/s on 0.5B models.<br>
+                        • <strong>Raspberry Pi 3B (1GB):</strong> OOM on 7B. Scales linearly to ~10 tok/s on 135M
+                        (sub-1B) models.<br>
+                        • <strong>Jetson Nano (4GB):</strong> Flatlines at ~0.04 tok/s on 7B, but scales linearly to ~3
+                        tok/s on 1.5B models.
+                    </div>
+                </details>
             </div>
 
         </div><!-- /main -->
     </div><!-- /layout -->
+
+    <div class="footer">Powered by the Hardware-Adaptive Pareto Front Model. Equations derived from Gunther's Universal
+        Scalability Law (USL) and Roofline Analysis. © Yassine's Master's Thesis.</div>
 
     <script>
         // ============================================================
@@ -667,6 +767,7 @@
             document.getElementById('moeTotalV').textContent = paramsB + 'B';
             document.getElementById('moeActiveV').textContent = activeB.toFixed(1) + 'B';
             document.getElementById('ctxV').textContent = ctx;
+            document.getElementById('chatCtxLabel').textContent = `ctx: ${ctx}`;
 
             const bits = bitsMap[quant];
             const B_model = (activeB * bits) / 8;
@@ -697,6 +798,7 @@
 
             const T_pp = p1 * usl(cores, sp, kp);
 
+            // CONTEXT LENGTH PENALTY (The "Context Depth Cliff")
             let ctx_penalty = 1.0;
             if (ctx > 4096) {
                 ctx_penalty = Math.max(0.3, 1.0 - (ctx - 4096) * 0.0000378);
@@ -725,15 +827,13 @@
             document.getElementById('mPP').textContent = r.oom ? 'N/A' : r.T_pp.toFixed(2) + ' t/s';
             document.getElementById('mTG').textContent = r.oom ? 'OOM' : r.T_tg.toFixed(2) + ' t/s';
 
-            document.getElementById('userMsg').innerHTML = `Explain CPU LLM inference briefly. <em style="font-size:.78rem;">(Simulating ${r.ctx} tokens of context)</em>`;
-
             const ma = document.getElementById('memAlert');
             if (r.oom) {
-                ma.innerHTML = `<div class="alert alert-error">🚨 <strong>Out-Of-Memory (OOM) Predicted:</strong> Weights (${r.modelGB.toFixed(1)} GB) + KV (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = <strong>${r.totalRAM.toFixed(1)} GB</strong> ≫ RAM (${r.ram} GB).</div>`;
+                ma.innerHTML = `<div class="alert alert-error">🚨 <strong>Out-Of-Memory (OOM) Predicted:</strong> Weights (${r.modelGB.toFixed(1)} GB) + KV (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = <strong>${r.totalRAM.toFixed(1)} GB</strong> ≫ RAM (${r.ram} GB). The application will crash.</div>`;
             } else if (r.swap) {
-                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Swap-Thrashing Wall:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). Expect extreme retrograde scaling.</div>`;
+                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Swap-Thrashing Wall:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). Expect extreme retrograde scaling. Use a smaller model or lower context.</div>`;
             } else if (r.regime.includes('Retrograde')) {
-                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Memory-Bandwidth Bound:</strong> Generation is bottlenecked by RAM speed. Stick to 1 thread.</div>`;
+                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Memory-Bandwidth Bound:</strong> Generation is bottlenecked by RAM speed. Adding threads causes retrograde scaling (USL κ). Stick to 1 thread.</div>`;
             } else {
                 ma.innerHTML = `<div class="alert alert-ok">✅ <strong>Compute Bound / Healthy Headroom:</strong> Enough bandwidth and RAM to utilize all cores.</div>`;
             }
@@ -766,7 +866,7 @@
         }
 
         // ============================================================
-        // SIMULATION
+        // ENHANCED CHAT SIMULATION
         // ============================================================
         let simRunning = false;
 
@@ -779,11 +879,9 @@
             const btn = document.getElementById('simBtn');
             btn.disabled = true;
 
-            const area = document.getElementById('chatArea');
-            const msg = document.getElementById('asstMsg');
+            const chatMessages = document.getElementById('chatMessages');
             const note = document.getElementById('simNote');
-            area.style.display = 'flex';
-            msg.innerHTML = '';
+            chatMessages.innerHTML = '';
             note.innerHTML = '';
 
             const prompt_tokens = r.ctx;
@@ -794,14 +892,44 @@
             const simDelay = Math.min(dpw, 0.4);
             const throttled = ttft > 3.5 || dpw > 0.4;
 
-            msg.innerHTML = `<span class="thinking">*Processing ${prompt_tokens} tokens... (Calculated TTFT: ${ttft.toFixed(1)}s)* ⏳</span>`;
+            // 1. Add User Message
+            const userRow = document.createElement('div');
+            userRow.className = 'msg-row user';
+            userRow.innerHTML = `
+                <div class="avatar user">👤</div>
+                <div class="bubble user">
+                    Explain CPU LLM inference briefly.
+                    <span class="meta">Prompt: ${prompt_tokens} tokens</span>
+                </div>
+            `;
+            chatMessages.appendChild(userRow);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            // 2. Add Bot Message (Thinking state)
+            const botRow = document.createElement('div');
+            botRow.className = 'msg-row bot';
+            botRow.innerHTML = `
+                <div class="avatar bot">🦙</div>
+                <div class="bubble bot">
+                    <div class="typing-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="meta" style="margin-top:8px;">Processing prompt... (TTFT: ${ttft.toFixed(1)}s)</span>
+                </div>
+            `;
+            chatMessages.appendChild(botRow);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // 3. Wait for TTFT then stream
             setTimeout(() => {
                 if (throttled) {
-                    note.innerHTML = `<span style="font-size:.82rem;color:var(--yellow)">⚠️ Simulation sped up for UI responsiveness. Real-world TTFT is <strong>${ttft.toFixed(1)}s</strong> and generation is <strong>${r.T_tg.toFixed(2)} tok/s</strong>.</span>`;
+                    note.innerHTML = `<span style="color:var(--yellow)">⚠️ Simulation sped up for UI responsiveness. Real-world TTFT is <strong>${ttft.toFixed(1)}s</strong> and generation is <strong>${r.T_tg.toFixed(2)} tok/s</strong>.</span>`;
                 } else if (r.ctx_penalty < 0.9) {
-                    note.innerHTML = `<span style="font-size:.82rem;color:var(--yellow)">⚠️ Notice the generation slowdown? CPU attention overhead degrades speed by ${((1 - r.ctx_penalty) * 100).toFixed(0)}% at ${r.ctx} context depth.</span>`;
+                    note.innerHTML = `<span style="color:var(--yellow)">⚠️ Notice the generation slowdown? CPU attention overhead degrades speed by ${((1 - r.ctx_penalty) * 100).toFixed(0)}% at ${r.ctx} context depth.</span>`;
                 }
+
+                const bubble = botRow.querySelector('.bubble');
+                bubble.innerHTML = '<span class="cursor"></span>';
 
                 const text = "Running large language models on a CPU is a fascinating exercise in hardware optimization. While GPUs dominate the cloud, the CPU remains the workhorse of the edge. By understanding memory bandwidth and thread scaling, we can unlock viable conversational AI on devices as small as a Raspberry Pi.";
                 const words = text.split(' ');
@@ -810,15 +938,17 @@
                 function tick() {
                     if (i < words.length) {
                         out += words[i] + ' ';
-                        msg.innerHTML = out + '<span class="cursor">▌</span>';
+                        bubble.innerHTML = out + '<span class="cursor"></span>';
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
                         i++;
                         setTimeout(tick, simDelay * 1000);
                     } else {
-                        msg.innerHTML = out;
+                        bubble.innerHTML = out + `<span class="meta">${words.length} words generated at ${r.T_tg.toFixed(2)} tok/s</span>`;
+
                         if (r.T_tg < 2 && !throttled) {
-                            note.innerHTML = '<div class="alert alert-warn">🐢 <strong>Notice the lag?</strong> At sub-2 tok/s, reading speed outpaces generation. This is the Bandwidth Wall in action.</div>';
+                            note.innerHTML = '<div class="alert alert-warn" style="margin-top:1rem">🐢 <strong>Notice the lag?</strong> At sub-2 tok/s, reading speed outpaces generation. This is the Bandwidth Wall in action.</div>';
                         } else if (r.T_tg >= 5) {
-                            note.innerHTML = '<div class="alert alert-ok">⚡ <strong>Smooth!</strong> At >5 tok/s, generation feels natural and conversational.</div>';
+                            note.innerHTML = '<div class="alert alert-ok" style="margin-top:1rem">⚡ <strong>Smooth!</strong> At >5 tok/s, generation feels natural and conversational.</div>';
                         }
                         btn.disabled = false;
                         simRunning = false;
