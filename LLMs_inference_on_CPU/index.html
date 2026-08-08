@@ -521,7 +521,9 @@
         <h1>🦙 llama.cpp Hardware-Adaptive Pareto Advisor</h1>
         <p><strong>Based on the Roofline &amp; USL models from Yassine's Master's Thesis.</strong><br>
             Calculates optimal <code>llama.cpp</code> flags from abstract <em>hardware traits</em> (cores, bandwidth,
-            ISA, RAM) — not specific CPU SKUs — so the model generalizes to any device.</p>
+            ISA, RAM) — not specific CPU SKUs — extrapolating to new devices via a model calibrated on 3
+            directly-measured devices (Ryzen 5600H, Pentium G5420, Jetson Nano). Predictions beyond those devices
+            are extrapolations, not measurements.</p>
     </div>
 
     <div class="layout">
@@ -648,6 +650,24 @@
             <div class="card">
                 <h2>🧠 Thesis Insights &amp; Pareto Front Analysis</h2>
 
+                <!-- FIX 3: New Caveats expander -->
+                <details class="expander" open>
+                    <summary>⚠️ What's Measured vs. What's Extrapolated</summary>
+                    <div class="body">
+                        <strong>Directly measured (our own llama-bench data):</strong> Ryzen 5 5600H (laptop), Pentium
+                        Gold G5420 (desktop), Jetson Nano. A Raspberry Pi 3B was attempted but produced zero usable
+                        benchmark rows.<br><br>
+                        <strong>Never tested locally:</strong> Raspberry Pi 4B and Pi 5. Any numbers shown for these
+                        devices come from third-party sources and are marked as such below.<br><br>
+                        <strong>MoE models:</strong> Staged in the harness but never benchmarked to completion on any
+                        device. The "bytes-per-token" MoE advantage shown here is a theoretical prediction derived from
+                        dense-model bandwidth mechanics, not a measured result.<br><br>
+                        <strong>This calculator:</strong> A client-side prediction tool implementing the roofline/USL
+                        model. It does not run any benchmarks. For devices other than the three calibrated above, treat
+                        outputs as informed estimates, not measurements.
+                    </div>
+                </details>
+
                 <details class="expander">
                     <summary>💡 The Quantization Format Paradox (Legacy x86)</summary>
                     <div class="body">
@@ -669,7 +689,9 @@
                         Because generation is memory-bandwidth-bound, an MoE model (e.g., 14B total, 2.7B active) only
                         streams the active experts per token. This drastically reduces <code>B_total</code> in the
                         Roofline equation, allowing MoE models to bypass the sub-1 tok/s bottleneck that traps dense 7B
-                        models on bandwidth-starved hardware.
+                        models on bandwidth-starved hardware.<br><br>
+                        <em style="color:var(--yellow);">⚠️ Note: This is a theoretical prediction derived from our
+                            dense-model bandwidth data. No MoE model was benchmarked to completion on our hardware.</em>
                     </div>
                 </details>
 
@@ -685,18 +707,25 @@
                     </div>
                 </details>
 
+                <!-- FIX 1: Renamed from "Empirical Reference Baselines" to "External Reference Points" -->
                 <details class="expander">
-                    <summary>📊 Empirical Reference Baselines (The Pi Family)</summary>
+                    <summary>📊 External Reference Points (Third-Party — Not Our Measurements)</summary>
                     <div class="body">
-                        <em>How does your prediction compare to the thesis's measured edge baselines? (Q4_K_M, 4
-                            threads)</em><br>
-                        • <strong>Raspberry Pi 5 (8GB):</strong> ~2.4 tok/s on 7B models (Viable conversational AI).<br>
-                        • <strong>Raspberry Pi 4B (4GB):</strong> ~0.1 tok/s on 7B models (Swap-thrashing wall). Scales
-                        linearly to ~8 tok/s on 0.5B models.<br>
-                        • <strong>Raspberry Pi 3B (1GB):</strong> OOM on 7B. Scales linearly to ~10 tok/s on 135M
-                        (sub-1B) models.<br>
-                        • <strong>Jetson Nano (4GB):</strong> Flatlines at ~0.04 tok/s on 7B, but scales linearly to ~3
-                        tok/s on 1.5B models.
+                        <em>These are published third-party numbers included for context only. They were NOT run with
+                            our harness or our model checkpoints. The only edge device we actually measured ourselves is
+                            the Jetson Nano.</em><br><br>
+                        • <strong>Raspberry Pi 5 (8GB):</strong> ~2–3 tok/s on 7–8B-class Q4 models.<br>
+                        <span style="font-size:.75rem; color:var(--muted);">Sources: Jeff Geerling's ai-benchmarks repo
+                            (github.com/geerlingguy/ai-benchmarks); LocalAIMaster 2026 survey
+                            (localaimaster.com/blog/llm-raspberry-pi-5)</span><br><br>
+                        • <strong>Raspberry Pi 4B (4GB):</strong> No independently verified source found for 7B
+                        generation throughput — treat as an open gap, not an oversight.<br><br>
+                        • <strong>Raspberry Pi 3B (1GB):</strong> No independently verified source found for generation
+                        throughput — treat as an open gap.<br><br>
+                        • <strong>Jetson Nano (4GB):</strong> ~0.04 tok/s on 7B (flat, bandwidth-saturated at 1 thread);
+                        ~3 tok/s on 1.5B (scales linearly).<br>
+                        <span style="font-size:.75rem; color:var(--green);">✓ OUR OWN MEASURED DATA — the only edge
+                            baseline we actually collected with llama-bench.</span>
                     </div>
                 </details>
             </div>
@@ -713,12 +742,12 @@
         // ============================================================
         const profiles = {
             "Custom / Manual Entry": { cores: 4, bw: 25.0, ram: 8.0, arch: "ARM (NEON)", p1: 2.0 },
-            "Raspberry Pi 5 (8GB LPDDR4X)": { cores: 4, bw: 17.0, ram: 8.0, arch: "ARM (NEON)", p1: 5.5 },
-            "Raspberry Pi 4B (4GB LPDDR4)": { cores: 4, bw: 12.8, ram: 4.0, arch: "ARM (NEON)", p1: 2.5 },
-            "Raspberry Pi 3B / Zero 2W": { cores: 4, bw: 3.2, ram: 1.0, arch: "ARM (NEON)", p1: 0.8 },
-            "Jetson Nano (4GB LPDDR4)": { cores: 4, bw: 25.6, ram: 4.0, arch: "ARM (NEON)", p1: 1.3 },
-            "Compute-Rich (Dual-Ch DDR4/5 x86)": { cores: 6, bw: 45.0, ram: 16.0, arch: "Modern x86 (AVX2/512)", p1: 8.0 },
-            "Bandwidth-Starved (Legacy x86)": { cores: 2, bw: 15.0, ram: 4.0, arch: "Legacy x86 (SSE/AVX)", p1: 1.5 },
+            "Raspberry Pi 5 (8GB LPDDR4X) [extrapolated]": { cores: 4, bw: 17.0, ram: 8.0, arch: "ARM (NEON)", p1: 5.5 },
+            "Raspberry Pi 4B (4GB LPDDR4) [extrapolated]": { cores: 4, bw: 12.8, ram: 4.0, arch: "ARM (NEON)", p1: 2.5 },
+            "Raspberry Pi 3B / Zero 2W [extrapolated]": { cores: 4, bw: 3.2, ram: 1.0, arch: "ARM (NEON)", p1: 0.8 },
+            "Jetson Nano (4GB LPDDR4) [measured]": { cores: 4, bw: 25.6, ram: 4.0, arch: "ARM (NEON)", p1: 1.3 },
+            "Compute-Rich (Dual-Ch DDR4/5 x86) [measured]": { cores: 6, bw: 45.0, ram: 16.0, arch: "Modern x86 (AVX2/512)", p1: 8.0 },
+            "Bandwidth-Starved (Legacy x86) [measured]": { cores: 2, bw: 15.0, ram: 4.0, arch: "Legacy x86 (SSE/AVX)", p1: 1.5 },
         };
 
         const sel = document.getElementById('profile');
@@ -829,11 +858,11 @@
 
             const ma = document.getElementById('memAlert');
             if (r.oom) {
-                ma.innerHTML = `<div class="alert alert-error">🚨 <strong>Out-Of-Memory (OOM) Predicted:</strong> Weights (${r.modelGB.toFixed(1)} GB) + KV (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = <strong>${r.totalRAM.toFixed(1)} GB</strong> ≫ RAM (${r.ram} GB). The application will crash.</div>`;
+                ma.innerHTML = `<div class="alert alert-error">🚨 <strong>Out-Of-Memory (OOM) Predicted:</strong> Weights (${r.modelGB.toFixed(1)} GB) + KV (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = <strong>${r.totalRAM.toFixed(1)} GB</strong> ≫ RAM (${r.ram} GB).</div>`;
             } else if (r.swap) {
-                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Swap-Thrashing Wall:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). Expect extreme retrograde scaling. Use a smaller model or lower context.</div>`;
+                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Swap-Thrashing Wall:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). Expect extreme retrograde scaling.</div>`;
             } else if (r.regime.includes('Retrograde')) {
-                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Memory-Bandwidth Bound:</strong> Generation is bottlenecked by RAM speed. Adding threads causes retrograde scaling (USL κ). Stick to 1 thread.</div>`;
+                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Memory-Bandwidth Bound:</strong> Generation is bottlenecked by RAM speed. Stick to 1 thread.</div>`;
             } else {
                 ma.innerHTML = `<div class="alert alert-ok">✅ <strong>Compute Bound / Healthy Headroom:</strong> Enough bandwidth and RAM to utilize all cores.</div>`;
             }
