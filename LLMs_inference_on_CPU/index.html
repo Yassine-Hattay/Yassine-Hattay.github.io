@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦙 llama.cpp Hardware-Adaptive Pareto Advisor</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --card: #1a1d27;
+            --border: #2a2d3a;
+            --text: #e0e0e0;
+            --muted: #8b8fa3;
+            --accent: #6c63ff;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #f59e0b;
+            --blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: .3rem;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: .9rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        @media(max-width:860px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            height: fit-content;
+        }
+
+        .sidebar h2 {
+            font-size: 1.05rem;
+            margin-bottom: .8rem;
+            color: var(--accent);
+        }
+
+        .sidebar h3 {
+            font-size: .85rem;
+            margin: .9rem 0 .4rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        label {
+            display: block;
+            font-size: .82rem;
+            margin-bottom: .15rem;
+            color: var(--muted);
+        }
+
+        select,
+        input[type=range] {
+            width: 100%;
+        }
+
+        select {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: .45rem .5rem;
+            font-size: .85rem;
+            margin-bottom: .6rem;
+        }
+
+        input[type=range] {
+            accent-color: var(--accent);
+            margin-bottom: .1rem;
+        }
+
+        input[type=number] {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: .4rem .5rem;
+            font-size: .85rem;
+            width: 100%;
+            margin-bottom: .6rem;
+        }
+
+        .range-val {
+            font-size: .8rem;
+            color: var(--accent);
+            float: right;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: .6rem;
+            margin-bottom: .6rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+            cursor: pointer;
+            font-size: .85rem;
+            color: var(--text);
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.3rem;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-bottom: .8rem;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: .8rem;
+        }
+
+        .metric {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: .8rem;
+            text-align: center;
+        }
+
+        .metric .val {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .metric .lbl {
+            font-size: .75rem;
+            color: var(--muted);
+            margin-top: .2rem;
+        }
+
+        .alert {
+            border-radius: 8px;
+            padding: .8rem 1rem;
+            font-size: .88rem;
+            margin-top: .8rem;
+        }
+
+        .alert-error {
+            background: #2d1215;
+            border: 1px solid var(--red);
+            color: #fca5a5;
+        }
+
+        .alert-warn {
+            background: #2d2210;
+            border: 1px solid var(--yellow);
+            color: #fde68a;
+        }
+
+        .alert-ok {
+            background: #102d1a;
+            border: 1px solid var(--green);
+            color: #86efac;
+        }
+
+        .cmd-box {
+            background: #12141c;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: .9rem;
+            font-family: 'Fira Code', monospace;
+            font-size: .85rem;
+            color: #a5d6ff;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: .5rem;
+            position: relative;
+        }
+
+        .cmd-box .copy-btn {
+            position: absolute;
+            top: .4rem;
+            right: .4rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: .25rem .6rem;
+            font-size: .72rem;
+            cursor: pointer;
+        }
+
+        .cmd-box .copy-btn:hover {
+            opacity: .85;
+        }
+
+        .cmd-note {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-top: .4rem;
+        }
+
+        /* Chat simulation */
+        .chat-area {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+            margin-top: .8rem;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: .7rem 1rem;
+            border-radius: 12px;
+            font-size: .88rem;
+            line-height: 1.55;
+        }
+
+        .chat-user {
+            align-self: flex-end;
+            background: #2563eb;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-asst {
+            align-self: flex-start;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+            min-height: 2.2rem;
+        }
+
+        .chat-asst .cursor {
+            animation: blink .7s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        .thinking {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: .6rem 1.3rem;
+            font-size: .9rem;
+            cursor: pointer;
+            transition: opacity .2s;
+        }
+
+        .btn:hover {
+            opacity: .85;
+        }
+
+        .btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        /* Expanders */
+        .expander {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: .6rem;
+            overflow: hidden;
+        }
+
+        .expander summary {
+            padding: .7rem 1rem;
+            cursor: pointer;
+            font-size: .9rem;
+            font-weight: 600;
+            background: var(--bg);
+            list-style: none;
+        }
+
+        .expander summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .expander summary::before {
+            content: '▸ ';
+            color: var(--accent);
+        }
+
+        .expander[open] summary::before {
+            content: '▾ ';
+        }
+
+        .expander .body {
+            padding: .8rem 1rem;
+            font-size: .85rem;
+            color: var(--muted);
+        }
+
+        .expander .body strong {
+            color: var(--text);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: .5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>🦙 llama.cpp Hardware-Adaptive Pareto Advisor</h1>
+        <p><strong>Based on the Roofline &amp; USL models from Yassine's Master's Thesis.</strong><br>
+            Calculates optimal <code>llama.cpp</code> flags from abstract <em>hardware traits</em> (cores, bandwidth,
+            ISA, RAM) — not specific CPU SKUs — so the model generalizes to any device.</p>
+    </div>
+
+    <div class="layout">
+        <!-- ===================== SIDEBAR ===================== -->
+        <div class="sidebar">
+            <h2>⚙️ Configuration</h2>
+
+            <h3>1. Hardware Traits</h3>
+            <label>Load Hardware Archetype</label>
+            <select id="profile" onchange="loadProfile()"></select>
+
+            <label>Physical Cores <span class="range-val" id="coresV"></span></label>
+            <input type="range" id="cores" min="1" max="64" value="4" oninput="update()">
+
+            <label>Sustained Memory BW (GB/s) <span class="range-val" id="bwV"></span></label>
+            <input type="range" id="bw" min="1" max="200" step="0.5" value="25" oninput="update()">
+
+            <label>Physical RAM (GB) <span class="range-val" id="ramV"></span></label>
+            <input type="range" id="ram" min="0.5" max="128" step="0.5" value="8" oninput="update()">
+
+            <label>Architecture / ISA Class</label>
+            <select id="arch" onchange="update()">
+                <option>Modern x86 (AVX2/512)</option>
+                <option>Legacy x86 (SSE/AVX)</option>
+                <option>ARM (NEON)</option>
+            </select>
+
+            <label>Single-Thread Base Prefill (tok/s)</label>
+            <input type="number" id="p1" min="0.1" max="50" step="0.1" value="2.0" onchange="update()">
+
+            <h3>2. Model Configuration</h3>
+            <div class="radio-group">
+                <label><input type="radio" name="mtype" value="dense" checked onchange="toggleMoE()"> Dense</label>
+                <label><input type="radio" name="mtype" value="moe" onchange="toggleMoE()"> MoE</label>
+            </div>
+
+            <div id="denseControls">
+                <label>Model Size (Billions) <span class="range-val" id="paramsV"></span></label>
+                <input type="range" id="params" min="0.1" max="70" step="0.1" value="7" oninput="update()">
+            </div>
+            <div id="moeControls" style="display:none">
+                <label>Total MoE Size (B) <span class="range-val" id="moeTotalV"></span></label>
+                <input type="range" id="moeTotal" min="10" max="100" step="1" value="14" oninput="update()">
+                <label>Active Params / Token (B) <span class="range-val" id="moeActiveV"></span></label>
+                <input type="range" id="moeActive" min="1" max="10" step="0.1" value="2.7" oninput="update()">
+            </div>
+
+            <label>Quantization Format</label>
+            <select id="quant" onchange="update()">
+                <option>Q4_K_M</option>
+                <option>Q4_0</option>
+                <option>Q8_0</option>
+                <option>IQ4_NL</option>
+                <option>Q3_K_M</option>
+            </select>
+
+            <label>Context Length (Tokens) <span class="range-val" id="ctxV"></span></label>
+            <input type="range" id="ctx" min="512" max="32768" step="512" value="4096" oninput="update()">
+        </div>
+
+        <!-- ===================== MAIN ===================== -->
+        <div class="main">
+
+            <!-- Metrics -->
+            <div class="card">
+                <h2>📊 Predicted Performance &amp; Memory Reality Check</h2>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="val" id="mThreads">-</div>
+                        <div class="lbl">Optimal Threads (-t)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="val" id="mPP">-</div>
+                        <div class="lbl">Prefill (pp512)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="val" id="mTG">-</div>
+                        <div class="lbl">Generation Speed</div>
+                    </div>
+                </div>
+                <div id="memAlert"></div>
+            </div>
+
+            <!-- Command -->
+            <div class="card">
+                <h2>🚀 Recommended <code>llama-server</code> Command</h2>
+                <div class="cmd-box" id="cmdBox"><button class="copy-btn" onclick="copyCmd()">Copy</button><span
+                        id="cmdText">-</span></div>
+                <div class="cmd-note" id="kvNote"></div>
+            </div>
+
+            <!-- Simulation -->
+            <div class="card">
+                <h2>🎬 Experience the Speed</h2>
+                <p style="font-size:.88rem;color:var(--muted);margin-bottom:.8rem;">
+                    Simulate what it actually <em>feels</em> like to use this configuration. Drag the Context Length
+                    slider to see how long-context prefill (TTFT) and generation degrade on CPU.
+                </p>
+                <button class="btn" id="simBtn" onclick="runSim()">▶️ Simulate Chat Experience</button>
+                <div class="chat-area" id="chatArea" style="display:none">
+                    <div class="chat-msg chat-user" id="userMsg"></div>
+                    <div class="chat-msg chat-asst" id="asstMsg"></div>
+                </div>
+                <div id="simNote" style="margin-top:.6rem;"></div>
+            </div>
+
+            <!-- Thesis Insights -->
+            <div class="card">
+                <h2>🧠 Thesis Insights &amp; Pareto Front Analysis</h2>
+
+                <details class="expander">
+                    <summary>💡 The Quantization Format Paradox (Legacy x86)</summary>
+                    <div class="body">
+                        <strong>Thesis Finding:</strong> On legacy CPUs lacking AVX-512/VNNI (e.g., Pentium G5420),
+                        smaller K-quant formats like <code>Q3_K_M</code> or <code>Q4_K_M</code> are actually
+                        <strong>slower</strong> than the older, larger <code>Q4_0</code> format.
+                        The complex bitwise unpacking required for K-quants bottlenecks the CPU. <code>Q4_0</code>
+                        maintains ~98.8% accuracy relative to F16 and is the strictly Pareto-dominant choice for older
+                        hardware.
+                        <div id="quantWarn"></div>
+                    </div>
+                </details>
+
+                <details class="expander">
+                    <summary>🧠 Mixture-of-Experts (MoE) on Edge Devices</summary>
+                    <div class="body">
+                        <strong>Thesis Finding:</strong> On GPUs, MoE is a capacity play. On CPUs, MoE is a
+                        <strong>bandwidth play</strong>.
+                        Because generation is memory-bandwidth-bound, an MoE model (e.g., 14B total, 2.7B active) only
+                        streams the active experts per token. This drastically reduces <code>B_total</code> in the
+                        Roofline equation, allowing MoE models to bypass the sub-1 tok/s bottleneck that traps dense 7B
+                        models on bandwidth-starved hardware.
+                    </div>
+                </details>
+
+                <details class="expander">
+                    <summary>📉 Flash Attention &amp; KV Cache on CPU</summary>
+                    <div class="body">
+                        <strong>Thesis Finding:</strong> Flash Attention (<code>-fa 1</code>) is designed for GPU
+                        HBM/SRAM hierarchies. On CPU, the L3 cache handles attention state differently.
+                        Empirical sweeps showed Flash Attention is neutral at short context, but causes a <strong>3×
+                            performance regression</strong> at 15K context depths on CPU. Always use <code>-fa 0</code>.
+                        Similarly, KV-cache quantization is a net loss on compute-rich CPUs (dequantization costs more
+                        cycles than the bandwidth saved), but flips to a net win on ultra-low bandwidth edge devices.
+                    </div>
+                </details>
+
+                <details class="expander">
+                    <summary>📊 Empirical Reference Baselines (The Pi Family)</summary>
+                    <div class="body">
+                        <em>How does your prediction compare to the thesis's measured edge baselines? (Q4_K_M, 4
+                            threads)</em><br>
+                        • <strong>Raspberry Pi 5 (8GB):</strong> ~2.4 tok/s on 7B models (Viable conversational AI).<br>
+                        • <strong>Raspberry Pi 4B (4GB):</strong> ~0.1 tok/s on 7B models (Swap-thrashing wall). Scales
+                        linearly to ~8 tok/s on 0.5B models.<br>
+                        • <strong>Raspberry Pi 3B (1GB):</strong> OOM on 7B. Scales linearly to ~10 tok/s on 135M
+                        (sub-1B) models.<br>
+                        • <strong>Jetson Nano (4GB):</strong> Flatlines at ~0.04 tok/s on 7B, but scales linearly to ~3
+                        tok/s on 1.5B models.
+                    </div>
+                </details>
+            </div>
+
+        </div><!-- /main -->
+    </div><!-- /layout -->
+
+    <div class="footer">Powered by the Hardware-Adaptive Pareto Front Model. Equations derived from Gunther's Universal
+        Scalability Law (USL) and Roofline Analysis. © Yassine's Master's Thesis.</div>
+
+    <script>
+        // ============================================================
+        // PROFILES
+        // ============================================================
+        const profiles = {
+            "Custom / Manual Entry": { cores: 4, bw: 25.0, ram: 8.0, arch: "ARM (NEON)", p1: 2.0 },
+            "Raspberry Pi 5 (8GB LPDDR4X)": { cores: 4, bw: 17.0, ram: 8.0, arch: "ARM (NEON)", p1: 5.5 },
+            "Raspberry Pi 4B (4GB LPDDR4)": { cores: 4, bw: 12.8, ram: 4.0, arch: "ARM (NEON)", p1: 2.5 },
+            "Raspberry Pi 3B / Zero 2W": { cores: 4, bw: 3.2, ram: 1.0, arch: "ARM (NEON)", p1: 0.8 },
+            "Jetson Nano (4GB LPDDR4)": { cores: 4, bw: 25.6, ram: 4.0, arch: "ARM (NEON)", p1: 1.3 },
+            "Compute-Rich (Dual-Ch DDR4/5 x86)": { cores: 6, bw: 45.0, ram: 16.0, arch: "Modern x86 (AVX2/512)", p1: 8.0 },
+            "Bandwidth-Starved (Legacy x86)": { cores: 2, bw: 15.0, ram: 4.0, arch: "Legacy x86 (SSE/AVX)", p1: 1.5 },
+        };
+
+        const sel = document.getElementById('profile');
+        for (const k in profiles) { const o = document.createElement('option'); o.textContent = k; sel.appendChild(o); }
+
+        function loadProfile() {
+            const p = profiles[sel.value];
+            document.getElementById('cores').value = p.cores;
+            document.getElementById('bw').value = p.bw;
+            document.getElementById('ram').value = p.ram;
+            document.getElementById('arch').value = p.arch;
+            document.getElementById('p1').value = p.p1;
+            update();
+        }
+
+        function toggleMoE() {
+            const moe = document.querySelector('input[name=mtype]:checked').value === 'moe';
+            document.getElementById('denseControls').style.display = moe ? 'none' : 'block';
+            document.getElementById('moeControls').style.display = moe ? 'block' : 'none';
+            update();
+        }
+
+        // ============================================================
+        // MATH
+        // ============================================================
+        const bitsMap = { "Q4_K_M": 4.5, "Q4_0": 4.5, "Q8_0": 8.5, "IQ4_NL": 4.5, "Q3_K_M": 3.5 };
+
+        function usl(N, s, k) { return N / (1 + s * (N - 1) + k * N * (N - 1)); }
+
+        function compute() {
+            const cores = +document.getElementById('cores').value;
+            const bw = +document.getElementById('bw').value;
+            const ram = +document.getElementById('ram').value;
+            const arch = document.getElementById('arch').value;
+            const p1 = +document.getElementById('p1').value;
+            const quant = document.getElementById('quant').value;
+            const ctx = +document.getElementById('ctx').value;
+            const isMoE = document.querySelector('input[name=mtype]:checked').value === 'moe';
+            const paramsB = isMoE ? +document.getElementById('moeTotal').value : +document.getElementById('params').value;
+            const activeB = isMoE ? +document.getElementById('moeActive').value : paramsB;
+
+            document.getElementById('coresV').textContent = cores;
+            document.getElementById('bwV').textContent = bw;
+            document.getElementById('ramV').textContent = ram;
+            document.getElementById('paramsV').textContent = paramsB.toFixed(1) + 'B';
+            document.getElementById('moeTotalV').textContent = paramsB + 'B';
+            document.getElementById('moeActiveV').textContent = activeB.toFixed(1) + 'B';
+            document.getElementById('ctxV').textContent = ctx;
+
+            const bits = bitsMap[quant];
+            const B_model = (activeB * bits) / 8;
+            const B_kv = ctx * 0.00015 * (activeB / 7);
+            const B_total = B_model + B_kv;
+
+            let archPen = 1.0;
+            if (arch === "Legacy x86 (SSE/AVX)" && quant.includes("K")) archPen = 0.3;
+            else if (arch === "Legacy x86 (SSE/AVX)" && quant === "Q4_0") archPen = 1.2;
+
+            const G1 = p1 * 0.4 * archPen;
+
+            const modelGB = (paramsB * bits) / 8;
+            const kvGB = ctx * 0.00000015 * (paramsB / 7);
+            const totalRAM = modelGB + kvGB + 1.0;
+
+            let oom = false, swap = false;
+            if (totalRAM > ram) { if (totalRAM > ram * 1.5) oom = true; else swap = true; }
+
+            const bwLim = bw / B_total;
+            let sp = 0.02, kp = 0.01, sg = 0.05, kg = 0.05;
+            let optT, regime;
+
+            if (oom) { optT = 0; regime = "OOM"; }
+            else if (swap) { optT = 1; kg = 0.20; regime = "Swap-Thrashing Bound"; }
+            else if (bwLim < G1 * 1.2) { optT = 1; kg = 0.15; regime = "Memory-Bandwidth Bound (Retrograde)"; }
+            else { optT = cores; regime = "Compute Bound"; }
+
+            const T_pp = p1 * usl(cores, sp, kp);
+
+            // CONTEXT LENGTH PENALTY (The "Context Depth Cliff")
+            // Based on thesis data: CPU attention overhead degrades generation ~45% by 16k context
+            let ctx_penalty = 1.0;
+            if (ctx > 4096) {
+                ctx_penalty = Math.max(0.3, 1.0 - (ctx - 4096) * 0.0000378);
+            }
+
+            const T_tg_comp = G1 * usl(optT, sg, kg) * ctx_penalty;
+            const T_tg_bw = bw / B_total;
+            let T_tg;
+            if (oom) T_tg = 0;
+            else if (swap) T_tg = Math.min(T_tg_comp, T_tg_bw) * 0.15;
+            else T_tg = Math.min(T_tg_comp, T_tg_bw);
+
+            return {
+                cores, bw, ram, arch, p1, quant, ctx, isMoE, paramsB, activeB, bits, B_total, archPen, G1,
+                modelGB, kvGB, totalRAM, oom, swap, regime, optT, T_pp, T_tg, bwLim, ctx_penalty
+            };
+        }
+
+        // ============================================================
+        // RENDER
+        // ============================================================
+        function update() {
+            const r = compute();
+
+            document.getElementById('mThreads').textContent = r.oom ? 'N/A' : r.optT;
+            document.getElementById('mPP').textContent = r.oom ? 'N/A' : r.T_pp.toFixed(2) + ' t/s';
+            document.getElementById('mTG').textContent = r.oom ? 'OOM' : r.T_tg.toFixed(2) + ' t/s';
+
+            // Update User Message for Simulation dynamically
+            document.getElementById('userMsg').innerHTML = `Explain CPU LLM inference briefly. <em style="font-size:.78rem;">(Simulating ${r.ctx} tokens of context)</em>`;
+
+            const ma = document.getElementById('memAlert');
+            if (r.oom) {
+                ma.innerHTML = `<div class="alert alert-error">🚨 <strong>Out-Of-Memory (OOM) Predicted:</strong> Weights (${r.modelGB.toFixed(1)} GB) + KV (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = <strong>${r.totalRAM.toFixed(1)} GB</strong> ≫ RAM (${r.ram} GB). The application will crash.</div>`;
+            } else if (r.swap) {
+                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Swap-Thrashing Wall:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). Expect extreme retrograde scaling. Use a smaller model or lower context.</div>`;
+            } else if (r.regime.includes('Retrograde')) {
+                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Memory-Bandwidth Bound:</strong> Generation is bottlenecked by RAM speed. Adding threads causes retrograde scaling (USL κ). Stick to 1 thread.</div>`;
+            } else {
+                ma.innerHTML = `<div class="alert alert-ok">✅ <strong>Compute Bound / Healthy Headroom:</strong> Enough bandwidth and RAM to utilize all cores.</div>`;
+            }
+
+            const ct = document.getElementById('cmdText');
+            const kn = document.getElementById('kvNote');
+            if (r.oom) {
+                ct.textContent = '# Cannot generate command: Model exceeds hardware RAM capacity.';
+                kn.textContent = '';
+            } else {
+                let cmd = `./llama-server -m model.gguf -c ${r.ctx} -t ${r.optT} -ub 512 -fa 0`;
+                if (r.bw > 35) {
+                    cmd += ' -ctk f16 -ctv f16';
+                    kn.textContent = 'ℹ️ KV Cache (Compute-Rich): Dequantization overhead exceeds bandwidth savings. Use f16.';
+                } else {
+                    cmd += ' -ctk q8_0 -ctv q8_0';
+                    kn.textContent = '⚠️ KV Cache (Bandwidth-Starved): Roofline predicts bandwidth savings outweigh compute overhead.';
+                }
+                ct.textContent = cmd;
+            }
+
+            const qw = document.getElementById('quantWarn');
+            if (r.arch === "Legacy x86 (SSE/AVX)" && r.quant.includes("K")) {
+                qw.innerHTML = '<div class="alert alert-error" style="margin-top:.5rem">🚨 <strong>Action Required:</strong> Switch to Q4_0 for a massive speedup.</div>';
+            } else qw.innerHTML = '';
+        }
+
+        function copyCmd() {
+            navigator.clipboard.writeText(document.getElementById('cmdText').textContent);
+        }
+
+        // ============================================================
+        // SIMULATION
+        // ============================================================
+        let simRunning = false;
+
+        function runSim() {
+            if (simRunning) return;
+            const r = compute();
+            if (r.oom) { alert('Cannot simulate: Model would crash (OOM).'); return; }
+
+            simRunning = true;
+            const btn = document.getElementById('simBtn');
+            btn.disabled = true;
+
+            const area = document.getElementById('chatArea');
+            const msg = document.getElementById('asstMsg');
+            const note = document.getElementById('simNote');
+            area.style.display = 'flex';
+            msg.innerHTML = '';
+            note.innerHTML = '';
+
+            // Use the actual context slider value to calculate TTFT
+            const prompt_tokens = r.ctx;
+            const ttft = r.T_pp > 0 ? prompt_tokens / r.T_pp : 99;
+
+            const dpw = r.T_tg > 0 ? 1.3 / r.T_tg : 99;
+
+            // Cap the actual wait time so the user isn't stuck, but show the real math
+            const simTTFT = Math.min(ttft, 3.5);
+            const simDelay = Math.min(dpw, 0.4);
+            const throttled = ttft > 3.5 || dpw > 0.4;
+
+            msg.innerHTML = `<span class="thinking">*Processing ${prompt_tokens} tokens... (Calculated TTFT: ${ttft.toFixed(1)}s)* ⏳</span>`;
+
+            setTimeout(() => {
+                if (throttled) {
+                    note.innerHTML = `<span style="font-size:.82rem;color:var(--yellow)">⚠️ Simulation sped up for UI responsiveness. Real-world TTFT is <strong>${ttft.toFixed(1)}s</strong> and generation is <strong>${r.T_tg.toFixed(2)} tok/s</strong>.</span>`;
+                } else if (r.ctx_penalty < 0.9) {
+                    note.innerHTML = `<span style="font-size:.82rem;color:var(--yellow)">⚠️ Notice the generation slowdown? CPU attention overhead degrades speed by ${((1 - r.ctx_penalty) * 100).toFixed(0)}% at ${r.ctx} context depth.</span>`;
+                }
+
+                const text = "Running large language models on a CPU is a fascinating exercise in hardware optimization. While GPUs dominate the cloud, the CPU remains the workhorse of the edge. By understanding memory bandwidth and thread scaling, we can unlock viable conversational AI on devices as small as a Raspberry Pi.";
+                const words = text.split(' ');
+                let i = 0, out = '';
+
+                function tick() {
+                    if (i < words.length) {
+                        out += words[i] + ' ';
+                        msg.innerHTML = out + '<span class="cursor">▌</span>';
+                        i++;
+                        setTimeout(tick, simDelay * 1000);
+                    } else {
+                        msg.innerHTML = out;
+                        if (r.T_tg < 2 && !throttled) {
+                            note.innerHTML = '<div class="alert alert-warn">🐢 <strong>Notice the lag?</strong> At sub-2 tok/s, reading speed outpaces generation. This is the Bandwidth Wall in action.</div>';
+                        } else if (r.T_tg >= 5) {
+                            note.innerHTML = '<div class="alert alert-ok">⚡ <strong>Smooth!</strong> At >5 tok/s, generation feels natural and conversational.</div>';
+                        }
+                        btn.disabled = false;
+                        simRunning = false;
+                    }
+                }
+                tick();
+            }, simTTFT * 1000);
+        }
+
+        loadProfile();
+    </script>
+</body>
+
+</html>
