@@ -11,12 +11,13 @@
             --card: #1a1d27;
             --border: #2a2d3a;
             --text: #e0e0e0;
-            --muted: #8b8fa3;
+            --muted: #9ca3af;
             --accent: #6c63ff;
             --green: #22c55e;
             --red: #ef4444;
             --yellow: #f59e0b;
             --blue: #3b82f6;
+            --orange: #f97316;
         }
 
         * {
@@ -32,6 +33,7 @@
             line-height: 1.6;
         }
 
+        /* ===== HEADER ===== */
         .header {
             text-align: center;
             padding: 2rem 1rem 1rem;
@@ -50,6 +52,43 @@
             margin: 0 auto;
         }
 
+        /* ===== MODE TOGGLE ===== */
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .mode-btn {
+            padding: 0.5rem 1.2rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .mode-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .mode-btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* ===== LAYOUT ===== */
         .layout {
             display: grid;
             grid-template-columns: 340px 1fr;
@@ -65,6 +104,7 @@
             }
         }
 
+        /* ===== SIDEBAR ===== */
         .sidebar {
             background: var(--card);
             border: 1px solid var(--border);
@@ -109,6 +149,13 @@
             margin-bottom: .6rem;
         }
 
+        select:focus-visible,
+        input:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         input[type=range] {
             accent-color: var(--accent);
             margin-bottom: .1rem;
@@ -146,6 +193,7 @@
             color: var(--text);
         }
 
+        /* ===== MAIN ===== */
         .main {
             display: flex;
             flex-direction: column;
@@ -164,6 +212,7 @@
             margin-bottom: .8rem;
         }
 
+        /* ===== METRICS ===== */
         .metrics {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -189,6 +238,67 @@
             margin-top: .2rem;
         }
 
+        /* ===== SPEED METER ===== */
+        .speed-meter-container {
+            margin-top: 1rem;
+        }
+
+        .speed-meter-label {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .speed-meter {
+            height: 24px;
+            background: var(--bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .speed-meter-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.6s ease, background-color 0.6s ease;
+        }
+
+        .speed-meter-markers {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
+        .speed-verdict {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .verdict-fast {
+            background: #102d1a;
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .verdict-ok {
+            background: #2d2210;
+            color: var(--yellow);
+            border: 1px solid var(--yellow);
+        }
+
+        .verdict-slow {
+            background: #2d1215;
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        /* ===== ALERTS ===== */
         .alert {
             border-radius: 8px;
             padding: .8rem 1rem;
@@ -214,6 +324,13 @@
             color: #86efac;
         }
 
+        .alert-info {
+            background: #1a2d3d;
+            border: 1px solid var(--blue);
+            color: #93c5fd;
+        }
+
+        /* ===== COMMAND BOX ===== */
         .cmd-box {
             background: #12141c;
             border: 1px solid var(--border);
@@ -252,9 +369,7 @@
             margin-top: .4rem;
         }
 
-        /* =========================================
-           ENHANCED CHAT UI
-           ========================================= */
+        /* ===== CHAT ===== */
         .chat-window {
             background: #0d0f14;
             border: 1px solid var(--border);
@@ -417,12 +532,12 @@
             80%,
             100% {
                 transform: scale(0.6);
-                opacity: 0.5;
+                opacity: 0.5
             }
 
             40% {
                 transform: scale(1);
-                opacity: 1;
+                opacity: 1
             }
         }
 
@@ -441,8 +556,7 @@
             opacity: 0.3;
         }
 
-        /* ========================================= */
-
+        /* ===== BUTTONS ===== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -466,7 +580,7 @@
             cursor: not-allowed;
         }
 
-        /* Expanders */
+        /* ===== EXPANDERS ===== */
         .expander {
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -506,11 +620,160 @@
             color: var(--text);
         }
 
+        /* ===== TOOLTIP ===== */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 1px dotted var(--muted);
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background: #1e222d;
+            color: var(--text);
+            text-align: left;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 0.6rem 0.8rem;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.78rem;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        .tooltip:hover .tooltip-text,
+        .tooltip:focus .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* ===== GLOSSARY ===== */
+        .glossary-term {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .glossary-def {
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 1.5rem;
             font-size: .78rem;
             color: var(--muted);
+        }
+
+        /* ===== SIMPLE MODE ===== */
+        .simple-section {
+            display: none;
+        }
+
+        .simple-section.visible {
+            display: block;
+        }
+
+        .advanced-section {
+            display: block;
+        }
+
+        .advanced-section.hidden {
+            display: none;
+        }
+
+        .simple-question {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .simple-question h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .simple-question p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .simple-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.5rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .simple-option:hover {
+            border-color: var(--accent);
+        }
+
+        .simple-option.selected {
+            border-color: var(--accent);
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .simple-option:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .simple-option .opt-title {
+            font-weight: 600;
+        }
+
+        .simple-option .opt-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
+        .plain-result {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .plain-result h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .plain-result .big-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .plain-result .plain-desc {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -520,225 +783,716 @@
     <div class="header">
         <h1>🦙 llama.cpp Hardware-Adaptive Pareto Advisor</h1>
         <p><strong>Based on the Roofline &amp; USL models from Yassine's Master's Thesis.</strong><br>
-            Calculates optimal <code>llama.cpp</code> flags from abstract <em>hardware traits</em> (cores, bandwidth,
-            ISA, RAM) — not specific CPU SKUs — extrapolating to new devices via a model calibrated on 3
-            directly-measured devices (Ryzen 5600H, Pentium G5420, Jetson Nano). Predictions beyond those devices
-            are extrapolations, not measurements.</p>
+            Predicts how fast an AI model will run on your CPU, and recommends the best settings.
+            Calibrated on 3 measured devices (Ryzen 5600H, Pentium G5420, Jetson Nano).
+            Predictions for other devices are estimates, not measurements.</p>
     </div>
 
-    <div class="layout">
-        <!-- ===================== SIDEBAR ===================== -->
-        <div class="sidebar">
-            <h2>⚙️ Configuration</h2>
+    <!-- MODE TOGGLE -->
+    <div class="mode-toggle" role="tablist" aria-label="Interface mode">
+        <button class="mode-btn active" id="simpleModeBtn" role="tab" aria-selected="true" onclick="setMode('simple')">
+            🟢 Simple Mode
+        </button>
+        <button class="mode-btn" id="advancedModeBtn" role="tab" aria-selected="false" onclick="setMode('advanced')">
+            🔧 Advanced Mode
+        </button>
+    </div>
 
-            <h3>1. Hardware Traits</h3>
-            <label>Load Hardware Archetype</label>
-            <select id="profile" onchange="loadProfile()"></select>
+    <!-- ==================== SIMPLE MODE ==================== -->
+    <div id="simpleMode" class="simple-section visible" style="max-width:700px;margin:0 auto;padding:0 1rem;">
 
-            <label>Physical Cores <span class="range-val" id="coresV"></span></label>
-            <input type="range" id="cores" min="1" max="64" value="4" oninput="update()">
-
-            <label>Sustained Memory BW (GB/s) <span class="range-val" id="bwV"></span></label>
-            <input type="range" id="bw" min="1" max="200" step="0.5" value="25" oninput="update()">
-
-            <label>Physical RAM (GB) <span class="range-val" id="ramV"></span></label>
-            <input type="range" id="ram" min="0.5" max="128" step="0.5" value="8" oninput="update()">
-
-            <label>Architecture / ISA Class</label>
-            <select id="arch" onchange="update()">
-                <option>Modern x86 (AVX2/512)</option>
-                <option>Legacy x86 (SSE/AVX)</option>
-                <option>ARM (NEON)</option>
-            </select>
-
-            <label>Single-Thread Base Prefill (tok/s)</label>
-            <input type="number" id="p1" min="0.1" max="50" step="0.1" value="2.0" onchange="update()">
-
-            <h3>2. Model Configuration</h3>
-            <div class="radio-group">
-                <label><input type="radio" name="mtype" value="dense" checked onchange="toggleMoE()"> Dense</label>
-                <label><input type="radio" name="mtype" value="moe" onchange="toggleMoE()"> MoE</label>
-            </div>
-
-            <div id="denseControls">
-                <label>Model Size (Billions) <span class="range-val" id="paramsV"></span></label>
-                <input type="range" id="params" min="0.1" max="70" step="0.1" value="7" oninput="update()">
-            </div>
-            <div id="moeControls" style="display:none">
-                <label>Total MoE Size (B) <span class="range-val" id="moeTotalV"></span></label>
-                <input type="range" id="moeTotal" min="10" max="100" step="1" value="14" oninput="update()">
-                <label>Active Params / Token (B) <span class="range-val" id="moeActiveV"></span></label>
-                <input type="range" id="moeActive" min="1" max="10" step="0.1" value="2.7" oninput="update()">
-            </div>
-
-            <label>Quantization Format</label>
-            <select id="quant" onchange="update()">
-                <option>Q4_K_M</option>
-                <option>Q4_0</option>
-                <option>Q8_0</option>
-                <option>IQ4_NL</option>
-                <option>Q3_K_M</option>
-            </select>
-
-            <label>Context Length (Tokens) <span class="range-val" id="ctxV"></span></label>
-            <input type="range" id="ctx" min="512" max="32768" step="512" value="4096" oninput="update()">
+        <div class="simple-question">
+            <h3>Step 1: What kind of computer are you using?</h3>
+            <p>Pick the closest match. This sets the processor speed and memory bandwidth.</p>
+            <button class="simple-option" onclick="selectDevice('pi3b')" aria-pressed="false">
+                <span class="opt-title">🍓 Raspberry Pi 3 or similar (very low power)</span>
+                <span class="opt-desc">Tiny single-board computer, ~1 GB RAM. Good for very small models only.</span>
+            </button>
+            <button class="simple-option" onclick="selectDevice('pi4b')" aria-pressed="false">
+                <span class="opt-title">🍓 Raspberry Pi 4 (low power)</span>
+                <span class="opt-desc">Single-board computer, 4 GB RAM. Can run small models slowly.</span>
+            </button>
+            <button class="simple-option" onclick="selectDevice('pi5')" aria-pressed="false">
+                <span class="opt-title">🍓 Raspberry Pi 5 (moderate power)</span>
+                <span class="opt-desc">Single-board computer, 8 GB RAM. Can run 7B models at usable speed.</span>
+            </button>
+            <button class="simple-option" onclick="selectDevice('jetson')" aria-pressed="false">
+                <span class="opt-title">🤖 Jetson Nano (embedded AI board)</span>
+                <span class="opt-desc">NVIDIA embedded board, ~4 GB RAM. Similar to a Pi 4 for CPU inference.</span>
+            </button>
+            <button class="simple-option" onclick="selectDevice('pentium')" aria-pressed="false">
+                <span class="opt-title">🖥️ Older desktop PC (Intel Pentium / Celeron)</span>
+                <span class="opt-desc">Budget or office desktop, 2 cores, 4 GB RAM. Slow but functional for small
+                    models.</span>
+            </button>
+            <button class="simple-option" onclick="selectDevice('ryzen')" aria-pressed="false">
+                <span class="opt-title">💻 Modern laptop or desktop (Ryzen 5 / Core i5 or better)</span>
+                <span class="opt-desc">6+ cores, 16 GB RAM. Fast enough for comfortable 7B model use.</span>
+            </button>
         </div>
 
-        <!-- ===================== MAIN ===================== -->
-        <div class="main">
+        <div class="simple-question">
+            <h3>Step 2: How big is the AI model you want to run?</h3>
+            <p>Bigger models are smarter but slower. Smaller models are faster but less capable.</p>
+            <button class="simple-option" onclick="selectModel('tiny')" aria-pressed="false">
+                <span class="opt-title">🐣 Tiny (under 1 billion parameters)</span>
+                <span class="opt-desc">Very fast, very limited. Good for simple tasks on weak hardware.</span>
+            </button>
+            <button class="simple-option" onclick="selectModel('small')" aria-pressed="false">
+                <span class="opt-title">🐤 Small (1–3 billion parameters)</span>
+                <span class="opt-desc">Fast and decent quality. Good balance for most single-board computers.</span>
+            </button>
+            <button class="simple-option" onclick="selectModel('medium')" aria-pressed="false">
+                <span class="opt-title">🦆 Medium (7–8 billion parameters)</span>
+                <span class="opt-desc">Good quality, needs decent hardware. The "standard" local LLM size.</span>
+            </button>
+            <button class="simple-option" onclick="selectModel('large')" aria-pressed="false">
+                <span class="opt-title">🦢 Large (14+ billion parameters)</span>
+                <span class="opt-desc">High quality, very slow on CPU. Usually needs a GPU or a lot of RAM.</span>
+            </button>
+        </div>
 
-            <!-- Metrics -->
-            <div class="card">
-                <h2>📊 Predicted Performance &amp; Memory Reality Check</h2>
-                <div class="metrics">
-                    <div class="metric">
-                        <div class="val" id="mThreads">-</div>
-                        <div class="lbl">Optimal Threads (-t)</div>
+        <div class="simple-question">
+            <h3>Step 3: How long will your conversations be?</h3>
+            <p>Longer conversations need more memory and slow things down.</p>
+            <button class="simple-option" onclick="selectContext('short')" aria-pressed="false">
+                <span class="opt-title">💬 Short (a few sentences to a paragraph)</span>
+                <span class="opt-desc">~512 tokens. Minimal memory impact.</span>
+            </button>
+            <button class="simple-option" onclick="selectContext('medium')" aria-pressed="false">
+                <span class="opt-title">📄 Medium (a page or two of text)</span>
+                <span class="opt-desc">~4,096 tokens. Moderate memory impact.</span>
+            </button>
+            <button class="simple-option" onclick="selectContext('long')" aria-pressed="false">
+                <span class="opt-title">📚 Long (a full document or long chat history)</span>
+                <span class="opt-desc">~16,000 tokens. Significant memory and speed impact.</span>
+            </button>
+        </div>
+
+        <div id="simpleResult" style="display:none;">
+            <div class="plain-result">
+                <h3>📊 Your Predicted Speed</h3>
+                <div class="big-number" id="simpleSpeed">-</div>
+                <div class="plain-desc" id="simpleDesc"></div>
+                <div class="speed-meter-container">
+                    <div class="speed-meter">
+                        <div class="speed-meter-fill" id="simpleMeterFill" style="width:0%;background:var(--red);">
+                        </div>
                     </div>
-                    <div class="metric">
-                        <div class="val" id="mPP">-</div>
-                        <div class="lbl">Prefill (pp512)</div>
-                    </div>
-                    <div class="metric">
-                        <div class="val" id="mTG">-</div>
-                        <div class="lbl">Generation Speed</div>
+                    <div class="speed-meter-markers">
+                        <span>Too slow</span><span>Barely usable</span><span>Comfortable</span><span>Fast</span>
                     </div>
                 </div>
-                <div id="memAlert"></div>
+                <div id="simpleVerdict" style="margin-top:0.8rem;"></div>
             </div>
-
-            <!-- Command -->
-            <div class="card">
-                <h2>🚀 Recommended <code>llama-server</code> Command</h2>
-                <div class="cmd-box" id="cmdBox"><button class="copy-btn" onclick="copyCmd()">Copy</button><span
-                        id="cmdText">-</span></div>
-                <div class="cmd-note" id="kvNote"></div>
+            <div class="plain-result">
+                <h3>💡 What should you do?</h3>
+                <div class="plain-desc" id="simpleAdvice"></div>
             </div>
-
-            <!-- Enhanced Chat Simulation -->
-            <div class="card">
-                <h2>🎬 Experience the Speed</h2>
-                <p style="font-size:.88rem;color:var(--muted);margin-bottom:.8rem;">
-                    Simulate what it actually <em>feels</em> like to chat with this configuration. Drag the Context
-                    Length
-                    slider to see how long-context prefill (TTFT) and generation degrade on CPU.
+            <div class="plain-result">
+                <h3>🎬 See what it feels like</h3>
+                <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem;">
+                    This simulates typing a message and waiting for the AI to respond at your predicted speed.
                 </p>
-                <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-                    <button class="btn" id="simBtn" onclick="runSim()">▶️ Run Simulation</button>
-                    <div id="simNote" style="font-size:.85rem;"></div>
-                </div>
-
-                <div class="chat-window">
+                <button class="btn" onclick="runSimpleSim()">▶️ Try the simulation</button>
+                <div class="chat-window" id="simpleChatWindow" style="display:none;margin-top:1rem;">
                     <div class="chat-header">
                         <span class="status-dot"></span>
-                        <span>llama-server (Local)</span>
-                        <span class="chat-ctx" id="chatCtxLabel">ctx: 4096</span>
+                        <span>Your AI (simulated)</span>
                     </div>
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="empty-state">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                            <span>Click "Run Simulation" to begin the inference test.</span>
+                    <div class="chat-messages" id="simpleChatMessages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ADVANCED MODE ==================== -->
+    <div id="advancedMode" class="advanced-section hidden">
+        <div class="layout">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <h2>⚙️ Configuration</h2>
+
+                <h3>1. Hardware Traits</h3>
+                <label for="profile">Load Hardware Archetype</label>
+                <select id="profile" onchange="loadProfile()" aria-label="Select a hardware preset"></select>
+
+                <label for="cores">Physical Cores <span class="range-val" id="coresV"></span>
+                    <span class="tooltip" tabindex="0" aria-label="What are physical cores?">ℹ️
+                        <span class="tooltip-text">The number of independent processing units in your CPU. More cores =
+                            more parallel work, but only up to the point where memory bandwidth becomes the
+                            bottleneck.</span>
+                    </span>
+                </label>
+                <input type="range" id="cores" min="1" max="64" value="4" oninput="update()"
+                    aria-label="Physical core count">
+
+                <label for="bw">Memory Bandwidth (GB/s) <span class="range-val" id="bwV"></span>
+                    <span class="tooltip" tabindex="0" aria-label="What is memory bandwidth?">ℹ️
+                        <span class="tooltip-text">How fast data moves between RAM and CPU. This is usually the main
+                            bottleneck for AI text generation. Higher = faster generation.</span>
+                    </span>
+                </label>
+                <input type="range" id="bw" min="1" max="200" step="0.5" value="25" oninput="update()"
+                    aria-label="Memory bandwidth in gigabytes per second">
+
+                <label for="ram">Physical RAM (GB) <span class="range-val" id="ramV"></span>
+                    <span class="tooltip" tabindex="0" aria-label="What is RAM?">ℹ️
+                        <span class="tooltip-text">Total memory available. The AI model plus its conversation memory (KV
+                            cache) must fit here, or the system will use slow disk swap and crawl.</span>
+                    </span>
+                </label>
+                <input type="range" id="ram" min="0.5" max="128" step="0.5" value="8" oninput="update()"
+                    aria-label="Physical RAM in gigabytes">
+
+                <label for="arch">Processor Type
+                    <span class="tooltip" tabindex="0" aria-label="What is processor type?">ℹ️
+                        <span class="tooltip-text">Determines which optimizations are available. Modern x86 has
+                            AVX2/AVX-512 vector instructions. Legacy x86 lacks these. ARM uses NEON instructions.</span>
+                    </span>
+                </label>
+                <select id="arch" onchange="update()" aria-label="Processor architecture type">
+                    <option>Modern x86 (AVX2/512)</option>
+                    <option>Legacy x86 (SSE/AVX)</option>
+                    <option>ARM (NEON)</option>
+                </select>
+
+                <label for="p1">Single-Thread Prefill Speed (tok/s)
+                    <span class="tooltip" tabindex="0" aria-label="What is single-thread prefill speed?">ℹ️
+                        <span class="tooltip-text">How fast one CPU core reads/processes the initial prompt. This is
+                            measured, not calculated. If unsure, leave the default for your archetype.</span>
+                    </span>
+                </label>
+                <input type="number" id="p1" min="0.1" max="50" step="0.1" value="2.0" onchange="update()"
+                    aria-label="Single-thread prefill speed in tokens per second">
+
+                <h3>2. Model Configuration</h3>
+                <div class="radio-group" role="radiogroup" aria-label="Model architecture type">
+                    <label><input type="radio" name="mtype" value="dense" checked onchange="toggleMoE()"> Dense
+                        (standard)</label>
+                    <label><input type="radio" name="mtype" value="moe" onchange="toggleMoE()"> MoE (sparse)
+                        <span class="tooltip" tabindex="0" aria-label="What is MoE?">ℹ️
+                            <span class="tooltip-text">Mixture-of-Experts: only a fraction of parameters are used per
+                                token, so it reads less data from memory per word. Theoretically faster on CPU, but
+                                untested locally.</span>
+                        </span>
+                    </label>
+                </div>
+
+                <div id="denseControls">
+                    <label for="params">Model Size (Billions) <span class="range-val" id="paramsV"></span></label>
+                    <input type="range" id="params" min="0.1" max="70" step="0.1" value="7" oninput="update()"
+                        aria-label="Model size in billions of parameters">
+                </div>
+                <div id="moeControls" style="display:none">
+                    <label for="moeTotal">Total MoE Size (B) <span class="range-val" id="moeTotalV"></span></label>
+                    <input type="range" id="moeTotal" min="10" max="100" step="1" value="14" oninput="update()"
+                        aria-label="Total MoE model size">
+                    <label for="moeActive">Active Params per Token (B) <span class="range-val"
+                            id="moeActiveV"></span></label>
+                    <input type="range" id="moeActive" min="1" max="10" step="0.1" value="2.7" oninput="update()"
+                        aria-label="Active parameters per token">
+                </div>
+
+                <label for="quant">Quantization Format
+                    <span class="tooltip" tabindex="0" aria-label="What is quantization?">ℹ️
+                        <span class="tooltip-text">How the model's numbers are compressed. Q4_K_M is the standard
+                            balance of quality and size. Q4_0 is older but faster on legacy CPUs. Q8_0 is larger but
+                            higher quality.</span>
+                    </span>
+                </label>
+                <select id="quant" onchange="update()" aria-label="Quantization format">
+                    <option>Q4_K_M</option>
+                    <option>Q4_0</option>
+                    <option>Q8_0</option>
+                    <option>IQ4_NL</option>
+                    <option>Q3_K_M</option>
+                </select>
+
+                <label for="ctx">Context Length (Tokens) <span class="range-val" id="ctxV"></span>
+                    <span class="tooltip" tabindex="0" aria-label="What is context length?">ℹ️
+                        <span class="tooltip-text">How much conversation the model remembers. ~1 token ≈ 0.75 words.
+                            Longer context = more memory used and slower generation.</span>
+                    </span>
+                </label>
+                <input type="range" id="ctx" min="512" max="32768" step="512" value="4096" oninput="update()"
+                    aria-label="Context length in tokens">
+            </div>
+
+            <!-- MAIN -->
+            <div class="main">
+
+                <!-- Metrics -->
+                <div class="card">
+                    <h2>📊 Predicted Performance</h2>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="val" id="mThreads">-</div>
+                            <div class="lbl">Best Thread Count (-t)</div>
+                        </div>
+                        <div class="metric">
+                            <div class="val" id="mPP">-</div>
+                            <div class="lbl">Reading Speed (prefill)</div>
+                        </div>
+                        <div class="metric">
+                            <div class="val" id="mTG">-</div>
+                            <div class="lbl">Writing Speed (generation)</div>
+                        </div>
+                    </div>
+
+                    <!-- Speed meter -->
+                    <div class="speed-meter-container">
+                        <div class="speed-meter-label">Generation speed at a glance:</div>
+                        <div class="speed-meter">
+                            <div class="speed-meter-fill" id="meterFill" style="width:0%;background:var(--red);"></div>
+                        </div>
+                        <div class="speed-meter-markers">
+                            <span>0</span><span>1</span><span>3</span><span>5</span><span>10+</span>
+                        </div>
+                    </div>
+                    <div id="speedVerdict" style="margin-top:0.5rem;"></div>
+
+                    <div id="memAlert"></div>
+                </div>
+
+                <!-- Command -->
+                <div class="card">
+                    <h2>🚀 Recommended <code>llama-server</code> Command</h2>
+                    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;">
+                        Copy-paste this into your terminal to run the model with optimal settings.
+                    </p>
+                    <div class="cmd-box" id="cmdBox"><button class="copy-btn" onclick="copyCmd()">Copy</button><span
+                            id="cmdText">-</span></div>
+                    <div class="cmd-note" id="kvNote"></div>
+                </div>
+
+                <!-- Simulation -->
+                <div class="card">
+                    <h2>🎬 Experience the Speed</h2>
+                    <p style="font-size:.88rem;color:var(--muted);margin-bottom:.8rem;">
+                        Simulates what chatting with this AI actually feels like at the predicted speed.
+                        Drag the Context Length slider to see how longer conversations slow things down.
+                    </p>
+                    <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                        <button class="btn" id="simBtn" onclick="runSim()">▶️ Run Simulation</button>
+                        <div id="simNote" style="font-size:.85rem;"></div>
+                    </div>
+
+                    <div class="chat-window">
+                        <div class="chat-header">
+                            <span class="status-dot"></span>
+                            <span>llama-server (Local)</span>
+                            <span class="chat-ctx" id="chatCtxLabel">ctx: 4096</span>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="empty-state">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <span>Click "Run Simulation" to see the AI respond at your predicted speed.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Thesis Insights -->
-            <div class="card">
-                <h2>🧠 Thesis Insights &amp; Pareto Front Analysis</h2>
+                <!-- Thesis Insights -->
+                <div class="card">
+                    <h2>🧠 Thesis Insights &amp; Pareto Front Analysis</h2>
 
-                <!-- FIX 3: New Caveats expander -->
-                <details class="expander" open>
-                    <summary>⚠️ What's Measured vs. What's Extrapolated</summary>
-                    <div class="body">
-                        <strong>Directly measured (our own llama-bench data):</strong> Ryzen 5 5600H (laptop), Pentium
-                        Gold G5420 (desktop), Jetson Nano. A Raspberry Pi 3B was attempted but produced zero usable
-                        benchmark rows.<br><br>
-                        <strong>Never tested locally:</strong> Raspberry Pi 4B and Pi 5. Any numbers shown for these
-                        devices come from third-party sources and are marked as such below.<br><br>
-                        <strong>MoE models:</strong> Staged in the harness but never benchmarked to completion on any
-                        device. The "bytes-per-token" MoE advantage shown here is a theoretical prediction derived from
-                        dense-model bandwidth mechanics, not a measured result.<br><br>
-                        <strong>This calculator:</strong> A client-side prediction tool implementing the roofline/USL
-                        model. It does not run any benchmarks. For devices other than the three calibrated above, treat
-                        outputs as informed estimates, not measurements.
+                    <details class="expander" open>
+                        <summary>⚠️ What's Measured vs. What's Extrapolated</summary>
+                        <div class="body">
+                            <strong>Directly measured (our own llama-bench data):</strong> Ryzen 5 5600H (laptop),
+                            Pentium
+                            Gold G5420 (desktop), Jetson Nano. A Raspberry Pi 3B was attempted but produced zero usable
+                            benchmark rows.<br><br>
+                            <strong>Never tested locally:</strong> Raspberry Pi 4B and Pi 5. Any numbers shown for these
+                            devices come from third-party sources and are marked as such below.<br><br>
+                            <strong>MoE models:</strong> Staged in the harness but never benchmarked to completion on
+                            any
+                            device. The "bytes-per-token" MoE advantage shown here is a theoretical prediction derived
+                            from
+                            dense-model bandwidth mechanics, not a measured result.<br><br>
+                            <strong>This calculator:</strong> A client-side prediction tool implementing the
+                            roofline/USL
+                            model. It does not run any benchmarks. For devices other than the three calibrated above,
+                            treat
+                            outputs as informed estimates, not measurements.
+                        </div>
+                    </details>
+
+                    <details class="expander">
+                        <summary>💡 The Quantization Format Paradox (Legacy x86)</summary>
+                        <div class="body">
+                            <strong>Thesis Finding:</strong> On legacy CPUs lacking AVX-512/VNNI (e.g., Pentium G5420),
+                            smaller K-quant formats like <code>Q3_K_M</code> or <code>Q4_K_M</code> are actually
+                            <strong>slower</strong> than the older, larger <code>Q4_0</code> format.
+                            The complex bitwise unpacking required for K-quants bottlenecks the CPU. <code>Q4_0</code>
+                            maintains ~98.8% accuracy relative to F16 and is the strictly Pareto-dominant choice for
+                            older
+                            hardware.
+                            <div id="quantWarn"></div>
+                        </div>
+                    </details>
+
+                    <details class="expander">
+                        <summary>🧠 Mixture-of-Experts (MoE) on Edge Devices</summary>
+                        <div class="body">
+                            <strong>Thesis Finding:</strong> On GPUs, MoE is a capacity play. On CPUs, MoE is a
+                            <strong>bandwidth play</strong>.
+                            Because generation is memory-bandwidth-bound, an MoE model (e.g., 14B total, 2.7B active)
+                            only
+                            streams the active experts per token. This drastically reduces <code>B_total</code> in the
+                            Roofline equation, allowing MoE models to bypass the sub-1 tok/s bottleneck that traps dense
+                            7B
+                            models on bandwidth-starved hardware.<br><br>
+                            <em style="color:var(--yellow);">⚠️ Note: This is a theoretical prediction derived from our
+                                dense-model bandwidth data. No MoE model was benchmarked to completion on our
+                                hardware.</em>
+                        </div>
+                    </details>
+
+                    <details class="expander">
+                        <summary>📉 Flash Attention &amp; KV Cache on CPU</summary>
+                        <div class="body">
+                            <strong>Thesis Finding:</strong> Flash Attention (<code>-fa 1</code>) is designed for GPU
+                            HBM/SRAM hierarchies. On CPU, the L3 cache handles attention state differently.
+                            Empirical sweeps showed Flash Attention is neutral at short context, but causes a <strong>3×
+                                performance regression</strong> at 15K context depths on CPU. Always use
+                            <code>-fa 0</code>.
+                            Similarly, KV-cache quantization is a net loss on compute-rich CPUs (dequantization costs
+                            more
+                            cycles than the bandwidth saved), but flips to a net win on ultra-low bandwidth edge
+                            devices.
+                        </div>
+                    </details>
+
+                    <details class="expander">
+                        <summary>📊 External Reference Points (Third-Party — Not Our Measurements)</summary>
+                        <div class="body">
+                            <em>These are published third-party numbers included for context only. They were NOT run
+                                with
+                                our harness or our model checkpoints. The only edge device we actually measured
+                                ourselves is
+                                the Jetson Nano.</em><br><br>
+                            • <strong>Raspberry Pi 5 (8GB):</strong> ~2–3 tok/s on 7–8B-class Q4 models.<br>
+                            <span style="font-size:.75rem; color:var(--muted);">Sources: Jeff Geerling's ai-benchmarks
+                                repo
+                                (github.com/geerlingguy/ai-benchmarks); LocalAIMaster 2026 survey
+                                (localaimaster.com/blog/llm-raspberry-pi-5)</span><br><br>
+                            • <strong>Raspberry Pi 4B (4GB):</strong> No independently verified source found for 7B
+                            generation throughput — treat as an open gap, not an oversight.<br><br>
+                            • <strong>Raspberry Pi 3B (1GB):</strong> No independently verified source found for
+                            generation
+                            throughput — treat as an open gap.<br><br>
+                            • <strong>Jetson Nano (4GB):</strong> ~0.04 tok/s on 7B (flat, bandwidth-saturated at 1
+                            thread);
+                            ~3 tok/s on 1.5B (scales linearly).<br>
+                            <span style="font-size:.75rem; color:var(--green);">✓ OUR OWN MEASURED DATA — the only edge
+                                baseline we actually collected with llama-bench.</span>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Glossary -->
+                <div class="card">
+                    <h2>📖 Glossary</h2>
+                    <div class="body" style="padding:0;">
+                        <p class="glossary-term">Token</p>
+                        <p class="glossary-def">A chunk of text, roughly ¾ of a word. "Hello world" is 2 tokens. Speed
+                            is measured in tokens per second (tok/s).</p>
+
+                        <p class="glossary-term">Prefill (pp512)</p>
+                        <p class="glossary-def">The "reading" phase. The model processes your entire prompt before it
+                            starts writing. Speed here depends on raw CPU compute power.</p>
+
+                        <p class="glossary-term">Generation (tg128)</p>
+                        <p class="glossary-def">The "writing" phase. The model produces text one token at a time. Speed
+                            here depends mostly on memory bandwidth, not CPU power.</p>
+
+                        <p class="glossary-term">KV Cache</p>
+                        <p class="glossary-def">The model's short-term memory of the conversation so far. Grows as the
+                            conversation gets longer. Must fit in RAM.</p>
+
+                        <p class="glossary-term">Quantization</p>
+                        <p class="glossary-def">Compressing the model's numbers to use less memory. Q4 = 4 bits per
+                            number (small, fast, slightly less accurate). Q8 = 8 bits (bigger, slower, more accurate).
+                        </p>
+
+                        <p class="glossary-term">Roofline Model</p>
+                        <p class="glossary-def">A way to predict the maximum possible speed based on two limits: how
+                            fast the CPU can compute, and how fast memory can deliver data. Whichever limit is hit first
+                            determines your actual speed.</p>
+
+                        <p class="glossary-term">USL (Universal Scalability Law)</p>
+                        <p class="glossary-def">A formula that predicts how speed changes as you add more CPU threads.
+                            It accounts for the fact that threads can get in each other's way, sometimes making things
+                            slower.</p>
+
+                        <p class="glossary-term">Retrograde Scaling</p>
+                        <p class="glossary-def">When adding more CPU threads actually makes the model slower, not
+                            faster. Happens when memory bandwidth is the bottleneck and extra threads just add
+                            contention.</p>
+
+                        <p class="glossary-term">Flash Attention</p>
+                        <p class="glossary-def">A GPU optimization that reduces memory traffic. On CPU, it's neutral at
+                            best and can be a 3× slowdown at long context. Always disable it on CPU (-fa 0).</p>
+
+                        <p class="glossary-term">MoE (Mixture of Experts)</p>
+                        <p class="glossary-def">A model architecture where only a subset of parameters are used per
+                            token. Theoretically faster on CPU because less data is read from memory per word. Untested
+                            locally.</p>
+
+                        <p class="glossary-term">Pareto Front</p>
+                        <p class="glossary-def">The set of "best possible" configurations where you can't improve speed
+                            without sacrificing quality or memory (and vice versa). This tool helps you find your point
+                            on that front.</p>
                     </div>
-                </details>
+                </div>
 
-                <details class="expander">
-                    <summary>💡 The Quantization Format Paradox (Legacy x86)</summary>
-                    <div class="body">
-                        <strong>Thesis Finding:</strong> On legacy CPUs lacking AVX-512/VNNI (e.g., Pentium G5420),
-                        smaller K-quant formats like <code>Q3_K_M</code> or <code>Q4_K_M</code> are actually
-                        <strong>slower</strong> than the older, larger <code>Q4_0</code> format.
-                        The complex bitwise unpacking required for K-quants bottlenecks the CPU. <code>Q4_0</code>
-                        maintains ~98.8% accuracy relative to F16 and is the strictly Pareto-dominant choice for older
-                        hardware.
-                        <div id="quantWarn"></div>
-                    </div>
-                </details>
-
-                <details class="expander">
-                    <summary>🧠 Mixture-of-Experts (MoE) on Edge Devices</summary>
-                    <div class="body">
-                        <strong>Thesis Finding:</strong> On GPUs, MoE is a capacity play. On CPUs, MoE is a
-                        <strong>bandwidth play</strong>.
-                        Because generation is memory-bandwidth-bound, an MoE model (e.g., 14B total, 2.7B active) only
-                        streams the active experts per token. This drastically reduces <code>B_total</code> in the
-                        Roofline equation, allowing MoE models to bypass the sub-1 tok/s bottleneck that traps dense 7B
-                        models on bandwidth-starved hardware.<br><br>
-                        <em style="color:var(--yellow);">⚠️ Note: This is a theoretical prediction derived from our
-                            dense-model bandwidth data. No MoE model was benchmarked to completion on our hardware.</em>
-                    </div>
-                </details>
-
-                <details class="expander">
-                    <summary>📉 Flash Attention &amp; KV Cache on CPU</summary>
-                    <div class="body">
-                        <strong>Thesis Finding:</strong> Flash Attention (<code>-fa 1</code>) is designed for GPU
-                        HBM/SRAM hierarchies. On CPU, the L3 cache handles attention state differently.
-                        Empirical sweeps showed Flash Attention is neutral at short context, but causes a <strong>3×
-                            performance regression</strong> at 15K context depths on CPU. Always use <code>-fa 0</code>.
-                        Similarly, KV-cache quantization is a net loss on compute-rich CPUs (dequantization costs more
-                        cycles than the bandwidth saved), but flips to a net win on ultra-low bandwidth edge devices.
-                    </div>
-                </details>
-
-                <!-- FIX 1: Renamed from "Empirical Reference Baselines" to "External Reference Points" -->
-                <details class="expander">
-                    <summary>📊 External Reference Points (Third-Party — Not Our Measurements)</summary>
-                    <div class="body">
-                        <em>These are published third-party numbers included for context only. They were NOT run with
-                            our harness or our model checkpoints. The only edge device we actually measured ourselves is
-                            the Jetson Nano.</em><br><br>
-                        • <strong>Raspberry Pi 5 (8GB):</strong> ~2–3 tok/s on 7–8B-class Q4 models.<br>
-                        <span style="font-size:.75rem; color:var(--muted);">Sources: Jeff Geerling's ai-benchmarks repo
-                            (github.com/geerlingguy/ai-benchmarks); LocalAIMaster 2026 survey
-                            (localaimaster.com/blog/llm-raspberry-pi-5)</span><br><br>
-                        • <strong>Raspberry Pi 4B (4GB):</strong> No independently verified source found for 7B
-                        generation throughput — treat as an open gap, not an oversight.<br><br>
-                        • <strong>Raspberry Pi 3B (1GB):</strong> No independently verified source found for generation
-                        throughput — treat as an open gap.<br><br>
-                        • <strong>Jetson Nano (4GB):</strong> ~0.04 tok/s on 7B (flat, bandwidth-saturated at 1 thread);
-                        ~3 tok/s on 1.5B (scales linearly).<br>
-                        <span style="font-size:.75rem; color:var(--green);">✓ OUR OWN MEASURED DATA — the only edge
-                            baseline we actually collected with llama-bench.</span>
-                    </div>
-                </details>
-            </div>
-
-        </div><!-- /main -->
-    </div><!-- /layout -->
+            </div><!-- /main -->
+        </div><!-- /layout -->
+    </div><!-- /advancedMode -->
 
     <div class="footer">Powered by the Hardware-Adaptive Pareto Front Model. Equations derived from Gunther's Universal
         Scalability Law (USL) and Roofline Analysis. © Yassine's Master's Thesis.</div>
 
     <script>
         // ============================================================
-        // PROFILES
+        // MODE TOGGLE
+        // ============================================================
+        function setMode(mode) {
+            const simple = document.getElementById('simpleMode');
+            const advanced = document.getElementById('advancedMode');
+            const simpleBtn = document.getElementById('simpleModeBtn');
+            const advancedBtn = document.getElementById('advancedModeBtn');
+
+            if (mode === 'simple') {
+                simple.classList.add('visible');
+                advanced.classList.add('hidden');
+                simpleBtn.classList.add('active');
+                simpleBtn.setAttribute('aria-selected', 'true');
+                advancedBtn.classList.remove('active');
+                advancedBtn.setAttribute('aria-selected', 'false');
+            } else {
+                simple.classList.remove('visible');
+                advanced.classList.remove('hidden');
+                advancedBtn.classList.add('active');
+                advancedBtn.setAttribute('aria-selected', 'true');
+                simpleBtn.classList.remove('active');
+                simpleBtn.setAttribute('aria-selected', 'false');
+            }
+        }
+
+        // ============================================================
+        // SIMPLE MODE STATE
+        // ============================================================
+        let simpleDevice = null;
+        let simpleModelSize = null;
+        let simpleContextLen = null;
+
+        const devicePresets = {
+            pi3b: { cores: 4, bw: 3.2, ram: 1.0, arch: "ARM (NEON)", p1: 0.8, name: "Raspberry Pi 3" },
+            pi4b: { cores: 4, bw: 12.8, ram: 4.0, arch: "ARM (NEON)", p1: 2.5, name: "Raspberry Pi 4" },
+            pi5: { cores: 4, bw: 17.0, ram: 8.0, arch: "ARM (NEON)", p1: 5.5, name: "Raspberry Pi 5" },
+            jetson: { cores: 4, bw: 25.6, ram: 4.0, arch: "ARM (NEON)", p1: 1.3, name: "Jetson Nano" },
+            pentium: { cores: 2, bw: 15.0, ram: 4.0, arch: "Legacy x86 (SSE/AVX)", p1: 1.5, name: "Pentium Desktop" },
+            ryzen: { cores: 6, bw: 45.0, ram: 16.0, arch: "Modern x86 (AVX2/512)", p1: 8.0, name: "Modern Laptop/Desktop" }
+        };
+
+        const modelSizes = {
+            tiny: { params: 0.5, label: "Tiny (<1B)" },
+            small: { params: 1.5, label: "Small (1-3B)" },
+            medium: { params: 7.0, label: "Medium (7B)" },
+            large: { params: 14.0, label: "Large (14B)" }
+        };
+
+        const contextLengths = {
+            short: { ctx: 512, label: "Short" },
+            medium: { ctx: 4096, label: "Medium" },
+            long: { ctx: 15872, label: "Long" }
+        };
+
+        function selectDevice(key) {
+            simpleDevice = key;
+            document.querySelectorAll('.simple-question:nth-child(1) .simple-option').forEach(b => {
+                b.classList.remove('selected');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            event.currentTarget.classList.add('selected');
+            event.currentTarget.setAttribute('aria-pressed', 'true');
+            checkSimpleComplete();
+        }
+
+        function selectModel(key) {
+            simpleModelSize = key;
+            document.querySelectorAll('.simple-question:nth-child(2) .simple-option').forEach(b => {
+                b.classList.remove('selected');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            event.currentTarget.classList.add('selected');
+            event.currentTarget.setAttribute('aria-pressed', 'true');
+            checkSimpleComplete();
+        }
+
+        function selectContext(key) {
+            simpleContextLen = key;
+            document.querySelectorAll('.simple-question:nth-child(3) .simple-option').forEach(b => {
+                b.classList.remove('selected');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            event.currentTarget.classList.add('selected');
+            event.currentTarget.setAttribute('aria-pressed', 'true');
+            checkSimpleComplete();
+        }
+
+        function checkSimpleComplete() {
+            if (simpleDevice && simpleModelSize && simpleContextLen) {
+                computeSimpleResult();
+                document.getElementById('simpleResult').style.display = 'block';
+            }
+        }
+
+        function computeSimpleResult() {
+            const dev = devicePresets[simpleDevice];
+            const mod = modelSizes[simpleModelSize];
+            const ctx = contextLengths[simpleContextLen];
+
+            // Set advanced inputs to match
+            document.getElementById('cores').value = dev.cores;
+            document.getElementById('bw').value = dev.bw;
+            document.getElementById('ram').value = dev.ram;
+            document.getElementById('arch').value = dev.arch;
+            document.getElementById('p1').value = dev.p1;
+            document.getElementById('params').value = mod.params;
+            document.getElementById('ctx').value = ctx.ctx;
+            document.getElementById('quant').value = 'Q4_K_M';
+            document.querySelector('input[name=mtype][value=dense]').checked = true;
+            toggleMoE();
+
+            const r = compute();
+
+            // Update simple result
+            const speedEl = document.getElementById('simpleSpeed');
+            const descEl = document.getElementById('simpleDesc');
+            const meterEl = document.getElementById('simpleMeterFill');
+            const verdictEl = document.getElementById('simpleVerdict');
+            const adviceEl = document.getElementById('simpleAdvice');
+
+            if (r.oom) {
+                speedEl.textContent = 'OOM';
+                descEl.textContent = `The ${mod.label} model (${(mod.params * 4.5 / 8).toFixed(1)} GB) plus the conversation memory (${r.kvGB.toFixed(1)} GB) plus the operating system (${1.0} GB) totals ${r.totalRAM.toFixed(1)} GB, which exceeds your ${dev.ram} GB of RAM. The model will crash or be unusably slow.`;
+                meterEl.style.width = '2%';
+                meterEl.style.background = 'var(--red)';
+                verdictEl.innerHTML = '<div class="speed-verdict verdict-slow">❌ Will not fit in memory</div>';
+                adviceEl.innerHTML = `<strong>Use a smaller model.</strong> On ${dev.name} with ${dev.ram} GB RAM, try a model under ${Math.max(0.5, (dev.ram - 1.5) * 8 / 4.5).toFixed(1)}B parameters at Q4 quantization. Alternatively, reduce the context length.`;
+            } else if (r.swap) {
+                speedEl.textContent = r.T_tg.toFixed(2) + ' tok/s';
+                descEl.textContent = `The model barely fits in your ${dev.ram} GB RAM, but the system will use slow disk swap. Expect extreme slowdowns. Effective speed: ${r.T_tg.toFixed(2)} tokens per second.`;
+                const pct = Math.min(100, (r.T_tg / 10) * 100);
+                meterEl.style.width = pct + '%';
+                meterEl.style.background = r.T_tg < 1 ? 'var(--red)' : r.T_tg < 3 ? 'var(--orange)' : r.T_tg < 5 ? 'var(--yellow)' : 'var(--green)';
+                verdictEl.innerHTML = `<div class="speed-verdict verdict-slow">⚠️ Swap thrashing — extremely slow</div>`;
+                adviceEl.innerHTML = `<strong>Use a smaller model or shorter context.</strong> The current configuration exceeds your RAM. Try reducing model size or context length to stay within ${dev.ram} GB.`;
+            } else {
+                speedEl.textContent = r.T_tg.toFixed(2) + ' tok/s';
+                let desc = '';
+                let verdict = '';
+                let meterColor = '';
+                let pct = Math.min(100, (r.T_tg / 10) * 100);
+
+                if (r.T_tg < 1) {
+                    desc = `At ${r.T_tg.toFixed(2)} tokens per second, the AI generates roughly one word every ${(1.3 / r.T_tg).toFixed(1)} seconds. Reading will outpace generation significantly. This is painful to use.`;
+                    verdict = '<div class="speed-verdict verdict-slow">🐢 Too slow for comfortable use</div>';
+                    meterColor = 'var(--red)';
+                } else if (r.T_tg < 3) {
+                    desc = `At ${r.T_tg.toFixed(2)} tokens per second, the AI generates roughly one word every ${(1.3 / r.T_tg).toFixed(1)} seconds. Usable but noticeably slow — you'll wait for responses.`;
+                    verdict = '<div class="speed-verdict verdict-ok">🐌 Slow but functional</div>';
+                    meterColor = 'var(--orange)';
+                } else if (r.T_tg < 5) {
+                    desc = `At ${r.T_tg.toFixed(2)} tokens per second, the AI generates text at a reasonable pace. Conversations feel natural with minor pauses.`;
+                    verdict = '<div class="speed-verdict verdict-ok">👍 Comfortable for most use cases</div>';
+                    meterColor = 'var(--yellow)';
+                } else {
+                    desc = `At ${r.T_tg.toFixed(2)} tokens per second, the AI generates text quickly. Conversations feel fast and responsive.`;
+                    verdict = '<div class="speed-verdict verdict-fast">⚡ Fast and responsive</div>';
+                    meterColor = 'var(--green)';
+                }
+
+                descEl.textContent = desc;
+                verdictEl.innerHTML = verdict;
+                meterEl.style.width = pct + '%';
+                meterEl.style.background = meterColor;
+
+                // Advice
+                let advice = `<strong>Thread count:</strong> Use <code>-t ${r.optT}</code> (${r.optT === 1 ? 'single-threaded is fastest on this hardware' : r.optT + ' threads is optimal'}).<br>`;
+                advice += `<strong>Flash Attention:</strong> Always disable it on CPU (<code>-fa 0</code>).<br>`;
+                if (r.bw > 35) {
+                    advice += `<strong>KV Cache:</strong> Use full precision (<code>-ctk f16 -ctv f16</code>) since your hardware is compute-rich.`;
+                } else {
+                    advice += `<strong>KV Cache:</strong> Quantized KV cache (<code>-ctk q8_0 -ctv q8_0</code>) may help on bandwidth-starved hardware.`;
+                }
+                adviceEl.innerHTML = advice;
+            }
+        }
+
+        let simpleSimRunning = false;
+        function runSimpleSim() {
+            if (simpleSimRunning) return;
+            const r = compute();
+            if (r.oom) { alert('Cannot simulate: model would crash (OOM).'); return; }
+
+            simpleSimRunning = true;
+            const chatWindow = document.getElementById('simpleChatWindow');
+            const chatMessages = document.getElementById('simpleChatMessages');
+            chatWindow.style.display = 'block';
+            chatMessages.innerHTML = '';
+
+            const prompt_tokens = r.ctx;
+            const ttft = r.T_pp > 0 ? prompt_tokens / r.T_pp : 99;
+            const dpw = r.T_tg > 0 ? 1.3 / r.T_tg : 99;
+            const simTTFT = Math.min(ttft, 3.5);
+            const simDelay = Math.min(dpw, 0.4);
+
+            const userRow = document.createElement('div');
+            userRow.className = 'msg-row user';
+            userRow.innerHTML = `<div class="avatar user">👤</div><div class="bubble user">Explain CPU LLM inference briefly.<span class="meta">Prompt: ${prompt_tokens} tokens</span></div>`;
+            chatMessages.appendChild(userRow);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            const botRow = document.createElement('div');
+            botRow.className = 'msg-row bot';
+            botRow.innerHTML = `<div class="avatar bot">🦙</div><div class="bubble bot"><div class="typing-dots"><span></span><span></span><span></span></div><span class="meta" style="margin-top:8px;">Reading your message... (takes ~${ttft.toFixed(1)}s in real life)</span></div>`;
+            chatMessages.appendChild(botRow);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                const bubble = botRow.querySelector('.bubble');
+                bubble.innerHTML = '<span class="cursor"></span>';
+
+                const text = "Running AI models on a CPU means the processor reads the model's weights from memory for every single word it writes. The speed is limited by how fast memory can deliver data, not by how fast the CPU can compute.";
+                const words = text.split(' ');
+                let i = 0, out = '';
+
+                function tick() {
+                    if (i < words.length) {
+                        out += words[i] + ' ';
+                        bubble.innerHTML = out + '<span class="cursor"></span>';
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        i++;
+                        setTimeout(tick, simDelay * 1000);
+                    } else {
+                        bubble.innerHTML = out + `<span class="meta">${words.length} words at ${r.T_tg.toFixed(2)} tok/s</span>`;
+                        simpleSimRunning = false;
+                    }
+                }
+                tick();
+            }, simTTFT * 1000);
+        }
+
+        // ============================================================
+        // ADVANCED MODE - PROFILES
         // ============================================================
         const profiles = {
             "Custom / Manual Entry": { cores: 4, bw: 25.0, ram: 8.0, arch: "ARM (NEON)", p1: 2.0 },
@@ -771,7 +1525,7 @@
         }
 
         // ============================================================
-        // MATH
+        // MATH (unchanged)
         // ============================================================
         const bitsMap = { "Q4_K_M": 4.5, "Q4_0": 4.5, "Q8_0": 8.5, "IQ4_NL": 4.5, "Q3_K_M": 3.5 };
 
@@ -827,7 +1581,6 @@
 
             const T_pp = p1 * usl(cores, sp, kp);
 
-            // CONTEXT LENGTH PENALTY (The "Context Depth Cliff")
             let ctx_penalty = 1.0;
             if (ctx > 4096) {
                 ctx_penalty = Math.max(0.3, 1.0 - (ctx - 4096) * 0.0000378);
@@ -847,7 +1600,7 @@
         }
 
         // ============================================================
-        // RENDER
+        // RENDER (Advanced)
         // ============================================================
         function update() {
             const r = compute();
@@ -856,15 +1609,40 @@
             document.getElementById('mPP').textContent = r.oom ? 'N/A' : r.T_pp.toFixed(2) + ' t/s';
             document.getElementById('mTG').textContent = r.oom ? 'OOM' : r.T_tg.toFixed(2) + ' t/s';
 
+            // Speed meter
+            const meterEl = document.getElementById('meterFill');
+            const verdictEl = document.getElementById('speedVerdict');
+            if (r.oom) {
+                meterEl.style.width = '2%';
+                meterEl.style.background = 'var(--red)';
+                verdictEl.innerHTML = '<div class="speed-verdict verdict-slow">❌ Model exceeds RAM — will crash</div>';
+            } else {
+                const pct = Math.min(100, (r.T_tg / 10) * 100);
+                meterEl.style.width = pct + '%';
+                if (r.T_tg < 1) {
+                    meterEl.style.background = 'var(--red)';
+                    verdictEl.innerHTML = '<div class="speed-verdict verdict-slow">🐢 Too slow — one word every ' + (1.3 / r.T_tg).toFixed(1) + 's</div>';
+                } else if (r.T_tg < 3) {
+                    meterEl.style.background = 'var(--orange)';
+                    verdictEl.innerHTML = '<div class="speed-verdict verdict-ok">🐌 Slow but usable</div>';
+                } else if (r.T_tg < 5) {
+                    meterEl.style.background = 'var(--yellow)';
+                    verdictEl.innerHTML = '<div class="speed-verdict verdict-ok">👍 Comfortable</div>';
+                } else {
+                    meterEl.style.background = 'var(--green)';
+                    verdictEl.innerHTML = '<div class="speed-verdict verdict-fast">⚡ Fast</div>';
+                }
+            }
+
             const ma = document.getElementById('memAlert');
             if (r.oom) {
-                ma.innerHTML = `<div class="alert alert-error">🚨 <strong>Out-Of-Memory (OOM) Predicted:</strong> Weights (${r.modelGB.toFixed(1)} GB) + KV (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = <strong>${r.totalRAM.toFixed(1)} GB</strong> ≫ RAM (${r.ram} GB).</div>`;
+                ma.innerHTML = `<div class="alert alert-error" role="alert">🚨 <strong>Out of memory:</strong> Model (${r.modelGB.toFixed(1)} GB) + conversation memory (${r.kvGB.toFixed(1)} GB) + OS (1 GB) = ${r.totalRAM.toFixed(1)} GB, but you only have ${r.ram} GB RAM. Use a smaller model.</div>`;
             } else if (r.swap) {
-                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Swap-Thrashing Wall:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). Expect extreme retrograde scaling.</div>`;
+                ma.innerHTML = `<div class="alert alert-warn" role="alert">⚠️ <strong>Memory overflow:</strong> Total footprint (${r.totalRAM.toFixed(1)} GB) exceeds RAM (${r.ram} GB). The system will use slow disk storage as backup memory, causing extreme slowdowns.</div>`;
             } else if (r.regime.includes('Retrograde')) {
-                ma.innerHTML = `<div class="alert alert-warn">⚠️ <strong>Memory-Bandwidth Bound:</strong> Generation is bottlenecked by RAM speed. Stick to 1 thread.</div>`;
+                ma.innerHTML = `<div class="alert alert-warn" role="alert">⚠️ <strong>Memory bottleneck:</strong> Generation is limited by RAM speed, not CPU power. Adding more threads will make it slower. Stick to 1 thread.</div>`;
             } else {
-                ma.innerHTML = `<div class="alert alert-ok">✅ <strong>Compute Bound / Healthy Headroom:</strong> Enough bandwidth and RAM to utilize all cores.</div>`;
+                ma.innerHTML = `<div class="alert alert-ok" role="alert">✅ <strong>Healthy:</strong> Enough memory bandwidth and RAM for all cores to work efficiently.</div>`;
             }
 
             const ct = document.getElementById('cmdText');
@@ -876,17 +1654,17 @@
                 let cmd = `./llama-server -m model.gguf -c ${r.ctx} -t ${r.optT} -ub 512 -fa 0`;
                 if (r.bw > 35) {
                     cmd += ' -ctk f16 -ctv f16';
-                    kn.textContent = 'ℹ️ KV Cache (Compute-Rich): Dequantization overhead exceeds bandwidth savings. Use f16.';
+                    kn.textContent = 'ℹ️ KV Cache: Using full precision since your hardware has plenty of compute. Quantizing the conversation memory would add overhead without benefit.';
                 } else {
                     cmd += ' -ctk q8_0 -ctv q8_0';
-                    kn.textContent = '⚠️ KV Cache (Bandwidth-Starved): Roofline predicts bandwidth savings outweigh compute overhead.';
+                    kn.textContent = '⚠️ KV Cache: Quantizing the conversation memory to save bandwidth. The roofline model predicts this helps on bandwidth-starved hardware.';
                 }
                 ct.textContent = cmd;
             }
 
             const qw = document.getElementById('quantWarn');
             if (r.arch === "Legacy x86 (SSE/AVX)" && r.quant.includes("K")) {
-                qw.innerHTML = '<div class="alert alert-error" style="margin-top:.5rem">🚨 <strong>Action Required:</strong> Switch to Q4_0 for a massive speedup.</div>';
+                qw.innerHTML = '<div class="alert alert-error" style="margin-top:.5rem">🚨 <strong>Switch to Q4_0:</strong> Your CPU lacks modern vector instructions. K-quant formats will be significantly slower on this hardware.</div>';
             } else qw.innerHTML = '';
         }
 
@@ -895,7 +1673,7 @@
         }
 
         // ============================================================
-        // ENHANCED CHAT SIMULATION
+        // ADVANCED SIMULATION
         // ============================================================
         let simRunning = false;
 
@@ -921,40 +1699,23 @@
             const simDelay = Math.min(dpw, 0.4);
             const throttled = ttft > 3.5 || dpw > 0.4;
 
-            // 1. Add User Message
             const userRow = document.createElement('div');
             userRow.className = 'msg-row user';
-            userRow.innerHTML = `
-                <div class="avatar user">👤</div>
-                <div class="bubble user">
-                    Explain CPU LLM inference briefly.
-                    <span class="meta">Prompt: ${prompt_tokens} tokens</span>
-                </div>
-            `;
+            userRow.innerHTML = `<div class="avatar user">👤</div><div class="bubble user">Explain CPU LLM inference briefly.<span class="meta">Prompt: ${prompt_tokens} tokens</span></div>`;
             chatMessages.appendChild(userRow);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 2. Add Bot Message (Thinking state)
             const botRow = document.createElement('div');
             botRow.className = 'msg-row bot';
-            botRow.innerHTML = `
-                <div class="avatar bot">🦙</div>
-                <div class="bubble bot">
-                    <div class="typing-dots">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <span class="meta" style="margin-top:8px;">Processing prompt... (TTFT: ${ttft.toFixed(1)}s)</span>
-                </div>
-            `;
+            botRow.innerHTML = `<div class="avatar bot">🦙</div><div class="bubble bot"><div class="typing-dots"><span></span><span></span><span></span></div><span class="meta" style="margin-top:8px;">Reading your message... (TTFT: ${ttft.toFixed(1)}s)</span></div>`;
             chatMessages.appendChild(botRow);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 3. Wait for TTFT then stream
             setTimeout(() => {
                 if (throttled) {
-                    note.innerHTML = `<span style="color:var(--yellow)">⚠️ Simulation sped up for UI responsiveness. Real-world TTFT is <strong>${ttft.toFixed(1)}s</strong> and generation is <strong>${r.T_tg.toFixed(2)} tok/s</strong>.</span>`;
+                    note.innerHTML = `<span style="color:var(--yellow)">⚠️ Simulation sped up. Real TTFT: <strong>${ttft.toFixed(1)}s</strong>, Gen: <strong>${r.T_tg.toFixed(2)} tok/s</strong>.</span>`;
                 } else if (r.ctx_penalty < 0.9) {
-                    note.innerHTML = `<span style="color:var(--yellow)">⚠️ Notice the generation slowdown? CPU attention overhead degrades speed by ${((1 - r.ctx_penalty) * 100).toFixed(0)}% at ${r.ctx} context depth.</span>`;
+                    note.innerHTML = `<span style="color:var(--yellow)">⚠️ Notice the slowdown? Long context degrades speed by ${((1 - r.ctx_penalty) * 100).toFixed(0)}%.</span>`;
                 }
 
                 const bubble = botRow.querySelector('.bubble');
@@ -975,9 +1736,9 @@
                         bubble.innerHTML = out + `<span class="meta">${words.length} words generated at ${r.T_tg.toFixed(2)} tok/s</span>`;
 
                         if (r.T_tg < 2 && !throttled) {
-                            note.innerHTML = '<div class="alert alert-warn" style="margin-top:1rem">🐢 <strong>Notice the lag?</strong> At sub-2 tok/s, reading speed outpaces generation. This is the Bandwidth Wall in action.</div>';
+                            note.innerHTML = '<div class="alert alert-warn" style="margin-top:1rem">🐢 <strong>Notice the lag?</strong> At sub-2 tok/s, you\'ll finish reading before the AI finishes writing. This is the memory bandwidth wall in action.</div>';
                         } else if (r.T_tg >= 5) {
-                            note.innerHTML = '<div class="alert alert-ok" style="margin-top:1rem">⚡ <strong>Smooth!</strong> At >5 tok/s, generation feels natural and conversational.</div>';
+                            note.innerHTML = '<div class="alert alert-ok" style="margin-top:1rem">⚡ <strong>Smooth!</strong> At >5 tok/s, the AI writes faster than you can read. Conversations feel natural.</div>';
                         }
                         btn.disabled = false;
                         simRunning = false;
