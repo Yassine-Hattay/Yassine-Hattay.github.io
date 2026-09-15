@@ -4,333 +4,365 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transit App // Navigate the City</title>
+  <title>The Transit Manifest</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Courier+Prime:wght@400;700&display=swap"
     rel="stylesheet">
   <style>
     :root {
-      --bg-color: #F8F9FA;
-      --text-primary: #0F172A;
-      /* Deep slate/black for high contrast */
-      --text-secondary: #475569;
-      --accent-route: #FF5A00;
-      /* Vibrant Transit Orange */
-      --card-bg: #FFFFFF;
-      --border-color: #E2E8F0;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      /* Vintage Palette */
+      --parchment: #EFE6D5;
+      /* Aged paper background */
+      --parchment-dark: #E3D5BE;
+      /* Slightly darker paper for contrast */
+      --ink-black: #2A1F16;
+      /* Dark sepia/brown instead of pure black */
+      --ink-red: #7A2021;
+      /* Faded oxblood/crimson ink */
+      --ink-teal: #1E3F42;
+      /* Dark antique teal */
+      --ink-gold: #9E7C0C;
+      /* Brass/antique gold */
     }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      line-height: 1.6;
-      /* Subtle dot grid background to mimic a map grid */
-      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
-      background-size: 24px 24px;
+      margin: 0;
+      padding: 0;
+      background-color: var(--parchment);
+      color: var(--ink-black);
+      font-family: 'IM Fell DW Pica', serif;
+      /* Subtle 1-bit dithered paper texture using dark brown ink */
+      background-image: radial-gradient(var(--ink-black) 0.5px, transparent 0.5px);
+      background-size: 4px 4px;
+      opacity: 0.95;
     }
 
-    /* Top Navigation Bar */
-    .nav-bar {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border-color);
-      padding: 16px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo-icon {
-      width: 24px;
-      height: 24px;
-      background: var(--accent-route);
-      border-radius: 50%;
+    /* Main Ledger Frame */
+    .ledger-frame {
+      max-width: 850px;
+      margin: 40px auto;
+      border: 3px solid var(--ink-black);
+      background-color: var(--parchment-dark);
+      box-shadow: 10px 10px 0px rgba(42, 31, 22, 0.2);
+      /* Soft vintage shadow */
       position: relative;
+      /* Inner border for a double-line ledger effect */
+      outline: 1px solid var(--ink-black);
+      outline-offset: 6px;
     }
 
-    .logo-icon::after {
-      content: '';
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      top: 8px;
-      left: 8px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-secondary);
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-route);
-    }
-
-    /* Main Content Area */
-    .hero-container {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      /* 60px for the route line, 1fr for content */
-      gap: 40px;
-    }
-
-    /* The Visual "Transit Line" */
-    .route-line {
+    /* Header Area */
+    .ledger-header {
+      border-bottom: 3px solid var(--ink-black);
+      padding: 30px 20px;
+      text-align: center;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .line-track {
-      width: 6px;
-      background: var(--accent-route);
-      flex-grow: 1;
-      border-radius: 3px;
-    }
-
-    .station-node {
-      width: 24px;
-      height: 24px;
-      background: var(--card-bg);
-      border: 6px solid var(--accent-route);
-      border-radius: 50%;
-      z-index: 2;
-      flex-shrink: 0;
-    }
-
-    .station-node.start {
-      margin-top: 10px;
-    }
-
-    .station-node.end {
-      margin-bottom: 10px;
-    }
-
-    /* The Content "Stops" */
-    .content-stops {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-      padding-top: 4px;
-      padding-bottom: 20px;
-    }
-
-    .stop-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 32px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .stop-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    }
-
-    .stop-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--accent-route);
-      margin-bottom: 12px;
-      font-weight: 700;
+      background: var(--parchment);
     }
 
     h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 16px;
-      letter-spacing: -1px;
+      font-family: 'IM Fell English', serif;
+      font-size: 2.8rem;
+      margin: 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-black);
+      text-shadow: 2px 2px 0px rgba(42, 31, 22, 0.1);
+    }
+
+    .subtitle {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      letter-spacing: 6px;
+      color: var(--ink-red);
+      font-weight: bold;
+    }
+
+    /* The Content Area */
+    .ledger-body {
+      padding: 40px;
+      position: relative;
+    }
+
+    .log-entry-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-bottom: 2px solid var(--ink-black);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--ink-teal);
     }
 
     .description-text {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
+      font-size: 1.25rem;
+      line-height: 1.9;
+      text-align: justify;
+      margin: 0 0 30px 0;
+      font-family: 'IM Fell DW Pica', serif;
     }
 
-    /* Highlighting the transit modes */
-    .transit-modes {
+    /* Colored Dithered Accent Blocks (The "Stamps") */
+    .transit-stamps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .stamp {
+      padding: 20px;
+      border: 2px solid;
+      text-align: center;
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .stamp:hover {
+      transform: scale(1.02);
+    }
+
+    /* Each stamp gets a different vintage ink color and dither pattern */
+    .stamp.bus {
+      border-color: var(--ink-red);
+      color: var(--ink-red);
+    }
+
+    .stamp.bus .stamp-bg {
+      background-image: radial-gradient(var(--ink-red) 1px, transparent 1px);
+    }
+
+    .stamp.metro {
+      border-color: var(--ink-teal);
+      color: var(--ink-teal);
+    }
+
+    .stamp.metro .stamp-bg {
+      background-image: radial-gradient(var(--ink-teal) 1px, transparent 1px);
+    }
+
+    .stamp.rfr {
+      border-color: var(--ink-gold);
+      color: var(--ink-gold);
+    }
+
+    .stamp.rfr .stamp-bg {
+      background-image: radial-gradient(var(--ink-gold) 1px, transparent 1px);
+    }
+
+    .stamp.taxi {
+      border-color: var(--ink-black);
+      color: var(--ink-black);
+    }
+
+    .stamp.taxi .stamp-bg {
+      background-image: radial-gradient(var(--ink-black) 1px, transparent 1px);
+    }
+
+    .stamp-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: 4px 4px;
+      opacity: 0.15;
+      /* Very subtle dithered background */
+      z-index: 0;
+    }
+
+    .stamp-content {
+      position: relative;
+      z-index: 1;
+      background: var(--parchment-dark);
+      padding: 5px;
+    }
+
+    .stamp-title {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .stamp-type {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      opacity: 0.8;
+    }
+
+    /* Call to Action / Download Section */
+    .cta-section {
+      border-top: 3px solid var(--ink-black);
+      padding: 30px;
       display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: var(--parchment);
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
     }
 
-    .mode-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      padding: 6px 14px;
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    /* Call to Action */
-    .cta-area {
-      display: flex;
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .btn-primary {
-      background: var(--text-primary);
-      color: white;
-      padding: 14px 28px;
-      border-radius: 8px;
+    .btn {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.1rem;
+      padding: 14px 32px;
+      background: var(--ink-black);
+      color: var(--parchment);
+      border: 2px solid var(--ink-black);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: background 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
     }
 
-    .btn-primary:hover {
-      background: #1e293b;
+    .btn:hover {
+      background: var(--parchment);
+      color: var(--ink-black);
     }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-primary);
-      padding: 14px 28px;
-      border-radius: 8px;
-      border: 2px solid var(--border-color);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: border-color 0.2s;
+    .btn.red {
+      background: var(--ink-red);
+      border-color: var(--ink-red);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--text-primary);
+    .btn.red:hover {
+      background: var(--parchment);
+      color: var(--ink-red);
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero-container {
-        grid-template-columns: 40px 1fr;
-        gap: 24px;
-        margin: 30px auto;
+    /* Corner Ornaments (Brass Nodes) */
+    .corner-node {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--ink-gold);
+      border: 2px solid var(--ink-black);
+      border-radius: 50%;
+      z-index: 5;
+    }
+
+    .corner-node::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--ink-black);
+      border-radius: 50%;
+      top: 5px;
+      left: 5px;
+    }
+
+    .node-tl {
+      top: -10px;
+      left: -10px;
+    }
+
+    .node-tr {
+      top: -10px;
+      right: -10px;
+    }
+
+    .node-bl {
+      bottom: -10px;
+      left: -10px;
+    }
+
+    .node-br {
+      bottom: -10px;
+      right: -10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .ledger-body {
+        padding: 20px;
       }
 
       h1 {
         font-size: 1.8rem;
+        letter-spacing: 1px;
       }
 
-      .stop-card {
-        padding: 24px;
+      .description-text {
+        font-size: 1.1rem;
+        text-align: left;
       }
 
-      .nav-links {
-        display: none;
+      .transit-stamps {
+        grid-template-columns: 1fr 1fr;
       }
-
-      /* Simplify nav on mobile */
     }
   </style>
 </head>
 
 <body>
 
-  <nav class="nav-bar">
-    <div class="logo">
-      <div class="logo-icon"></div>
-      CityTransit
-    </div>
-    <div class="nav-links">
-      <a href="#">Routes</a>
-      <a href="#">Live Map</a>
-      <a href="#">Download</a>
-    </div>
-  </nav>
+  <main class="ledger-frame">
+    <!-- Brass Corner Nodes -->
+    <div class="corner-node node-tl"></div>
+    <div class="corner-node node-tr"></div>
+    <div class="corner-node node-bl"></div>
+    <div class="corner-node node-br"></div>
 
-  <main class="hero-container">
-    <!-- The Visual Transit Line -->
-    <div class="route-line">
-      <div class="station-node start"></div>
-      <div class="line-track"></div>
-      <div class="station-node end"></div>
-    </div>
+    <header class="ledger-header">
+      <h1>Transit Manifest</h1>
+      <div class="subtitle">/// Department of Navigation ///</div>
+    </header>
 
-    <!-- The Content -->
-    <div class="content-stops">
+    <section class="ledger-body">
+      <div class="log-entry-label">Apparatus Description:</div>
 
-      <!-- Stop 1: The Core Description -->
-      <section class="stop-card">
-        <div class="stop-label">/// Terminal A: Overview</div>
-        <h1>Navigate your city, seamlessly.</h1>
-        <p class="description-text">
-          This app gives you the station locations of buses, light metro, RFR, and collective taxi. It details the
-          different routes you can take via these means of transportation, and calculates exactly how long it will take
-          you to reach your destination.
-        </p>
+      <p class="description-text">
+        This app gives you the station locations of buses, light metro, RFR, and collective taxi. It details the
+        different routes you can take via these means of transportation, and calculates exactly how long it will take
+        you to reach your destination.
+      </p>
 
-        <div class="transit-modes">
-          <span class="mode-tag">Bus</span>
-          <span class="mode-tag">Light Metro</span>
-          <span class="mode-tag">RFR</span>
-          <span class="mode-tag">Collective Taxi</span>
+      <!-- Colored Dithered Transit Stamps -->
+      <div class="transit-stamps">
+        <div class="stamp bus">
+          <div class="stamp-bg"></div>
+          <div class="stamp-content">
+            <div class="stamp-title">Bus</div>
+            <div class="stamp-type">Surface Route</div>
+          </div>
         </div>
-
-        <div class="cta-area">
-          <a href="#" class="btn-primary">Download App</a>
-          <a href="#" class="btn-secondary">View Live Map</a>
+        <div class="stamp metro">
+          <div class="stamp-bg"></div>
+          <div class="stamp-content">
+            <div class="stamp-title">Metro</div>
+            <div class="stamp-type">Light Rail</div>
+          </div>
         </div>
-      </section>
+        <div class="stamp rfr">
+          <div class="stamp-bg"></div>
+          <div class="stamp-content">
+            <div class="stamp-title">RFR</div>
+            <div class="stamp-type">Regional Line</div>
+          </div>
+        </div>
+        <div class="stamp taxi">
+          <div class="stamp-bg"></div>
+          <div class="stamp-content">
+            <div class="stamp-title">Taxi</div>
+            <div class="stamp-type">Collective</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <!-- Stop 2: (Placeholder for future content) -->
-      <section class="stop-card">
-        <div class="stop-label">/// Terminal B: Features</div>
-        <h2 style="font-size: 1.5rem; margin-bottom: 12px;">Real-time precision.</h2>
-        <p class="description-text">
-          Never miss a connection again. Our integrated timetable ensures you know exactly when your ride is arriving,
-          down to the minute.
-        </p>
-      </section>
-
-    </div>
+    <footer class="cta-section">
+      <a href="#" class="btn red">[ Acquire for iOS ]</a>
+      <a href="#" class="btn">[ Acquire for Android ]</a>
+    </footer>
   </main>
 
 </body>
