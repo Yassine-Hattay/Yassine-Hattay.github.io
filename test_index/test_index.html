@@ -1,123 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comments Test Page</title>
-<style>
-  :root {
-    --bg: #0f1115;
-    --card: #171a21;
-    --text: #e8eaed;
-    --muted: #9aa0a6;
-    --accent: #4f8cff;
-    --border: #262a33;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-  }
-  .wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 48px 20px 80px;
-  }
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-  }
-  .subtitle {
-    color: var(--muted);
-    margin-bottom: 32px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 32px;
-  }
-  .card h2 {
-    margin-top: 0;
-    font-size: 1.1rem;
-  }
-  .card p {
-    color: var(--muted);
-    margin-bottom: 0;
-  }
-  .comments-section h2 {
-    font-size: 1.3rem;
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 12px;
-  }
-  code {
-    background: #20242c;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    color: #ffcb6b;
-  }
-  .todo {
-    border-left: 3px solid var(--accent);
-    padding-left: 14px;
-    margin: 16px 0;
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comments Test Page</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #4f8cff;
+      --border: #262a33;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .comments-section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    code {
+      background: #20242c;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #ffcb6b;
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-  <h1>Comments Test Page</h1>
-  <p class="subtitle">A minimal static page used to test embedding GitHub-Discussions-backed comments (via giscus).</p>
-
-  <div class="card">
-    <h2>What this page is for</h2>
-    <p>
-      This is a throwaway test page, not part of the real project yet. Its only job is to confirm
-      that the giscus comment widget below is wired up correctly and that comments posted here
-      actually land as Discussion posts in the target GitHub repo.
+    <h1>Comments Test Page</h1>
+    <p class="subtitle">A minimal static page used to test embedding GitHub-Discussions-backed comments (via giscus).
     </p>
-  </div>
 
-  <div class="todo">
-    <strong>Before this works:</strong> replace the placeholder <code>data-repo</code>,
-    <code>data-repo-id</code>, <code>data-category</code>, and <code>data-category-id</code>
-    values in the &lt;script&gt; tag below with the real values generated for you at
-    <a href="https://giscus.app" style="color: var(--accent);">giscus.app</a> once you've enabled
-    Discussions and installed the giscus app on your chosen repo.
-  </div>
+    <div class="card">
+      <h2>What this page is for</h2>
+      <p>
+        This is a test page to confirm that the giscus comment widget below is wired up correctly and that comments
+        posted here actually land as Discussion posts in the target GitHub repo.
+      </p>
+    </div>
 
-  <div class="comments-section">
-    <h2>Comments</h2>
+    <div class="comments-section">
+      <h2>Comments</h2>
 
-    <!-- giscus comment widget -->
-    <script src="https://giscus.app/client.js"
-            data-repo="Yassine-Hattay/Yassine-Hattay.github.io"
-            data-repo-id="REPLACE_WITH_REPO_ID"
-            data-category="REPLACE_WITH_CATEGORY_NAME"
-            data-category-id="REPLACE_WITH_CATEGORY_ID"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="dark"
-            data-lang="en"
-            data-loading="lazy"
-            crossorigin="anonymous"
-            async>
-    </script>
-    <!-- end giscus comment widget -->
+      <!-- giscus comment widget -->
+      <script src="https://giscus.app/client.js" data-repo="Yassine-Hattay/Yassine-Hattay.github.io"
+        data-repo-id="R_kgDOOCbq-A" data-category="General" data-category-id="DIC_kwDOOCbq-M4DFrBE"
+        data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
+        data-input-position="bottom" data-theme="dark" data-lang="en" crossorigin="anonymous" async>
+        </script>
+      <!-- end giscus comment widget -->
+
+    </div>
 
   </div>
-
-</div>
 </body>
+
 </html>
