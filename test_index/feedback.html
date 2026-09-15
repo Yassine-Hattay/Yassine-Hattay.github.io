@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beta Tester Log // Feedback</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Courier+Prime:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --parchment: #EFE6D5;
+      --parchment-dark: #E3D5BE;
+      --ink-black: #2A1F16;
+      --ink-red: #7A2021;
+      --ink-teal: #1E3F42;
+      --ink-gold: #9E7C0C;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--parchment);
+      color: var(--ink-black);
+      font-family: 'IM Fell DW Pica', serif;
+      background-image: radial-gradient(var(--ink-black) 0.5px, transparent 0.5px);
+      background-size: 4px 4px;
+      opacity: 0.95;
+    }
+
+    .ledger-frame {
+      max-width: 850px;
+      margin: 40px auto;
+      border: 3px solid var(--ink-black);
+      background-color: var(--parchment-dark);
+      box-shadow: 10px 10px 0px rgba(42, 31, 22, 0.2);
+      position: relative;
+      outline: 1px solid var(--ink-black);
+      outline-offset: 6px;
+    }
+
+    .ledger-header {
+      border-bottom: 3px solid var(--ink-black);
+      padding: 30px 20px;
+      text-align: center;
+      background: var(--parchment);
+    }
+
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: 2.2rem;
+      margin: 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-black);
+    }
+
+    .subtitle {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      letter-spacing: 6px;
+      color: var(--ink-red);
+      font-weight: bold;
+    }
+
+    .ledger-body {
+      padding: 40px;
+      position: relative;
+    }
+
+    .log-entry-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-bottom: 2px solid var(--ink-black);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--ink-teal);
+    }
+
+    .description-text {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin: 0 0 30px 0;
+    }
+
+    /* Navigation Link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.85rem;
+      color: var(--ink-black);
+      text-decoration: none;
+      border: 1px solid var(--ink-black);
+      padding: 8px 16px;
+      margin-bottom: 30px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: var(--ink-black);
+      color: var(--parchment);
+    }
+
+    /* Giscus Container Styling to blend in slightly */
+    .giscus-frame {
+      margin-top: 20px;
+      border: 2px solid var(--ink-black);
+      background: var(--parchment);
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    /* Corner Ornaments */
+    .corner-node {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--ink-gold);
+      border: 2px solid var(--ink-black);
+      border-radius: 50%;
+      z-index: 20;
+    }
+
+    .corner-node::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--ink-black);
+      border-radius: 50%;
+      top: 5px;
+      left: 5px;
+    }
+
+    .node-tl {
+      top: -10px;
+      left: -10px;
+    }
+
+    .node-tr {
+      top: -10px;
+      right: -10px;
+    }
+
+    .node-bl {
+      bottom: -10px;
+      left: -10px;
+    }
+
+    .node-br {
+      bottom: -10px;
+      right: -10px;
+    }
+
+    @media (max-width: 600px) {
+      .ledger-frame {
+        margin: 20px;
+      }
+
+      .ledger-body {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="ledger-frame">
+    <div class="corner-node node-tl"></div>
+    <div class="corner-node node-tr"></div>
+    <div class="corner-node node-bl"></div>
+    <div class="corner-node node-br"></div>
+
+    <header class="ledger-header">
+      <h1>Beta Tester Log</h1>
+      <div class="subtitle">/// Feedback & Discussion ///</div>
+    </header>
+
+    <section class="ledger-body">
+      <a href="index.html" class="back-link">← Return to Main Manifest</a>
+
+      <div class="log-entry-label">Entry Notes:</div>
+      <p class="description-text">
+        This ledger is reserved for beta testers, developers, and navigators to report anomalies, suggest new routes, or
+        discuss the application.
+        <br><br>
+        <em>Note: Authentication via a GitHub account is required to inscribe a new entry in this log.</em>
+      </p>
+
+      <!-- Giscus Comment Widget -->
+      <div class="giscus-frame">
+        <script src="https://giscus.app/client.js" data-repo="Yassine-Hattay/Yassine-Hattay.github.io"
+          data-repo-id="R_kgDOOCbq-A" data-category="General" data-category-id="DIC_kwDOOCbq-M4DFrBE"
+          data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
+          data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async>
+          </script>
+      </div>
+
+    </section>
+  </main>
+
+</body>
+
+</html>

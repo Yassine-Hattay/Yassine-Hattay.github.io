@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Transit & Transport Mobile App</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Courier+Prime:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --parchment: #EFE6D5;
+      --parchment-dark: #E3D5BE;
+      --parchment-map: #E8DCC4;
+      --ink-black: #2A1F16;
+      --ink-red: #7A2021;
+      --ink-teal: #1E3F42;
+      --ink-gold: #9E7C0C;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--parchment);
+      color: var(--ink-black);
+      font-family: 'IM Fell DW Pica', serif;
+      background-image: radial-gradient(var(--ink-black) 0.5px, transparent 0.5px);
+      background-size: 4px 4px;
+      opacity: 0.95;
+    }
+
+    .ledger-frame {
+      max-width: 850px;
+      margin: 40px auto;
+      border: 3px solid var(--ink-black);
+      background-color: var(--parchment-dark);
+      box-shadow: 10px 10px 0px rgba(42, 31, 22, 0.2);
+      position: relative;
+      outline: 1px solid var(--ink-black);
+      outline-offset: 6px;
+    }
+
+    .ledger-header {
+      border-bottom: 3px solid var(--ink-black);
+      padding: 30px 20px;
+      text-align: center;
+      background: var(--parchment);
+    }
+
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: 2.8rem;
+      margin: 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-black);
+      text-shadow: 2px 2px 0px rgba(42, 31, 22, 0.1);
+    }
+
+    .subtitle {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      letter-spacing: 6px;
+      color: var(--ink-red);
+      font-weight: bold;
+    }
+
+    .ledger-body {
+      padding: 40px 40px 60px 40px;
+      position: relative;
+    }
+
+    .log-entry-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-bottom: 2px solid var(--ink-black);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--ink-teal);
+    }
+
+    .description-text {
+      font-size: 1.25rem;
+      line-height: 1.9;
+      text-align: justify;
+      margin: 0 0 40px 0;
+      font-family: 'IM Fell DW Pica', serif;
+    }
+
+    .instructions-list {
+      margin: 0 0 40px 20px;
+      font-size: 1.15rem;
+      line-height: 2;
+      color: var(--ink-black);
+    }
+
+    .instructions-list p {
+      margin: 0;
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .instructions-list .roman {
+      font-family: 'IM Fell English', serif;
+      font-weight: bold;
+      color: var(--ink-red);
+      margin-right: 10px;
+    }
+
+    /* --- FOLDED PAPER MAP --- */
+    .folded-map-container {
+      margin-top: 10px;
+      position: relative;
+      aspect-ratio: 16 / 9;
+      perspective: 1000px;
+    }
+
+    .folded-map {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: var(--parchment-map);
+      border: 2px solid var(--ink-black);
+      box-shadow:
+        0 10px 30px rgba(42, 31, 22, 0.4),
+        inset 0 0 60px rgba(42, 31, 22, 0.15);
+      overflow: hidden;
+    }
+
+    .map-section {
+      flex: 1;
+      position: relative;
+      background: var(--parchment-map);
+      border-right: 1px solid rgba(42, 31, 22, 0.3);
+    }
+
+    .map-section:last-child {
+      border-right: none;
+    }
+
+    .map-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          rgba(42, 31, 22, 0.2) 0%,
+          rgba(42, 31, 22, 0.05) 10%,
+          transparent 20%,
+          transparent 80%,
+          rgba(255, 255, 255, 0.1) 90%,
+          rgba(42, 31, 22, 0.15) 100%);
+      pointer-events: none;
+    }
+
+    .fold-line {
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: rgba(42, 31, 22, 0.4);
+      z-index: 5;
+    }
+
+    .fold-line-1 {
+      left: 25%;
+    }
+
+    .fold-line-2 {
+      left: 50%;
+    }
+
+    .fold-line-3 {
+      left: 75%;
+    }
+
+    .map-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .map-content svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      background: rgba(239, 230, 213, 0.92);
+      border: 3px dashed var(--ink-black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 8px 25px rgba(42, 31, 22, 0.35);
+    }
+
+    .play-btn {
+      width: 70px;
+      height: 70px;
+      background: var(--ink-red);
+      border: 3px solid var(--ink-black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--parchment);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 0px var(--ink-black);
+      transition: transform 0.1s, box-shadow 0.1s;
+      cursor: pointer;
+    }
+
+    .play-btn:hover {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0px var(--ink-black);
+    }
+
+    .video-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--ink-black);
+      background: var(--parchment-map);
+      padding: 4px 12px;
+      border: 1px solid var(--ink-black);
+    }
+
+    /* --- DOWNLOAD BUTTON SECTION --- */
+    .download-section {
+      margin-top: 50px;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 2px solid var(--ink-black);
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'IM Fell English', serif;
+      font-size: 1.25rem;
+      color: var(--parchment);
+      background-color: var(--ink-black);
+      border: 2px solid var(--ink-black);
+      padding: 16px 36px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 5px 5px 0px var(--ink-gold);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-download:hover {
+      background-color: var(--ink-red);
+      border-color: var(--ink-red);
+      box-shadow: 5px 5px 0px var(--ink-black);
+      transform: translate(-2px, -2px);
+    }
+
+    .btn-download svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Corner Ornaments */
+    .corner-node {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--ink-gold);
+      border: 2px solid var(--ink-black);
+      border-radius: 50%;
+      z-index: 20;
+    }
+
+    .corner-node::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--ink-black);
+      border-radius: 50%;
+      top: 5px;
+      left: 5px;
+    }
+
+    .node-tl {
+      top: -10px;
+      left: -10px;
+    }
+
+    .node-tr {
+      top: -10px;
+      right: -10px;
+    }
+
+    .node-bl {
+      bottom: -10px;
+      left: -10px;
+    }
+
+    .node-br {
+      bottom: -10px;
+      right: -10px;
+    }
+
+    @media (max-width: 600px) {
+      .ledger-frame {
+        margin: 20px;
+      }
+
+      .ledger-body {
+        padding: 20px 20px 40px 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+      }
+
+      .description-text {
+        font-size: 1.1rem;
+        text-align: left;
+      }
+
+      .video-overlay {
+        width: 85%;
+        height: 65%;
+      }
+
+      .play-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .btn-download {
+        font-size: 1rem;
+        padding: 14px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="ledger-frame">
+    <div class="corner-node node-tl"></div>
+    <div class="corner-node node-tr"></div>
+    <div class="corner-node node-bl"></div>
+    <div class="corner-node node-br"></div>
+
+    <header class="ledger-header">
+      <h1>Transit & Transport</h1>
+      <div class="subtitle">/// Mobile Application ///</div>
+    </header>
+
+    <section class="ledger-body">
+      <div class="log-entry-label">App Description:</div>
+
+      <p class="description-text">
+        This app gives you the station locations of buses, light metro, RFR, and collective taxi. It details the
+        different routes you can take via these means of transportation, and calculates exactly how long it will take
+        you to reach your destination.
+      </p>
+
+      <div class="log-entry-label">Instructions for Use:</div>
+      <div class="instructions-list">
+        <p><span class="roman">I.</span> Unfold the digital charter and select your desired port of call.</p>
+        <p><span class="roman">II.</span> Consult the manifest for available routes and estimated durations.</p>
+        <p><span class="roman">III.</span> Chart your course upon the visual map below and commence your voyage.</p>
+      </div>
+
+      <!-- FOLDED PAPER MAP -->
+      <div class="folded-map-container">
+        <div class="folded-map">
+          <!-- Fold lines -->
+          <div class="fold-line fold-line-1"></div>
+          <div class="fold-line fold-line-2"></div>
+          <div class="fold-line fold-line-3"></div>
+
+          <!-- The four folded sections -->
+          <div class="map-section"></div>
+          <div class="map-section"></div>
+          <div class="map-section"></div>
+          <div class="map-section"></div>
+
+          <!-- Map content that spans across all folds -->
+          <div class="map-content">
+            <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <!-- Rhumb Lines -->
+              <g stroke="rgba(42, 31, 22, 0.15)" stroke-width="1">
+                <line x1="0" y1="0" x2="800" y2="450" />
+                <line x1="0" y1="450" x2="800" y2="0" />
+                <line x1="400" y1="0" x2="400" y2="450" />
+                <line x1="0" y1="225" x2="800" y2="225" />
+                <line x1="0" y1="100" x2="800" y2="350" />
+                <line x1="0" y1="350" x2="800" y2="100" />
+                <line x1="200" y1="0" x2="600" y2="450" />
+                <line x1="600" y1="0" x2="200" y2="450" />
+              </g>
+
+              <!-- Coastline -->
+              <path d="M0,380 Q100,360 200,390 T400,370 T600,400 T800,360 L800,450 L0,450 Z"
+                fill="rgba(30, 63, 66, 0.1)" stroke="var(--ink-teal)" stroke-width="2" stroke-dasharray="8,4" />
+
+              <!-- Map Typography -->
+              <text x="400" y="420" font-family="IM Fell English, serif" font-size="24" fill="var(--ink-teal)"
+                text-anchor="middle" letter-spacing="8" opacity="0.6">MARE INCognitUM</text>
+              <text x="100" y="80" font-family="IM Fell English, serif" font-size="16" fill="var(--ink-black)"
+                opacity="0.4" font-style="italic">Terra Transit</text>
+
+              <!-- Compass Rose -->
+              <g transform="translate(700, 320) scale(0.8)">
+                <circle cx="0" cy="0" r="40" fill="none" stroke="var(--ink-black)" stroke-width="2" />
+                <circle cx="0" cy="0" r="30" fill="none" stroke="var(--ink-black)" stroke-width="1" />
+                <path d="M0,-45 L10,-10 L45,0 L10,10 L0,45 L-10,10 L-45,0 L-10,-10 Z" fill="var(--ink-black)" />
+                <path d="M0,-45 L0,45 M-45,0 L45,0" stroke="var(--parchment-map)" stroke-width="1" />
+                <text x="0" y="-50" font-family="IM Fell English, serif" font-size="14" fill="var(--ink-red)"
+                  text-anchor="middle" font-weight="bold">N</text>
+              </g>
+
+              <!-- Transit Route -->
+              <path d="M 50,150 Q 200,100 350,200 T 650,150" fill="none" stroke="var(--ink-red)" stroke-width="3"
+                stroke-dasharray="10,6" opacity="0.8" />
+              <circle cx="50" cy="150" r="6" fill="var(--ink-gold)" stroke="var(--ink-black)" stroke-width="2" />
+              <circle cx="350" cy="200" r="6" fill="var(--ink-gold)" stroke="var(--ink-black)" stroke-width="2" />
+              <circle cx="650" cy="150" r="6" fill="var(--ink-gold)" stroke="var(--ink-black)" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Video overlay -->
+        <div class="video-overlay">
+          <div class="play-btn">▶</div>
+          <div class="video-label">Video Log // Route Demonstration</div>
+        </div>
+      </div>
+
+      <!-- DOWNLOAD SECTION -->
+      <div class="download-section">
+        <a href="#" class="btn-download">
+          <!-- Android Icon SVG -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0225 3.503C15.5902 8.4791 13.8532 8.15 12 8.15c-1.8532 0-3.5902.3291-5.1366.9002L4.841 5.5472a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396" />
+          </svg>
+          Download for Android
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+</body>
+
+</html>
