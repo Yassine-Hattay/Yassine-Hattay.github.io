@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beta Tester Log // Feedback</title>
+  <title id="page-title">سجل المختبرين // الإصدارات</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Courier+Prime:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Courier+Prime:wght@400;700&family=Amiri:wght@400;700&display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -23,21 +23,100 @@
       padding: 0;
       background-color: var(--parchment);
       color: var(--ink-black);
-      font-family: 'IM Fell DW Pica', serif;
+      font-family: 'Amiri', 'IM Fell DW Pica', serif;
       background-image: radial-gradient(var(--ink-black) 0.5px, transparent 0.5px);
       background-size: 4px 4px;
       opacity: 0.95;
+      transition: all 0.3s ease;
     }
 
     .ledger-frame {
       max-width: 850px;
-      margin: 40px auto;
+      margin: 60px auto 40px auto;
       border: 3px solid var(--ink-black);
       background-color: var(--parchment-dark);
       box-shadow: 10px 10px 0px rgba(42, 31, 22, 0.2);
       position: relative;
       outline: 1px solid var(--ink-black);
       outline-offset: 6px;
+    }
+
+    /* --- LANGUAGE TABS CONTAINER --- */
+    .lang-tabs-container {
+      position: absolute;
+      top: -38px;
+      left: 60px;
+      direction: ltr;
+      display: flex;
+      gap: 4px;
+      z-index: 10;
+    }
+
+    .lang-tab {
+      background-color: var(--parchment);
+      border: 2px solid var(--ink-black);
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      padding: 8px 16px;
+      font-family: 'Amiri', 'Courier Prime', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink-black);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0.5;
+    }
+
+    .lang-tab.active {
+      background-color: var(--ink-gold);
+      color: var(--parchment);
+      opacity: 1;
+      transform: translateY(-4px);
+    }
+
+    .lang-tab:hover:not(.active) {
+      opacity: 0.8;
+      background-color: var(--parchment-dark);
+    }
+
+    /* --- NAVIGATION TABS CONTAINER --- */
+    .nav-tabs-container {
+      position: absolute;
+      top: -38px;
+      right: 60px;
+      direction: ltr;
+      display: flex;
+      gap: 4px;
+      z-index: 10;
+    }
+
+    .ledger-tab {
+      background-color: var(--parchment);
+      border: 2px solid var(--ink-black);
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      padding: 8px 16px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink-black);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      opacity: 0.5;
+    }
+
+    .ledger-tab.active {
+      background-color: var(--ink-gold);
+      color: var(--parchment);
+      opacity: 1;
+      transform: translateY(-4px);
+    }
+
+    .ledger-tab:hover:not(.active) {
+      opacity: 0.8;
+      background-color: var(--parchment-dark);
     }
 
     .ledger-header {
@@ -48,11 +127,10 @@
     }
 
     h1 {
-      font-family: 'IM Fell English', serif;
+      font-family: 'Amiri', 'IM Fell English', serif;
       font-size: 2.2rem;
       margin: 0;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+      letter-spacing: 1px;
       color: var(--ink-black);
     }
 
@@ -60,65 +138,184 @@
       font-family: 'Courier Prime', monospace;
       font-size: 0.85rem;
       margin-top: 10px;
-      letter-spacing: 6px;
+      letter-spacing: 4px;
       color: var(--ink-red);
       font-weight: bold;
+      direction: ltr;
     }
 
     .ledger-body {
       padding: 40px;
       position: relative;
+      min-height: 400px;
     }
 
-    .log-entry-label {
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.9rem;
-      font-weight: bold;
-      border-bottom: 2px solid var(--ink-black);
-      display: inline-block;
-      padding-bottom: 4px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    /* --- RELEASE LIST STYLES --- */
+    .release-list-container {
+      margin-top: 20px;
+    }
+
+    .section-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.6rem;
       color: var(--ink-teal);
+      border-bottom: 2px solid var(--ink-black);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
     }
 
-    .description-text {
-      font-size: 1.15rem;
+    .release-item {
+      background: var(--parchment);
+      border: 2px solid var(--ink-black);
+      padding: 20px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .release-item:hover {
+      background: var(--parchment-dark);
+      transform: translateX(-5px);
+      box-shadow: 4px 4px 0px var(--ink-gold);
+    }
+
+    .release-version {
+      font-family: 'Courier Prime', monospace;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--ink-red);
+    }
+
+    .release-name {
+      font-family: 'Amiri', serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .release-arrow {
+      font-size: 1.5rem;
+      color: var(--ink-black);
+    }
+
+    /* --- RELEASE DETAIL STYLES --- */
+    .release-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      color: var(--ink-red);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--ink-black);
+      padding-bottom: 5px;
+    }
+
+    .instruction-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .instruction-list li {
+      margin-bottom: 15px;
+      position: relative;
+      padding-inline-start: 30px;
       line-height: 1.8;
-      margin: 0 0 30px 0;
+      font-size: 1.1rem;
     }
 
-    /* Navigation Link */
-    .back-link {
+    .instruction-list li::before {
+      content: '✦';
+      position: absolute;
+      inset-inline-start: 0;
+      color: var(--ink-gold);
+      font-size: 1.2rem;
+      top: 2px;
+    }
+
+    .code-snippet {
+      font-family: 'Courier Prime', monospace;
+      background: rgba(42, 31, 22, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--ink-red);
+      direction: ltr;
+      display: inline-block;
+      font-size: 0.9em;
+    }
+
+    .apk-download {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.85rem;
-      color: var(--ink-black);
-      text-decoration: none;
-      border: 1px solid var(--ink-black);
-      padding: 8px 16px;
-      margin-bottom: 30px;
-      transition: all 0.2s;
-    }
-
-    .back-link:hover {
+      gap: 10px;
       background: var(--ink-black);
       color: var(--parchment);
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-family: 'Courier Prime', monospace;
+      font-weight: bold;
+      margin: 10px 0;
+      transition: all 0.2s;
+      border: 2px solid var(--ink-black);
+      direction: ltr;
     }
 
-    /* Giscus Container Styling to blend in slightly */
+    .apk-download:hover {
+      background: var(--ink-red);
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 0px var(--ink-gold);
+    }
+
+    .apk-download.secondary {
+      background: transparent;
+      color: var(--ink-black);
+      border: 2px dashed var(--ink-black);
+    }
+
+    .apk-download.secondary:hover {
+      background: var(--parchment-dark);
+    }
+
+    .step-media {
+      display: block;
+      max-width: 100%;
+      margin: 12px 0 6px 0;
+      border: 2px solid var(--ink-black);
+      border-radius: 4px;
+      box-shadow: 4px 4px 0px rgba(42, 31, 22, 0.15);
+    }
+
+    .note-box {
+      background: rgba(30, 63, 66, 0.1);
+      border-inline-start: 4px solid var(--ink-teal);
+      padding: 15px 20px;
+      margin: 25px 0;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .thank-you {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--ink-red);
+      text-align: center;
+      margin-top: 30px;
+    }
+
     .giscus-frame {
-      margin-top: 20px;
+      margin-top: 40px;
       border: 2px solid var(--ink-black);
       background: var(--parchment);
       padding: 10px;
       border-radius: 4px;
     }
 
-    /* Corner Ornaments */
+    .hidden {
+      display: none !important;
+    }
+
     .corner-node {
       position: absolute;
       width: 20px;
@@ -142,27 +339,45 @@
 
     .node-tl {
       top: -10px;
-      left: -10px;
+      inset-inline-start: -10px;
     }
 
     .node-tr {
       top: -10px;
-      right: -10px;
+      inset-inline-end: -10px;
     }
 
     .node-bl {
       bottom: -10px;
-      left: -10px;
+      inset-inline-start: -10px;
     }
 
     .node-br {
       bottom: -10px;
-      right: -10px;
+      inset-inline-end: -10px;
     }
 
     @media (max-width: 600px) {
       .ledger-frame {
-        margin: 20px;
+        margin: 40px 20px 20px 20px;
+      }
+
+      .lang-tabs-container {
+        left: 20px;
+      }
+
+      .lang-tab {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+
+      .nav-tabs-container {
+        right: 20px;
+      }
+
+      .ledger-tab {
+        padding: 6px 10px;
+        font-size: 0.7rem;
       }
 
       .ledger-body {
@@ -172,6 +387,20 @@
       h1 {
         font-size: 1.5rem;
       }
+
+      .release-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .release-arrow {
+        display: none;
+      }
+
+      .instruction-list li {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -179,38 +408,265 @@
 <body>
 
   <main class="ledger-frame">
+    <!-- LANGUAGE TABS -->
+    <div class="lang-tabs-container">
+      <button class="lang-tab" id="lang-en" onclick="setLanguage('en')">English</button>
+      <button class="lang-tab active" id="lang-ar" onclick="setLanguage('ar')">العربية</button>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs-container">
+      <a href="index.html" class="ledger-tab" id="manifest-tab">Main Manifest</a>
+      <a href="feedback.html" class="ledger-tab active" id="feedback-tab">Beta Tester Log</a>
+    </div>
+
     <div class="corner-node node-tl"></div>
     <div class="corner-node node-tr"></div>
     <div class="corner-node node-bl"></div>
     <div class="corner-node node-br"></div>
 
     <header class="ledger-header">
-      <h1>Beta Tester Log</h1>
-      <div class="subtitle">/// Feedback & Discussion ///</div>
+      <h1 id="header-title">سجل المختبرين</h1>
+      <div class="subtitle" id="subtitle">/// الإصدارات والملاحظات ///</div>
     </header>
 
     <section class="ledger-body">
-      <a href="index.html" class="back-link">← Return to Main Manifest</a>
 
-      <div class="log-entry-label">Entry Notes:</div>
-      <p class="description-text">
-        This ledger is reserved for beta testers, developers, and navigators to report anomalies, suggest new routes, or
-        discuss the application.
-        <br><br>
-        <em>Note: Authentication via a GitHub account is required to inscribe a new entry in this log.</em>
-      </p>
+      <!-- VIEW 1: RELEASE LIST -->
+      <div id="release-list-view">
+        <h2 class="section-title" id="list-title">الإصدارات المتاحة</h2>
 
-      <!-- Giscus Comment Widget -->
-      <div class="giscus-frame">
-        <script src="https://giscus.app/client.js" data-repo="Yassine-Hattay/Yassine-Hattay.github.io"
-          data-repo-id="R_kgDOOCbq-A" data-category="General" data-category-id="DIC_kwDOOCbq-M4DFrBE"
-          data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
-          data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async>
-          </script>
+        <div class="release-list-container">
+          <div class="release-item" onclick="showReleaseDetail('v0.1.0')">
+            <div>
+              <div class="release-version">v0.1.0-beta</div>
+              <div class="release-name" id="release-name-1">الإصدار التجريبي الأول</div>
+            </div>
+            <div class="release-arrow">◀</div>
+          </div>
+          <!-- Future releases can be added here as new .release-item divs -->
+        </div>
+      </div>
+
+      <!-- VIEW 2: RELEASE DETAIL -->
+      <div id="release-detail-view" class="hidden">
+        <div class="ledger-tab"
+          style="position: static; display: inline-flex; margin-bottom: 20px; cursor: pointer; opacity: 1;"
+          onclick="showReleaseList()" id="back-to-list">→ العودة إلى قائمة الإصدارات</div>
+
+        <h2 class="release-title" id="detail-title">اختبار تجريبي: ساعدنا في تحسين تطبيق "فما ترانسبورت"</h2>
+
+        <ol class="instruction-list">
+          <li id="step-1"><span id="step-1-text">انقر للتحميل: <span
+                class="code-snippet">Fama_transport_app-arm64-v8a-debug.apk</span> (ستجد
+              رابط التحميل أدناه).</span>
+            <div style="margin: 15px 0;">
+              <a href="https://github.com/Yassine-Hattay/Tunis_capital_transportation_map/releases/download/v0.1.0-beta/Fama_transport_app-arm64-v8a-debug.apk"
+                class="apk-download" id="apk-primary">
+                ⬇ تحميل Fama_transport_app-arm64-v8a-debug.apk
+              </a>
+              <br>
+              <a href="https://github.com/Yassine-Hattay/Tunis_capital_transportation_map/releases/download/v0.1.0-beta/Fama_transport_app-armeabi-v7a-debug.apk"
+                class="apk-download secondary" id="apk-secondary">
+                ⬇ تحميل النسخة البديلة (armeabi-v7a)
+              </a>
+            </div>
+            <p id="fallback-text" style="font-weight: bold; color: var(--ink-red); margin: 5px 0 0 0;">
+              إذا لم يعمل التطبيق، جرب تحميل النسخة البديلة أعلاه.
+            </p>
+          </li>
+          <li id="step-2"><span id="step-2-text">بعد اكتمال التحميل، انقر على "تثبيت" (Install).</span>
+            <img class="step-media" src="./res/1.png" alt="تثبيت التطبيق">
+          </li>
+          <li id="step-3"><span id="step-3-text">افتح التطبيق وجرب ما إذا كانت الخريطة تعمل كما في الفيديو المرفق، وقم
+              بأخذ <strong>"لقطة شاشة
+                رقم 1"</strong>.</span>
+            <video class="step-media" src="./res/scrolling.mp4" controls playsinline
+              style="max-width: 280px; width: 100%; height: auto;"></video>
+          </li>
+          <li id="step-4"><span id="step-4-text">جرب ميزة التوجيه (Routing) كما في الفيديو، وقم بأخذ <strong>"لقطة شاشة
+                رقم 2"</strong>.</span>
+            <video class="step-media" src="./res/routing.mp4" controls playsinline
+              style="max-width: 280px; width: 100%; height: auto;"></video>
+          </li>
+          <li id="step-5"><span id="step-5-text">جرب ميزة نظام تحديد المواقع (GPS).</span>
+            <img class="step-media" src="./res/2.png" alt="ميزة تحديد المواقع GPS">
+          </li>
+          <li id="step-6"><span id="step-6-text">انسخ بيانات التصحيح (Debug) كما في الصورة واحفظها في ملف نصي باسم <span
+                class="code-snippet">debug.txt</span>.</span>
+            <img class="step-media" src="./res/3.png" alt="بيانات التصحيح Debug">
+          </li>
+          <li id="step-7">أرسل إلى البريد الإلكتروني: <span class="code-snippet">yassine.hattay@ensi-uma.tn</span>
+            الملفات التالية:
+            <ul style="margin-top: 10px; padding-inline-start: 20px; list-style-type: circle;">
+              <li>ملف <span class="code-snippet">debug.txt</span></li>
+              <li>لقظتي الشاشة (2 Screen shots)</li>
+              <li>إصدار الأندرويد ومستوى واجهة برمجة التطبيقات (API level) الخاص بهاتفك.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="note-box">
+          <strong id="note-title">ملاحظة:</strong> <span id="note-text">يمكن العثور على إصدار الأندرويد عبر: الإعدادات >
+            حول الهاتف > معلومات البرنامج (Settings > About Phone > Software Information).</span>
+          <br><br>
+          <strong id="api-title">أمثلة على مستويات API:</strong><br>
+          <span id="api-examples">أندرويد 14: API 34 | أندرويد 13: API 33 | أندرويد 12: API 31/32 | أندرويد 11: API 30 |
+            أندرويد 10: API 29</span>
+        </div>
+
+        <div class="thank-you" id="thank-you">!!! شكرا لمساعدتك في تحسين التطبيق</div>
+
+        <!-- Giscus Comment Widget (shown only on this release's page) -->
+        <div class="giscus-frame">
+          <script src="https://giscus.app/client.js" id="giscus-script"
+            data-repo="Yassine-Hattay/Yassine-Hattay.github.io" data-repo-id="R_kgDOOCbq-A" data-category="General"
+            data-category-id="DIC_kwDOOCbq-M4DFrBE" data-mapping="pathname" data-strict="0" data-reactions-enabled="1"
+            data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ar"
+            crossorigin="anonymous" async>
+            </script>
+        </div>
       </div>
 
     </section>
   </main>
+
+  <script>
+    // View Navigation Functions
+    function showReleaseDetail(releaseId) {
+      document.getElementById('release-list-view').classList.add('hidden');
+      document.getElementById('release-detail-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showReleaseList() {
+      document.getElementById('release-detail-view').classList.add('hidden');
+      document.getElementById('release-list-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Translation Dictionary
+    const translations = {
+      ar: {
+        pageTitle: "سجل المختبرين // الإصدارات",
+        headerTitle: "سجل المختبرين",
+        subtitle: "/// الإصدارات والملاحظات ///",
+        manifestTab: "السجل الرئيسي",
+        feedbackTab: "سجل المختبرين",
+        listTitle: "الإصدارات المتاحة",
+        releaseName1: "الإصدار التجريبي الأول",
+        backToList: "→ العودة إلى قائمة الإصدارات",
+        detailTitle: "اختبار تجريبي: ساعدنا في تحسين تطبيق \"فما ترانسبورت\"",
+        step1: "انقر للتحميل: <span class='code-snippet'>Fama_transport_app-arm64-v8a-debug.apk</span> (ستجد رابط التحميل أدناه).",
+        step2: "بعد اكتمال التحميل، انقر على \"تثبيت\" (Install).",
+        step3: "افتح التطبيق وجرب ما إذا كانت الخريطة تعمل كما في الفيديو المرفق، وقم بأخذ <strong>\"لقطة شاشة رقم 1\"</strong>.",
+        step4: "جرب ميزة التوجيه (Routing) كما في الفيديو، وقم بأخذ <strong>\"لقطة شاشة رقم 2\"</strong>.",
+        step5: "جرب ميزة نظام تحديد المواقع (GPS).",
+        step6: "انسخ بيانات التصحيح (Debug) كما في الصورة واحفظها في ملف نصي باسم <span class='code-snippet'>debug.txt</span>.",
+        step7: "أرسل إلى البريد الإلكتروني: <span class='code-snippet'>yassine.hattay@ensi-uma.tn</span> الملفات التالية:<ul style='margin-top: 10px; padding-inline-start: 20px; list-style-type: circle;'><li>ملف <span class='code-snippet'>debug.txt</span></li><li>لقظتي الشاشة (2 Screen shots)</li><li>إصدار الأندرويد ومستوى واجهة برمجة التطبيقات (API level) الخاص بهاتفك.</li></ul>",
+        noteTitle: "ملاحظة:",
+        noteText: "يمكن العثور على إصدار الأندرويد عبر: الإعدادات > حول الهاتف > معلومات البرنامج (Settings > About Phone > Software Information).",
+        apiTitle: "أمثلة على مستويات API:",
+        apiExamples: "أندرويد 14: API 34 | أندرويد 13: API 33 | أندرويد 12: API 31/32 | أندرويد 11: API 30 | أندرويد 10: API 29",
+        fallbackText: "إذا لم يعمل التطبيق، جرب تحميل النسخة البديلة أعلاه.",
+        apkPrimary: "⬇ تحميل Fama_transport_app-arm64-v8a-debug.apk",
+        apkSecondary: "⬇ تحميل النسخة البديلة (armeabi-v7a)",
+        thankYou: "!!! شكرا لمساعدتك في تحسين التطبيق",
+        dir: "rtl",
+        lang: "ar",
+        giscusLang: "ar",
+        arrow: "◀"
+      },
+      en: {
+        pageTitle: "Beta Tester Log // Releases",
+        headerTitle: "Beta Tester Log",
+        subtitle: "/// Releases & Notes ///",
+        manifestTab: "Main Manifest",
+        feedbackTab: "Beta Tester Log",
+        listTitle: "Available Releases",
+        releaseName1: "First Beta Release",
+        backToList: "← Back to Release List",
+        detailTitle: "Beta Testing: Help us improve the \"Fama Transport\" app",
+        step1: "Click to download: <span class='code-snippet'>Fama_transport_app-arm64-v8a-debug.apk</span> (link found below).",
+        step2: "After downloading, click \"Install\".",
+        step3: "Open the app and check if the map works like in the video, then take <strong>\"Screen shot N°1\"</strong>.",
+        step4: "Try the routing feature like in the video, then take <strong>\"Screen shot N°2\"</strong>.",
+        step5: "Try the GPS feature.",
+        step6: "Copy the debug data as shown in the picture and save it in a text file named <span class='code-snippet'>debug.txt</span>.",
+        step7: "Send the following to: <span class='code-snippet'>yassine.hattay@ensi-uma.tn</span>:<ul style='margin-top: 10px; padding-inline-start: 20px; list-style-type: circle;'><li>The <span class='code-snippet'>debug.txt</span> file</li><li>2 Screen shots</li><li>Your phone's Android Version and API level.</li></ul>",
+        noteTitle: "Note:",
+        noteText: "Users can find their Android version in Settings > About Phone > Software Information.",
+        apiTitle: "Examples of API Levels:",
+        apiExamples: "Android 14: API 34 | Android 13: API 33 | Android 12: API 31/32 | Android 11: API 30 | Android 10: API 29",
+        fallbackText: "If the app doesn't work, try downloading the alternative version above.",
+        apkPrimary: "⬇ Download Fama_transport_app-arm64-v8a-debug.apk",
+        apkSecondary: "⬇ Download alternative version (armeabi-v7a)",
+        thankYou: "!!! Thank you for helping us improve the app",
+        dir: "ltr",
+        lang: "en",
+        giscusLang: "en",
+        arrow: "▶"
+      }
+    };
+
+    function setLanguage(lang) {
+      localStorage.setItem('selectedLang', lang);
+      const t = translations[lang];
+
+      document.documentElement.lang = t.lang;
+      document.documentElement.dir = t.dir;
+
+      document.getElementById('page-title').textContent = t.pageTitle;
+      document.getElementById('header-title').textContent = t.headerTitle;
+      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('manifest-tab').textContent = t.manifestTab;
+      document.getElementById('feedback-tab').textContent = t.feedbackTab;
+      document.getElementById('list-title').textContent = t.listTitle;
+      document.getElementById('release-name-1').textContent = t.releaseName1;
+      document.getElementById('back-to-list').textContent = t.backToList;
+      document.getElementById('detail-title').textContent = t.detailTitle;
+      document.getElementById('step-1-text').innerHTML = t.step1;
+      document.getElementById('step-2-text').textContent = t.step2;
+      document.getElementById('step-3-text').innerHTML = t.step3;
+      document.getElementById('step-4-text').innerHTML = t.step4;
+      document.getElementById('step-5-text').textContent = t.step5;
+      document.getElementById('step-6-text').innerHTML = t.step6;
+      document.getElementById('step-7').innerHTML = t.step7;
+      document.getElementById('note-title').textContent = t.noteTitle;
+      document.getElementById('note-text').textContent = t.noteText;
+      document.getElementById('api-title').textContent = t.apiTitle;
+      document.getElementById('api-examples').textContent = t.apiExamples;
+      document.getElementById('fallback-text').textContent = t.fallbackText;
+      document.getElementById('apk-primary').innerHTML = t.apkPrimary;
+      document.getElementById('apk-secondary').innerHTML = t.apkSecondary;
+      document.getElementById('thank-you').textContent = t.thankYou;
+
+      // Update all release arrows to match direction
+      document.querySelectorAll('.release-arrow').forEach(arrow => {
+        arrow.textContent = t.arrow;
+      });
+
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
+
+      // Ensure nav tabs reflect current page state
+      document.getElementById('manifest-tab').classList.remove('active');
+      document.getElementById('feedback-tab').classList.add('active');
+
+      const giscusScript = document.getElementById('giscus-script');
+      if (giscusScript) {
+        giscusScript.setAttribute('data-lang', t.giscusLang);
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (iframe) {
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { lang: t.giscusLang } } }, 'https://giscus.app');
+        }
+      }
+    }
+
+    // Retrieve saved language or default to 'ar'
+    const savedLang = localStorage.getItem('selectedLang') || 'ar';
+    setLanguage(savedLang);
+  </script>
 
 </body>
 
