@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="page-title">The Transit & Transport Mobile App</title>
+  <title id="page-title">Fama transport ? Mobile App</title>
   <link
     href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Courier+Prime:wght@400;700&family=Amiri:wght@400;700&display=swap"
     rel="stylesheet">
@@ -67,7 +67,6 @@
       cursor: pointer;
       transition: all 0.2s ease;
       opacity: 0.5;
-      /* Faded when inactive */
     }
 
     .lang-tab.active {
@@ -75,7 +74,6 @@
       color: var(--parchment);
       opacity: 1;
       transform: translateY(-4px);
-      /* Rises up when active */
     }
 
     .lang-tab:hover:not(.active) {
@@ -323,6 +321,51 @@
       text-align: center;
     }
 
+    /* --- SIDE BY SIDE FEATURES GRID --- */
+    .features-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      margin: 20px 0 40px 0;
+      width: 100%;
+    }
+
+    .feature-item-container {
+      flex: 1;
+      max-width: 48%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feature-video-container {
+      width: 100%;
+      border: 2px solid var(--ink-black);
+      box-shadow: 0 6px 18px rgba(42, 31, 22, 0.25);
+      background: var(--parchment-map);
+      overflow: hidden;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .feature-video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .feature-caption {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-align: start;
+    }
+
     /* --- DOWNLOAD BUTTON SECTION --- */
     .download-section {
       margin-top: 50px;
@@ -476,6 +519,16 @@
         font-size: 1rem;
         padding: 14px 24px;
       }
+
+      .features-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .feature-item-container {
+        max-width: 90%;
+        margin-bottom: 30px;
+      }
     }
   </style>
 </head>
@@ -501,14 +554,14 @@
     <div class="corner-node node-br"></div>
 
     <header class="ledger-header">
-      <h1 id="header-title">Transit & Transport</h1>
+      <h1 id="header-title">Fama transport ?</h1>
       <div class="subtitle" id="subtitle">/// Mobile Application ///</div>
     </header>
 
     <section class="ledger-body">
       <div class="logo-container" style="text-align: center; margin-bottom: 25px;">
         <img src="./res/logo.jpg" alt="Transit & Transport Logo" class="app-logo"
-          style="max-width: 700px; width: 100%; height: auto; border: 2px solid var(--ink-black); box-shadow: 4px 4px 0px rgba(42, 31, 22, 0.2); display: block; margin: 0 auto;">
+          style="max-width: 300px; width: 100%; height: auto; display: block; margin: 0 auto;">
       </div>
       <div class="log-entry-label" id="desc-label">App Description:</div>
 
@@ -518,7 +571,16 @@
         you to reach your destination , simillar to google maps but without the need for internet connexion.
       </p>
 
+      <!-- SOURCE OF THE DATA SECTION -->
+      <div class="log-entry-label" id="source-label">Source of the data</div>
+
+      <p class="description-text" id="source-text">
+        To make this app possible , I had to ride (unspecifed number of buses) from their departing station to the end
+        of the line , along the way i recorded the trajectory the position of the stops and benches (mention the name of
+        the lines i rode) .
+      </p>
       <div class="log-entry-label" id="instr-label">Instructions for Use:</div>
+
       <div class="instructions-list">
         <p><span class="roman" id="roman-1">I.</span> <span id="instr-1">Unfold the digital charter and select your
             desired port of call.</span></p>
@@ -581,6 +643,41 @@
         </div>
       </div>
 
+      <div class="log-entry-label" id="features-label">Features:</div>
+
+      <!-- FEATURES SIDE BY SIDE GRID -->
+      <div class="features-grid">
+        <!-- FEATURE 1 -->
+        <div class="feature-item-container">
+          <p class="description-text feature-caption" id="feature-desc-1">
+            You can select and see restaurants , coffe shops , hotels , musuems , pharmacies , hospitals in the zoomed
+            in
+            areas on the map .
+          </p>
+          <div class="feature-video-container">
+            <video autoplay muted loop playsinline>
+              <source src="./res/tab_feature.webm" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+
+        <!-- FEATURE 2 (SETTINGS) -->
+        <div class="feature-item-container">
+          <p class="description-text feature-caption" id="feature-desc-2">
+            You can review your saved places , choose between 3 diffrent languages (arabic , english , and french) and
+            see
+            recently visted places .
+          </p>
+          <div class="feature-video-container">
+            <video autoplay muted loop playsinline>
+              <source src="./res/settings.webm" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
       <!-- DOWNLOAD SECTION -->
       <div class="download-section">
         <a href="#" class="btn-download">
@@ -600,27 +697,39 @@
   <script>
     const translations = {
       en: {
-        pageTitle: "The Transit & Transport Mobile App",
-        headerTitle: "Transit & Transport",
+        pageTitle: "Fama transport ? Mobile App",
+        headerTitle: "Fama transport ?",
         subtitle: "/// Mobile Application ///",
         descLabel: "App Description:",
-        descText: " This completely free app gives you the station locations of buses, light metro, RFR, and collective taxi. It details the different routes you can take via these means of transportation, and calculates how long it will take you to reach your destination , simillar to google maps but without the need for internet connexion.",
-        instrLabel: "Instructions for Use:",
+        descText: " This app gives you the station locations of buses, light metro, RFR, and collective taxi. It details the different routes you can take via these means of transportation, and calculates how long it will take you to reach your destination , simillar to google maps but without the need for internet connexion.",
+        sourceLabel: "Source of the data",
+        sourceText: "To make this app possible , I had to ride (unspecifed number of buses) from their departing station to the end of the line , along the way i recorded the trajectory the position of the stops and benches (mention the name of the lines i rode) .", featuresLabel: "Features:",
+        featureDesc1: "You can select and see restaurants , coffe shops , hotels , musuems , pharmacies , hospitals in the zoomed in areas on the map .",
+        featureDesc2: "You can review your saved places , choose between 3 diffrent languages (arabic , english , and french) and see recently visted places .",
         videoLabel: "Video Log // Route Demonstration",
         downloadBtn: "Download for Android",
         feedbackLink: "[ Inscribe Feedback in the Beta Tester Log ]",
         manifestTab: "Main Manifest",
-        feedbackTab: "Beta Tester Log", dir: "ltr",
+        feedbackTab: "Beta Tester Log",
+        dir: "ltr",
         lang: "en"
       },
       ar: {
-        pageTitle: "تطبيق النقل والمواصلات",
-        headerTitle: "النقل والمواصلات",
+        pageTitle: "تطبيق فما ترنسبور ؟",
+        headerTitle: "فما ترنسبور؟",
         subtitle: "/// تطبيق الهاتف المحمول ///",
         descLabel: "وصف التطبيق:",
-        descText: "هذا التطبيق مجاني بالكامل، ويوفر لك مواقف الحافلات، المترو الخفيف، الشبكة الحديدية السريعة (RFR)، والتاكسي الجماعي في تونس العاصمة. كما يوضح مختلف المسارات التي يمكنك اتخاذها عبر وسائط النقل هذه، ويحسب لك الوقت اللازم للوصول إلى وجهتك، بطريقة شبيهة بـ Google Maps ولكن دون الحاجة للاتصال بالإنترنت. (دون الحاجة حتى لشراء تذكرة دينار)", feedbackLink: "[ سجل ملاحظاتك في سجل المختبرين ]",
+        descText: "هذا التطبيق مجاني بالكامل، ويوفر لك مواقع محطات الحافلات، المترو الخفيف والشبكة الحديدية السريعة (RFR)، في تونس العاصمة. كما يوضح مختلف المسارات التي يمكنك اتخاذها عبر وسائط النقل هذه، ويحسب لك الوقت اللازم للوصول إلى وجهتك، بطريقة شبيهة بـ Google Maps ولكن دون الحاجة للاتصال بالإنترنت. (دون الحاجة حتى لشراء تذكرة دينار)",
+        sourceLabel: "مصدر البيانات",
+        sourceText: "لجعل هذا التطبيق ممكناً، كان عليّ ركوب عدد (غير محدد بعد) من الحافلات من محطة انطلاقها حتى نهاية الخط، وطوال الطريق قمت بتسجيل المسار ومواقع المحطات والمقاعد (اذكر أسماء الخطوط التي ركبتها).", featuresLabel: "المميزات:",
+        featureDesc1: "يمكنك رؤية وتحديد المطاعم، المقاهي، الفنادق، المتاحف، الصيدليات، والمستشفيات في المناطق التي يتم تكبيرها على الخريطة.",
+        featureDesc2: "يمكنك مراجعة الأماكن المحفوظة لديك، والاختيار بين 3 لغات مختلفة (العربية، الإنجليزية، والفرنسية)، ومعرفة الأماكن التي زرتها مؤخراً.",
+        videoLabel: "سجل الفيديو // توضيح المسار",
+        downloadBtn: "التحميل لنظام أندرويد",
+        feedbackLink: "[ سجل ملاحظاتك في سجل المختبرين ]",
         manifestTab: "السجل الرئيسي",
-        feedbackTab: "سجل المختبرين", dir: "rtl",
+        feedbackTab: "سجل المختبرين",
+        dir: "rtl",
         lang: "ar"
       }
     };
@@ -629,17 +738,20 @@
       localStorage.setItem('selectedLang', lang);
       const t = translations[lang];
 
-      // Update HTML attributes for accessibility and CSS RTL mirroring
       document.documentElement.lang = t.lang;
       document.documentElement.dir = t.dir;
 
-      // Update all text content
       document.getElementById('page-title').textContent = t.pageTitle;
       document.getElementById('header-title').textContent = t.headerTitle;
       document.getElementById('subtitle').textContent = t.subtitle;
       document.getElementById('desc-label').textContent = t.descLabel;
       document.getElementById('desc-text').textContent = t.descText;
+      document.getElementById('source-label').textContent = t.sourceLabel;
+      document.getElementById('source-text').textContent = t.sourceText;
       document.getElementById('instr-label').textContent = t.instrLabel;
+      document.getElementById('features-label').textContent = t.featuresLabel;
+      document.getElementById('feature-desc-1').textContent = t.featureDesc1;
+      document.getElementById('feature-desc-2').textContent = t.featureDesc2;
       document.getElementById('roman-1').textContent = t.roman1;
       document.getElementById('roman-2').textContent = t.roman2;
       document.getElementById('roman-3').textContent = t.roman3;
@@ -652,16 +764,13 @@
       document.getElementById('manifest-tab').textContent = t.manifestTab;
       document.getElementById('feedback-tab').textContent = t.feedbackTab;
 
-      // Update active state of tabs
       document.getElementById('lang-en').classList.toggle('active', lang === 'en');
       document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
     }
 
-    // Retrieve saved language or default to 'en'
     const savedLang = localStorage.getItem('selectedLang') || 'en';
     setLanguage(savedLang);
   </script>
-
 </body>
 
 </html>
